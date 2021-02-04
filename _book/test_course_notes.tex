@@ -125,24 +125,7 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
-\hypertarget{prerequisites}{%
-\chapter{Prerequisites}\label{prerequisites}}
-
-This is a \emph{sample} book written in \textbf{Markdown}. You can use anything that Pandoc's Markdown supports, e.g., a math equation \(a^2 + b^2 = c^2\).
-
-The \textbf{bookdown} package can be installed from CRAN or Github:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{install.packages}\NormalTok{(}\StringTok{"bookdown"}\NormalTok{)}
-\CommentTok{\# or the development version}
-\CommentTok{\# devtools::install\_github("rstudio/bookdown")}
-\end{Highlighting}
-\end{Shaded}
-
-Remember each Rmd file contains one and only one chapter, and a chapter is defined by the first-level heading \texttt{\#}.
-
-To compile this example to PDF, you need XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): \url{https://yihui.org/tinytex/}.
+The following are notes for ENGE 5714 in Spring 2021.
 
 \hypertarget{intro}{%
 \chapter{Week 1}\label{intro}}
@@ -170,7 +153,7 @@ Here is a review of existing methods.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-4-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-2-1.pdf}
 
 \hypertarget{getting-your-r-environment-set-up}{%
 \section{Getting your R environment set up}\label{getting-your-r-environment-set-up}}
@@ -190,7 +173,7 @@ with this installed, you can then load the package using the library() function
 \end{Shaded}
 
 \begin{verbatim}
-## -- Attaching packages ------------ tidyverse 1.3.0 --
+## -- Attaching packages ----------------------------------- tidyverse 1.3.0 --
 \end{verbatim}
 
 \begin{verbatim}
@@ -201,7 +184,7 @@ with this installed, you can then load the package using the library() function
 \end{verbatim}
 
 \begin{verbatim}
-## -- Conflicts --------------- tidyverse_conflicts() --
+## -- Conflicts -------------------------------------- tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 \end{verbatim}
@@ -393,7 +376,7 @@ The first way passes the prior\_survey dataframe explicitly to ggplot
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-9-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-7-1.pdf}
 
 The second way does this implicitly, using the pipe operator. Note that the results should be the same.
 
@@ -406,7 +389,7 @@ The second way does this implicitly, using the pipe operator. Note that the resu
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-10-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-8-1.pdf}
 
 If we wanted to get extra fancy, we could first convert the data from a wide format to a long format and then start plotting all the items together.
 
@@ -453,7 +436,7 @@ Then we can combine that with the \texttt{group\_by()} and \texttt{summarize()} 
 ## `summarise()` regrouping output by 'survey_item' (override with `.groups` argument)
 \end{verbatim}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-12-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-10-1.pdf}
 
 This plot is okay for giving a general sense of what is going on in these plots but there are a bunch of other ways to go about doing this.
 
@@ -492,7 +475,7 @@ Then we plot the same data but with the numerical scale along the x-axis.
 ## Warning: Removed 3 rows containing missing values (geom_tile).
 \end{verbatim}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-14-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-12-1.pdf}
 
 \hypertarget{week-3---data-cleaning-organizing-describing-and-communicating}{%
 \chapter{Week 3 - Data Cleaning, Organizing, Describing, and Communicating}\label{week-3---data-cleaning-organizing-describing-and-communicating}}
@@ -535,11 +518,63 @@ You can also do this using ggplot rather than base R graphics
 
 You can use geom\_density() instead of geom\_histogram() to get a smooth graph
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-15-1.pdf} \includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-15-2.pdf} \includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-15-3.pdf}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{num \textless{}{-}}\StringTok{ }\DecValTok{50}
+\NormalTok{mu \textless{}{-}}\StringTok{ }\DecValTok{5}
+\NormalTok{stdev \textless{}{-}}\StringTok{ }\DecValTok{2}
+
+\NormalTok{x\_vec \textless{}{-}}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ num, }\DataTypeTok{mean =}\NormalTok{ mu, }\DataTypeTok{sd =}\NormalTok{ stdev)}
+\NormalTok{x\_df \textless{}{-}}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{x\_col =}\NormalTok{ x\_vec)}
+
+
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ x\_df, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x\_col)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom\_density}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x\_df }\OperatorTok{\%\textgreater{}\%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x\_col)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom\_density}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-13-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x\_df }\OperatorTok{\%\textgreater{}\%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(x\_col)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom\_density}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-13-3.pdf}
 
 Just for fun, look at what happens to the the plot if you increase the sample size
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-16-1.pdf}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{num \textless{}{-}}\StringTok{ }\DecValTok{5000}
+\NormalTok{mu \textless{}{-}}\StringTok{ }\DecValTok{5}
+\NormalTok{stdev \textless{}{-}}\StringTok{ }\DecValTok{2}
+
+\NormalTok{x\_vec \textless{}{-}}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ num, }\DataTypeTok{mean =}\NormalTok{ mu, }\DataTypeTok{sd =}\NormalTok{ stdev)}
+\NormalTok{x\_df \textless{}{-}}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{x\_col =}\NormalTok{ x\_vec)}
+
+
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ x\_df, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x\_col)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom\_density}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-14-1.pdf}
 
 \hypertarget{one-discrete-variable-either-predictor-or-outcome}{%
 \section{One Discrete Variable (either predictor or outcome)}\label{one-discrete-variable-either-predictor-or-outcome}}
@@ -607,7 +642,7 @@ Here is one way:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-17-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-15-1.pdf}
 
 \hypertarget{joining-two-datasets}{%
 \subsection{Joining two datasets}\label{joining-two-datasets}}
@@ -656,7 +691,7 @@ With this, we can make some nicer plots and do something like use facet\_grid() 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-20-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-18-1.pdf}
 
 The x axis looks a little crowded. What if we try coord\_flip()
 
@@ -674,7 +709,7 @@ The x axis looks a little crowded. What if we try coord\_flip()
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-21-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-19-1.pdf}
 
 A quick note on filters
 
@@ -1514,7 +1549,7 @@ Something is going to look weird with this plot
 ## Warning: Removed 236 rows containing missing values (geom_point).
 \end{verbatim}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-37-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-35-1.pdf}
 
 Let's see if we can fix it
 
@@ -1535,7 +1570,7 @@ Let's see if we can fix it
 ## Warning: Removed 324 rows containing missing values (geom_point).
 \end{verbatim}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-38-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-36-1.pdf}
 
 \hypertarget{applications}{%
 \chapter{Applications}\label{applications}}
