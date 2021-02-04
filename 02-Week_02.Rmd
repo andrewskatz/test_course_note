@@ -4,11 +4,11 @@ Here is a review of existing methods.
 
 
 
-## Week 2 Notes ----
+## Very basics
 
 ```{r}
 x <- seq(1:10)
-y_is_a_very_long_name <- 2* x + 3
+y <- 2* x + 3
 ```
 
 ```{r}
@@ -16,20 +16,15 @@ plot(x, y)
 ```
 
 
-# Getting your R environment set up ----
+## Getting your R environment set up
 
-## One of the first things you will have in any script or .rmd file is a section to load
-## all the libraries that you use in that script.
+One of the first things you will have in any script or .rmd file is a section to load all the libraries that you use in that script.
 
-# you can install a library by using the install.packages() function, for example:
-```{r}
-install.packages("tidyverse")
+You can install a library by using the install.packages() function, for example:
 
-install.packages("janitor")
+`install.packages("tidyverse")`, `install.packages("janitor")`, and `install.packages("psych")`
 
-install.packages("psych")
 
-```
 with this installed, you can then load the package using the library() function
 
 ```{r}
@@ -41,51 +36,44 @@ library(psych)
 
 
 
-## Reading in data ----
+## Reading in data
 
-### A good first step is to check which directory you are working in with the getwd() function
-```{r}
-getwd()
-```
+A good first step is to check which directory you are working in with the getwd() function
 
-### you can also check which files are in that directory with list.files()
-```{r}
-list.files()
-```
-
-### If you notice that the file you are looking for is not there, then you can use setwd()
-### to change your working directory
-```{r}
-setwd("./Week 2/")
-```
+`getwd()`
 
 
-### After that, make sure you have switched to the correct working directory
-```{r}
-getwd()
-list.files()
-```
+You can also check which files are in that directory with `list.files()`.
 
-### Assuming you have directed yourself to the correct place, you can now read in 
-### the file(s) that you want to be working with
+
+If you notice that the file you are looking for is not there, then you can use setwd() to change your working directory
+
+`setwd("./Week 2/")`
+
+
+
+After that, make sure you have switched to the correct working directory
+`getwd()` and then `list.files()`
+
+Assuming you have directed yourself to the correct place, you can now read in the file(s) that you want to be working with.
 
 ```{r}
 prior_survey <- read_csv("ENGE_5714_2021_pre_survey.csv")
 
-prior_survey <- read_csv("C:/desktop/my super sweet course folder/Week 2 is the best/ENGE_5714_survey.csv")
+
 ```
 
 
-# Exploring the data ----
+## Exploring the data
 
-## Take a look at the csv
+Take a look at the csv
 ```{r}
 prior_survey
 
-view(prior_survey)
 ```
 
 
+Next, try cleaning the column names with `clean_names()` from the janitor package.
 
 ```{r}
 prior_survey <- prior_survey %>% clean_names() # from janitor package
@@ -98,29 +86,41 @@ table(prior_survey$i_have_taken_a_quantitative_research_methods_course_before)
 
 
 
-```{r}
-#using describe() from the psych package
-
-describe(prior_survey)
-```
-
 
 
 ## Plotting data
+
+There are multiple ways to plot data. Focusing on using ggplot, here are two.
+
+The first way passes the prior_survey dataframe explicitly to ggplot
 ```{r}
-ggplot(data = prior_survey, mapping = aes(x = `I know what a type I error is`)) +
+ggplot(data = prior_survey, mapping = aes(x = i_know_what_a_type_i_error_is)) +
+  geom_bar() +
+  coord_flip()
+```
+
+The second way does this implicitly, using the pipe operator. Note that the results should be the same.
+
+```{r}
+
+prior_survey %>% 
+  ggplot(mapping = aes(x = i_know_what_a_type_i_error_is)) +
   geom_bar() +
   coord_flip()
 ```
 
 
+If we wanted to get extra fancy, we could first convert the data from a wide format to a long format and then start plotting all the items together.
+
+
+Converting to long format would produce something like this:
 ```{r}
 prior_survey %>% 
   gather(key = "survey_item", value = "survey_response")
 ```  
   
 
-
+Then we can combine that with the `group_by()` and `summarize()` functions and plot the results.
 ```{r}
 prior_survey %>% 
   gather(key = "survey_item", value = "survey_response") %>% 
@@ -131,10 +131,9 @@ prior_survey %>%
 ```
 
 
-## This plot is okay for giving a general sense of what is going on in these plots
-## but there are a bunch of other ways to go about doing this
+This plot is okay for giving a general sense of what is going on in these plots but there are a bunch of other ways to go about doing this.
 
-### First, maybe we want to rename the response categories to a numerical scale
+First, maybe we want to rename the response categories to a numerical scale. We can accomplish this with a `mutate()` and `case_when()`.
 ```{r}
 prior_survey <- prior_survey %>% 
   gather(key = "survey_item", value = "survey_response") %>% 
@@ -148,7 +147,7 @@ prior_survey <- prior_survey %>%
 
 
 
-### Then we plot the same data but with the numerical scale along the x-axis
+Then we plot the same data but with the numerical scale along the x-axis.
 
 ```{r}
 prior_survey %>% 
