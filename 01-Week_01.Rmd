@@ -1,0 +1,3 @@
+# Week 1 {#intro}
+
+In week one we just reviewed some of the materials from the fall semester. By the end we discussed R and RStudio, but this first week was primarily about getting to know each other and the outline of the course.
