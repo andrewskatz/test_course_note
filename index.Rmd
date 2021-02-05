@@ -1,6 +1,6 @@
 --- 
 title: "ENGE 5714 Course Notes 2021"
-author: "A. Katz"
+author: "Dr. Katz"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
@@ -10,4 +10,6 @@ link-citations: yes
 description: "This is a test for organizing course notes in bookdown. The output format for this example is bookdown::gitbook."
 ---
 
-# Notes for ENGE 5714 in Spring 2021.
+# Preamble {-}
+
+This book will be a living document of notes for ENGE 5714 - Quantitative Research Methods in Engineering Education. I will try to keep it updated and post alerts about updates in our course Slack workspace.
