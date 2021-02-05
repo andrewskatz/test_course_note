@@ -10,4 +10,4 @@ link-citations: yes
 description: "This is a test for organizing course notes in bookdown. The output format for this example is bookdown::gitbook."
 ---
 
-The following are notes for ENGE 5714 in Spring 2021.
+# Notes for ENGE 5714 in Spring 2021.
