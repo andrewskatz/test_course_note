@@ -1,15 +1,27 @@
-# Week 2 - Intro stats, Data & Distributions, Intro R & RStudio
+# Week 2: Intro stats, Data & Distributions, Intro R & RStudio
 
-Here is a review of existing methods.
+This week, we discuss some very basic ideas related to statistics, data, and working in R. 
 
 
 
-## Very basics
+## First steps in R
 
+
+We can create a new variable by assigning it a value with the `<-` operator. Let's create a vector of numbers 1 to 10 with the `seq()` function and then a separate vector that takes each of the x values, multiplies it by 2, and adds 3.
 ```{r}
 x <- seq(1:10)
 y <- 2* x + 3
 ```
+
+Just to make sure everything worked as expected, we can then just type `x` and `y` and R will print their values. We could also look in the "environment" window to see whether those variables (and their expected values) were actually created.
+
+```{r}
+x
+y
+
+```
+
+So far, so good. If we want to quickly visualize this, we could create a simple scatter plot with the `plot()` command (note: we will come back to plotting data much more in week 3). 
 
 ```{r}
 plot(x, y)
@@ -38,13 +50,20 @@ library(psych)
 
 ## Reading in data
 
-A good first step is to check which directory you are working in with the getwd() function
+A good first step when working in R is to check which directory you are working in with the `getwd()` function. You should get a directory in response.
 
-`getwd()`
+```{r}
+getwd()
+
+```
 
 
 You can also check which files are in that directory with `list.files()`.
 
+```{r}
+
+list.files()
+```
 
 If you notice that the file you are looking for is not there, then you can use setwd() to change your working directory
 
@@ -53,9 +72,9 @@ If you notice that the file you are looking for is not there, then you can use s
 
 
 After that, make sure you have switched to the correct working directory
-`getwd()` and then `list.files()`
+`getwd()` and then `list.files()`.
 
-Assuming you have directed yourself to the correct place, you can now read in the file(s) that you want to be working with.
+Assuming you have directed yourself to the correct place, you can now read in the file(s) that you want to be working with. There are a _lot_ of ways to do this. Since we will be spending a lot of time in class working with .csv files, we will focus on using the `read_csv()` function from the readr package (part of the tidyverse collection of packages). This function will read in the .csv file and store the data as a tibble (a tidyverse version of a data frame, which we can think of as a collection of observations stored in rows with values for variables for each observation stored in columns).
 
 ```{r}
 prior_survey <- read_csv("ENGE_5714_2021_pre_survey.csv")
@@ -66,21 +85,30 @@ prior_survey <- read_csv("ENGE_5714_2021_pre_survey.csv")
 
 ## Exploring the data
 
-Take a look at the csv
+Now that we have loaded in the data, let's take a look at the csv. If we just run a line with the name of the tibble - i.e., `prior_survey` then we should receive a printout that shows the first several rows of that tibble and a listing of all the columns, along with the data types (i.e., double for numeric values, character for strings, etc) of each column.
+
 ```{r}
 prior_survey
 
 ```
 
 
-Next, try cleaning the column names with `clean_names()` from the janitor package.
+When we do this, we see that there are a bunch of columns that have spaces in their names. This is okay (in the sense that R can handle this), but it can be a little frustrating to work with. Let's try cleaning the column names with `clean_names()` from the janitor package. This function will replace the spaces in the column names with underscores and make everything lower case. So, a column name like "I have take a statistics course before" will be changed to "i_have_taken_a_statistics_course_before".
 
 ```{r}
 prior_survey <- prior_survey %>% clean_names() # from janitor package
 
-prior_survey$`I have heard the term "non-parametric statistics" before`
+```
+
+Look at the data in prior_survey again and see if anything looks different (hint: it should).
+```{r}
+prior_survey
+```
 
 
+One other function that will we see more in the future is the `table()` function, which will create a table with the counts of the values for a variable. For example, if we wanted to quickly know how students answered the "I have taken a quantitative research methods course before" question, we can run the following:
+
+```{r}
 table(prior_survey$i_have_taken_a_quantitative_research_methods_course_before)
 ```
 
@@ -89,6 +117,9 @@ table(prior_survey$i_have_taken_a_quantitative_research_methods_course_before)
 
 
 ## Plotting data
+
+We will discuss plotting more next week, but here is a brief preview of what's to come...
+
 
 There are multiple ways to plot data. Focusing on using ggplot, here are two.
 

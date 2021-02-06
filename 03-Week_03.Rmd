@@ -1,6 +1,6 @@
-# Week 3 - Data Cleaning, Organizing, Describing, and Communicating
+# Week 3: Data Cleaning, Organizing, Describing, and Communicating
 
-
+This week we focus on different steps you will often take when you first start working with your data. These tend to fall under the umbrella of "data processing" and often need to happen before you can start doing any kind of analysis. 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -9,9 +9,17 @@ library(tidyverse)
 library(janitor)
 ```
 
+## Visualizing your data
+
+Once your data have been clearned, you are ready to start visualizing what you are working with. There is a huge range of what you can do with these plots. That's great! On the other hand, it can quickly start to feel overwhelming. To help get this under control and make it more manageable, it is convenient to think about the _types_ of data that you have. In particular, are your variables nominal, ordinal, interval, or ratio variables?
 
 
-## One continuous variable (either predictor or outcome variable)
+
+### One continuous variable (either predictor or outcome variable)
+
+When you have one continuous variable, a standard option is to plot a histogram. These are plots that show the frequency of each of the values that the variable takes. Oftentimes it is helpful to create bins of values so that any number that falls in the 0-4 range counts in one bin, numbers from 5-9 are in a second bin, and so on.
+
+For this example, we will start by generating some data using `rnorm()`, which generates a random number (or in our case, `num` numbers) from a normal distribution with mean `mu` and standard deviation `stdev`. 
 
 ```{r example-hist, fig.show='hide', echo = TRUE}
 num <- 50
@@ -19,53 +27,48 @@ mu <- 5
 stdev <- 2
 
 x <- rnorm(n = num, mean = mu, sd = stdev)
+
+
+```
+
+With these data generated, we can then quickly plot the histogram with `hist()`. This will use base R graphics.
+
+```{r}
+
 hist(x)
 
 
 ```
 
 
-You can also do this using ggplot rather than base R graphics
+You can also do this using ggplot rather than base R graphics.
 
 ```{r ggplot-hist}
-num <- 50
-mu <- 5
-stdev <- 2
 
-x_vec <- rnorm(n = num, mean = mu, sd = stdev)
-x_df <- tibble(x_col = x_vec)
+x_df <- tibble(x_col = x)
 
-ggplot(data = x_df, mapping = aes(x = x)) +
+ggplot(data = x_df, mapping = aes(x = x_col)) +
   geom_histogram()
 
 ```
 
 
-You can use geom_density() instead of geom_histogram() to get a smooth graph
+The histogram is a very standard plot, and you should consider it a go-to option in your toolkit. Alternatively, you can use geom_density() instead of geom_histogram() to get a smooth graph rather than one with discrete bins. We will use the same data that we generated before.
 
+We will write this two ways to demnostrate how the pipe ` %>% ` operator works.
 
+First way:
 ```{r}
-
-num <- 50
-mu <- 5
-stdev <- 2
-
-x_vec <- rnorm(n = num, mean = mu, sd = stdev)
-x_df <- tibble(x_col = x_vec)
-
-
 
 ggplot(data = x_df, mapping = aes(x = x_col)) +
   geom_density()
+```
 
+Second way:
+```{r}
 
 x_df %>%
   ggplot(mapping = aes(x = x_col)) +
-  geom_density()
-
-
-x_df %>%
-  ggplot(aes(x_col)) +
   geom_density()
 
 
@@ -75,18 +78,31 @@ x_df %>%
 
 Just for fun, look at what happens to the the plot if you increase the sample size
 
-
+First, we will generate the data with a sample size of 5,000 rather than 50.
 ```{r}
 
 num <- 5000
 mu <- 5
 stdev <- 2
 
-x_vec <- rnorm(n = num, mean = mu, sd = stdev)
-x_df <- tibble(x_col = x_vec)
+x <- rnorm(n = num, mean = mu, sd = stdev)
+x_df <- tibble(x_col = x)
+```
+
+Then we will plot the histogram
+```{r}
+x_df %>% 
+  ggplot(aes(x = x_col)) +
+  geom_histogram() +
+  labs(x = "x value",
+       y = "Count",
+       title = "Histogram of normal distribution with n = 5000, mu = 5, sd = 2")
+
+```
 
 
-
+And, finally, we can make the density plot instead of the histogram, if that's our jam.
+```{r}
 ggplot(data = x_df, mapping = aes(x = x_col)) +
   geom_density()
 
@@ -95,8 +111,11 @@ ggplot(data = x_df, mapping = aes(x = x_col)) +
 
 
 
-## One Discrete Variable (either predictor or outcome)
+### One Discrete Variable (either predictor or outcome)
 
+What if instead of a continuous (i.e., interval or ratio) variable we have a discrete variable such as a nominal (e.g., major, university) or ordinal (e.g., Likert scale item, level of education) variable? For that we can use something like `geom_bar()` or `geom_col()` to plot the counts of observations within each of those categories.
+
+To demonstrate this, we first need some data to work with. We will use the pre-semester, prior knowledge survey that everyone took. I have combined this year's results with last year's results in order to increase the sample size. After reading in the data, I will also use the `clean_names()` function from the `janitor` package. 
 
 ```{r pre-survey}
 
@@ -106,6 +125,7 @@ survey_df <- survey_df %>% clean_names()
 
 ```
 
+Next, we can go ahead and make a bar plot with the following code:
 
 ```{r geom-bar}
 survey_df %>% 
@@ -116,11 +136,12 @@ survey_df %>%
 ```
 
 
-Notice that the ordering is not quite what we would want. It is alphabetical. Try to find how we can fix this.
+Notice that the ordering is not quite what we would want. It is alphabetical. Let's try to fix this.
 
 
+Here is one way: we first specify the levels of that variable (i.e., the different values that it could take) and store that in the variable `q_levels`. Then, we pass that to the `factor()` function, which will tell R that we want whichever variable is passed to `factor()` two things. First, it will say that we want to make that variable a factor variable with `levels = ...`.  Second, we set `ordered = TRUE` to tell R that there is a specific ordering to that variable. This way, whenever there is something like a plot that we make, the ordering will persist in the labeling and R will not show the labels in alphabetical order.
 
-Here is one way:
+Here is an example of that in action:
 
 
 
@@ -135,9 +156,13 @@ survey_df$i_have_taken_a_quantitative_research_methods_course_before <- factor(s
                                                                                levels = q_levels,
                                                                                ordered = TRUE)
 
+```
 
-## Now try plotting
 
+Now try plotting these data. We will also add in a `coord_flip()` to plot the categories along the y-axis. This is a common move to avoid text from the different levels overlapping with each other. Finally, we will also change the x, y, and title labels with `labs()`.
+
+
+```{r}
 survey_df %>% 
   ggplot(aes(x = i_have_taken_a_quantitative_research_methods_course_before)) +
   geom_bar() +
@@ -151,7 +176,7 @@ survey_df %>%
 ```
 
 
-### Joining two datasets
+## Joining two datasets
 
 Let's imagine that we have a separate dataset that has information about the students who completed the pre-course prior knowledge survey. 
 
@@ -189,7 +214,7 @@ survey_df %>%
 ```
 
 
-The x axis looks a little crowded. What if we try coord_flip()
+The x axis looks a little crowded. What if we try `coord_flip()`?
 
 ```{r}
 
@@ -206,7 +231,12 @@ survey_df %>%
 
 ```
 
-A quick note on filters
+That looks much better.
+
+
+#### A quick note on filters {-}
+
+If you want to look at only a subset of your data, you will want to use the `filter()` function. The general idea is that you can look at observations (rows) that match a certain criteria. For example, you may want to only look at students from a certain region or year or major. In our case, with the prior knowledge survey, let's say we only want to look at student who have to take the course (i.e., there is a "yes" for them for the `required` variable). We can do that with the first line. The second line just stores the result as a new dataframe called `filtered_df`.
 
 ```{r}
 
@@ -219,12 +249,17 @@ filtered_df <- survey_df %>% filter(required == "yes")
 
 
 
-#### A little more about plotting
+#### A little more about plotting {-}
 We are going to shift gears again and look at a few different kinds of plots. The main thing to remember here is that you want to think about whether the variables you have are nominal, ordinal, or continuous (that includes interval and ratio).
 
 
 ## Discrete Predictor, Continuous Outcome
 
+So far we have looked at plots for one variable, but of course we want to have ways to plot multiple variables simultaneously. We will start with the scneario where where we want to plot a continuous variable against a discrete variable. This can arise when you want to plot something like an assessment score and you think it may differ across groups in some way (maybe you intentionally introduced a difference by exposing the two groups to different interventions, for example). 
+
+In these scenarios, a boxplot is a very standard way to go. 
+
+To demonstrate this, we will simulate a situation in which we want to look at differences on an assessment. We are specificially interested in differences between chemistry and chemical engineering students. Let's go ahead and create the data by creating two groups of 20 students each. The chemical engineering students will have scores generated from a normal distribution with $\mu = 85$ and  $\sigma = 4$ (i.e., a mean of 85 and a standard deviation of 4). We will say the chemistry students have scores from a normal distribution with $\mu = 78$ anad $\sigma = 6$. This about what these distributions might look like in your head. 
 
 ```{r boxplot-example}
 group_size <- 20
@@ -237,6 +272,11 @@ data_df <- tibble(
   score = c(chem_e_scores, chem_scores)
 )
 
+```
+
+With these data, we can then create a boxplot using `geom_boxplot()`
+
+```{r}
 data_df %>% 
   ggplot(aes(x = discipline, y = score)) +
   geom_boxplot()
@@ -244,7 +284,7 @@ data_df %>%
 ```
 
 
-You can make a few modifications to possibly make this easier to read. 
+You can make a few modifications to possibly make this plot easier to read. 
 
 The first is to put the discrete category on the y axis instead of the x axis.
 
@@ -276,10 +316,20 @@ First, let's re-do a lot of the steps in this week's script for reading in data 
 mydata <- read_csv("Free Reduced Lunch by Schools and Grade Structures 2008-2017_final.csv")
 
 
+```
 
 
-# check the structure of the data (this output is a bit long)
+
+Check the structure of the data (this output is a bit long).
+
+```{r}
+
 str(mydata)
+```
+
+Or just check the structure of one specific variable.
+```{r}
+
 str(mydata$total_2017)
 ```
 
