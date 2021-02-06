@@ -1,4 +1,4 @@
-intro
+week-1-introductions
 week-2-intro-stats-data-distributions-intro-r-rstudio
 first-steps-in-r
 getting-your-r-environment-set-up
@@ -15,7 +15,6 @@ continuous-predictor-and-continuous-outcome
 mutating-variables
 filtering-and-selecting
 grouping-and-summarizing
-applications
-example-one
-example-two
-final-words
+week-4-assumptions-and-correlations
+week-5-regression-i
+week-6-regression-ii
