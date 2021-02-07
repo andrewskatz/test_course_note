@@ -24,7 +24,7 @@
 <meta name="author" content="Dr. Katz" />
 
 
-<meta name="date" content="2021-02-06" />
+<meta name="date" content="2021-02-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -142,6 +142,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="week-2-intro-stats-data-distributions-intro-r-rstudio.html"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#reading-in-data"><i class="fa fa-check"></i><b>2.3</b> Reading in data</a></li>
 <li class="chapter" data-level="2.4" data-path="week-2-intro-stats-data-distributions-intro-r-rstudio.html"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#exploring-the-data"><i class="fa fa-check"></i><b>2.4</b> Exploring the data</a></li>
 <li class="chapter" data-level="2.5" data-path="week-2-intro-stats-data-distributions-intro-r-rstudio.html"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#plotting-data"><i class="fa fa-check"></i><b>2.5</b> Plotting data</a></li>
+<li class="chapter" data-level="2.6" data-path="week-2-intro-stats-data-distributions-intro-r-rstudio.html"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#some-brief-stats"><i class="fa fa-check"></i><b>2.6</b> Some brief stats</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="week-2-intro-stats-data-distributions-intro-r-rstudio.html"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#central-limit-theorem-and-standard-error-demo--"><i class="fa fa-check"></i><b>2.6.1</b> Central Limit Theorem and Standard Error Demo —-</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="week-3-data-cleaning-organizing-describing-and-communicating.html"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html"><i class="fa fa-check"></i><b>3</b> Week 3: Data Cleaning, Organizing, Describing, and Communicating</a>
 <ul>
@@ -157,7 +161,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6" data-path="week-3-data-cleaning-organizing-describing-and-communicating.html"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#filtering-and-selecting"><i class="fa fa-check"></i><b>3.6</b> Filtering and Selecting</a></li>
 <li class="chapter" data-level="3.7" data-path="week-3-data-cleaning-organizing-describing-and-communicating.html"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#grouping-and-summarizing"><i class="fa fa-check"></i><b>3.7</b> Grouping and Summarizing</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html"><i class="fa fa-check"></i><b>4</b> Week 4: Assumptions and Correlations</a></li>
+<li class="chapter" data-level="4" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html"><i class="fa fa-check"></i><b>4</b> Week 4: Assumptions and Correlations</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#assumptions"><i class="fa fa-check"></i><b>4.1</b> Assumptions</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#normally-distributed-data"><i class="fa fa-check"></i><b>4.1.1</b> Normally distributed data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#homogeneity-of-variance"><i class="fa fa-check"></i><b>4.1.2</b> Homogeneity of variance</a></li>
+<li class="chapter" data-level="4.1.3" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#interval-data"><i class="fa fa-check"></i><b>4.1.3</b> Interval data</a></li>
+<li class="chapter" data-level="4.1.4" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#independence"><i class="fa fa-check"></i><b>4.1.4</b> Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#correlation"><i class="fa fa-check"></i><b>4.2</b> Correlation</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="week-5-regression-i.html"><a href="week-5-regression-i.html"><i class="fa fa-check"></i><b>5</b> Week 5: Regression I</a></li>
 <li class="chapter" data-level="6" data-path="week-6-regression-ii.html"><a href="week-6-regression-ii.html"><i class="fa fa-check"></i><b>6</b> Week 6: Regression II</a></li>
 <li class="divider"></li>
@@ -190,99 +204,99 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">3.1.1</span> One continuous variable (either predictor or outcome variable)</h3>
 <p>When you have one continuous variable, a standard option is to plot a histogram. These are plots that show the frequency of each of the values that the variable takes. Oftentimes it is helpful to create bins of values so that any number that falls in the 0-4 range counts in one bin, numbers from 5-9 are in a second bin, and so on.</p>
 <p>For this example, we will start by generating some data using <code>rnorm()</code>, which generates a random number (or in our case, <code>num</code> numbers) from a normal distribution with mean <code>mu</code> and standard deviation <code>stdev</code>.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb32-1" aria-hidden="true"></a>num &lt;-<span class="st"> </span><span class="dv">50</span></span>
-<span id="cb32-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb32-2" aria-hidden="true"></a>mu &lt;-<span class="st"> </span><span class="dv">5</span></span>
-<span id="cb32-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb32-3" aria-hidden="true"></a>stdev &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb32-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb32-4" aria-hidden="true"></a></span>
-<span id="cb32-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb32-5" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> num, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> stdev)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb53-1" aria-hidden="true"></a>num &lt;-<span class="st"> </span><span class="dv">50</span></span>
+<span id="cb53-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb53-2" aria-hidden="true"></a>mu &lt;-<span class="st"> </span><span class="dv">5</span></span>
+<span id="cb53-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb53-3" aria-hidden="true"></a>stdev &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb53-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb53-4" aria-hidden="true"></a></span>
+<span id="cb53-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb53-5" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> num, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> stdev)</span></code></pre></div>
 <p>With these data generated, we can then quickly plot the histogram with <code>hist()</code>. This will use base R graphics.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb33-1" aria-hidden="true"></a><span class="kw">hist</span>(x)</span></code></pre></div>
-<p><img src="test_course_notes_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb54-1" aria-hidden="true"></a><span class="kw">hist</span>(x)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <p>You can also do this using ggplot rather than base R graphics.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb34-1" aria-hidden="true"></a>x_df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x_col =</span> x)</span>
-<span id="cb34-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb34-2" aria-hidden="true"></a></span>
-<span id="cb34-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb34-3" aria-hidden="true"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> x_df, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x_col)) <span class="op">+</span></span>
-<span id="cb34-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb34-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb55-1" aria-hidden="true"></a>x_df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x_col =</span> x)</span>
+<span id="cb55-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb55-2" aria-hidden="true"></a></span>
+<span id="cb55-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb55-3" aria-hidden="true"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> x_df, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x_col)) <span class="op">+</span></span>
+<span id="cb55-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb55-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>()</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="test_course_notes_files/figure-html/ggplot-hist-1.png" width="672" /></p>
 <p>The histogram is a very standard plot, and you should consider it a go-to option in your toolkit. Alternatively, you can use geom_density() instead of geom_histogram() to get a smooth graph rather than one with discrete bins. We will use the same data that we generated before.</p>
 <p>We will write this two ways to demnostrate how the pipe <code>%&gt;%</code> operator works.</p>
 <p>First way:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb36-1" aria-hidden="true"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> x_df, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x_col)) <span class="op">+</span></span>
-<span id="cb36-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb36-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
-<p><img src="test_course_notes_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb57-1" aria-hidden="true"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> x_df, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x_col)) <span class="op">+</span></span>
+<span id="cb57-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb57-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <p>Second way:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb37-1" aria-hidden="true"></a>x_df <span class="op">%&gt;%</span></span>
-<span id="cb37-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb37-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x_col)) <span class="op">+</span></span>
-<span id="cb37-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb37-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
-<p><img src="test_course_notes_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb58-1" aria-hidden="true"></a>x_df <span class="op">%&gt;%</span></span>
+<span id="cb58-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb58-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x_col)) <span class="op">+</span></span>
+<span id="cb58-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb58-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>Just for fun, look at what happens to the the plot if you increase the sample size</p>
 <p>First, we will generate the data with a sample size of 5,000 rather than 50.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb38-1" aria-hidden="true"></a>num &lt;-<span class="st"> </span><span class="dv">5000</span></span>
-<span id="cb38-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb38-2" aria-hidden="true"></a>mu &lt;-<span class="st"> </span><span class="dv">5</span></span>
-<span id="cb38-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb38-3" aria-hidden="true"></a>stdev &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb38-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb38-4" aria-hidden="true"></a></span>
-<span id="cb38-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb38-5" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> num, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> stdev)</span>
-<span id="cb38-6"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb38-6" aria-hidden="true"></a>x_df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x_col =</span> x)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb59-1" aria-hidden="true"></a>num &lt;-<span class="st"> </span><span class="dv">5000</span></span>
+<span id="cb59-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb59-2" aria-hidden="true"></a>mu &lt;-<span class="st"> </span><span class="dv">5</span></span>
+<span id="cb59-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb59-3" aria-hidden="true"></a>stdev &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb59-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb59-4" aria-hidden="true"></a></span>
+<span id="cb59-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb59-5" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> num, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> stdev)</span>
+<span id="cb59-6"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb59-6" aria-hidden="true"></a>x_df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x_col =</span> x)</span></code></pre></div>
 <p>Then we will plot the histogram</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb39-1" aria-hidden="true"></a>x_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb39-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb39-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x_col)) <span class="op">+</span></span>
-<span id="cb39-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb39-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span></span>
-<span id="cb39-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb39-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;x value&quot;</span>,</span>
-<span id="cb39-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb39-5" aria-hidden="true"></a>       <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
-<span id="cb39-6"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb39-6" aria-hidden="true"></a>       <span class="dt">title =</span> <span class="st">&quot;Histogram of normal distribution with n = 5000, mu = 5, sd = 2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb60-1" aria-hidden="true"></a>x_df <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb60-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb60-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x_col)) <span class="op">+</span></span>
+<span id="cb60-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb60-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span></span>
+<span id="cb60-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb60-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;x value&quot;</span>,</span>
+<span id="cb60-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb60-5" aria-hidden="true"></a>       <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
+<span id="cb60-6"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb60-6" aria-hidden="true"></a>       <span class="dt">title =</span> <span class="st">&quot;Histogram of normal distribution with n = 5000, mu = 5, sd = 2&quot;</span>)</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="test_course_notes_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <p>And, finally, we can make the density plot instead of the histogram, if that’s our jam.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb41-1" aria-hidden="true"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> x_df, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x_col)) <span class="op">+</span></span>
-<span id="cb41-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb41-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
-<p><img src="test_course_notes_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb62-1" aria-hidden="true"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> x_df, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x_col)) <span class="op">+</span></span>
+<span id="cb62-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb62-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 </div>
 <div id="one-discrete-variable-either-predictor-or-outcome" class="section level3" number="3.1.2">
 <h3><span class="header-section-number">3.1.2</span> One Discrete Variable (either predictor or outcome)</h3>
 <p>What if instead of a continuous (i.e., interval or ratio) variable we have a discrete variable such as a nominal (e.g., major, university) or ordinal (e.g., Likert scale item, level of education) variable? For that we can use something like <code>geom_bar()</code> or <code>geom_col()</code> to plot the counts of observations within each of those categories.</p>
 <p>To demonstrate this, we first need some data to work with. We will use the pre-semester, prior knowledge survey that everyone took. I have combined this year’s results with last year’s results in order to increase the sample size. After reading in the data, I will also use the <code>clean_names()</code> function from the <code>janitor</code> package.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb42-1" aria-hidden="true"></a><span class="co">## load in the data</span></span>
-<span id="cb42-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb42-2" aria-hidden="true"></a>survey_df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;ENGE_5714_2021_pre_survey.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb63-1" aria-hidden="true"></a><span class="co">## load in the data</span></span>
+<span id="cb63-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb63-2" aria-hidden="true"></a>survey_df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;ENGE_5714_2021_pre_survey.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   .default = col_character(),
 ##   student_id = col_double()
 ## )</code></pre>
 <pre><code>## See spec(...) for full column specifications.</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb45-1" aria-hidden="true"></a>survey_df &lt;-<span class="st"> </span>survey_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">clean_names</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb66-1" aria-hidden="true"></a>survey_df &lt;-<span class="st"> </span>survey_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">clean_names</span>()</span></code></pre></div>
 <p>Next, we can go ahead and make a bar plot with the following code:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb46-1" aria-hidden="true"></a>survey_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb46-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb46-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> i_have_taken_a_quantitative_research_methods_course_before)) <span class="op">+</span></span>
-<span id="cb46-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb46-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_bar</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb67-1" aria-hidden="true"></a>survey_df <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb67-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb67-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> i_have_taken_a_quantitative_research_methods_course_before)) <span class="op">+</span></span>
+<span id="cb67-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb67-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_bar</span>()</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/geom-bar-1.png" width="672" /></p>
 <p>Notice that the ordering is not quite what we would want. It is alphabetical. Let’s try to fix this.</p>
 <p>Here is one way: we first specify the levels of that variable (i.e., the different values that it could take) and store that in the variable <code>q_levels</code>. Then, we pass that to the <code>factor()</code> function, which will tell R that we want whichever variable is passed to <code>factor()</code> two things. First, it will say that we want to make that variable a factor variable with <code>levels = ...</code>. Second, we set <code>ordered = TRUE</code> to tell R that there is a specific ordering to that variable. This way, whenever there is something like a plot that we make, the ordering will persist in the labeling and R will not show the labels in alphabetical order.</p>
 <p>Here is an example of that in action:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb47-1" aria-hidden="true"></a>q_levels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Strongly disagree&quot;</span>, <span class="st">&quot;Somewhat disagree&quot;</span>, <span class="st">&quot;Neither agree nor disagree&quot;</span>,</span>
-<span id="cb47-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb47-2" aria-hidden="true"></a>              <span class="st">&quot;Somewhat agree&quot;</span>, <span class="st">&quot;Strongly agree&quot;</span>)</span>
-<span id="cb47-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb47-3" aria-hidden="true"></a></span>
-<span id="cb47-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb47-4" aria-hidden="true"></a></span>
-<span id="cb47-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb47-5" aria-hidden="true"></a></span>
-<span id="cb47-6"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb47-6" aria-hidden="true"></a>survey_df<span class="op">$</span>i_have_taken_a_quantitative_research_methods_course_before &lt;-<span class="st"> </span><span class="kw">factor</span>(survey_df<span class="op">$</span>i_have_taken_a_quantitative_research_methods_course_before, </span>
-<span id="cb47-7"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb47-7" aria-hidden="true"></a>                                                                               <span class="dt">levels =</span> q_levels,</span>
-<span id="cb47-8"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb47-8" aria-hidden="true"></a>                                                                               <span class="dt">ordered =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb68-1" aria-hidden="true"></a>q_levels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Strongly disagree&quot;</span>, <span class="st">&quot;Somewhat disagree&quot;</span>, <span class="st">&quot;Neither agree nor disagree&quot;</span>,</span>
+<span id="cb68-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb68-2" aria-hidden="true"></a>              <span class="st">&quot;Somewhat agree&quot;</span>, <span class="st">&quot;Strongly agree&quot;</span>)</span>
+<span id="cb68-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb68-3" aria-hidden="true"></a></span>
+<span id="cb68-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb68-4" aria-hidden="true"></a></span>
+<span id="cb68-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb68-5" aria-hidden="true"></a></span>
+<span id="cb68-6"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb68-6" aria-hidden="true"></a>survey_df<span class="op">$</span>i_have_taken_a_quantitative_research_methods_course_before &lt;-<span class="st"> </span><span class="kw">factor</span>(survey_df<span class="op">$</span>i_have_taken_a_quantitative_research_methods_course_before, </span>
+<span id="cb68-7"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb68-7" aria-hidden="true"></a>                                                                               <span class="dt">levels =</span> q_levels,</span>
+<span id="cb68-8"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb68-8" aria-hidden="true"></a>                                                                               <span class="dt">ordered =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>Now try plotting these data. We will also add in a <code>coord_flip()</code> to plot the categories along the y-axis. This is a common move to avoid text from the different levels overlapping with each other. Finally, we will also change the x, y, and title labels with <code>labs()</code>.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb48-1" aria-hidden="true"></a>survey_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb48-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb48-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> i_have_taken_a_quantitative_research_methods_course_before)) <span class="op">+</span></span>
-<span id="cb48-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb48-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></span>
-<span id="cb48-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb48-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></span>
-<span id="cb48-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb48-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;I have taken a quantitative research methods course before&quot;</span>,</span>
-<span id="cb48-6"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb48-6" aria-hidden="true"></a>       <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
-<span id="cb48-7"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb48-7" aria-hidden="true"></a>       <span class="dt">title =</span> <span class="st">&quot;Reordered Example&quot;</span>)</span></code></pre></div>
-<p><img src="test_course_notes_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb69-1" aria-hidden="true"></a>survey_df <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb69-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb69-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> i_have_taken_a_quantitative_research_methods_course_before)) <span class="op">+</span></span>
+<span id="cb69-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb69-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></span>
+<span id="cb69-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb69-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></span>
+<span id="cb69-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb69-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;I have taken a quantitative research methods course before&quot;</span>,</span>
+<span id="cb69-6"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb69-6" aria-hidden="true"></a>       <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
+<span id="cb69-7"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb69-7" aria-hidden="true"></a>       <span class="dt">title =</span> <span class="st">&quot;Reordered Example&quot;</span>)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
 </div>
 </div>
 <div id="joining-two-datasets" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Joining two datasets</h2>
 <p>Let’s imagine that we have a separate dataset that has information about the students who completed the pre-course prior knowledge survey.</p>
 <p>First, we will load in that dataset</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb49-1" aria-hidden="true"></a>survey_info_df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;survey_student_info.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb70-1" aria-hidden="true"></a>survey_info_df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;survey_student_info.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   student_id = col_double(),
@@ -291,51 +305,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   required = col_character()
 ## )</code></pre>
 <p>Next, let’s join the two datasets based on the student id column, which is in each of the two dataframes.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb51-1" aria-hidden="true"></a>survey_df &lt;-<span class="st"> </span>survey_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">inner_join</span>(survey_info_df, <span class="dt">by =</span> <span class="st">&quot;student_id&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb72-1" aria-hidden="true"></a>survey_df &lt;-<span class="st"> </span>survey_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">inner_join</span>(survey_info_df, <span class="dt">by =</span> <span class="st">&quot;student_id&quot;</span>)</span></code></pre></div>
 <p>Now we should have both datasets joined into one and saved as survey_df.</p>
 <p>With this, we can make some nicer plots and do something like use facet_grid() to look at students who are masters and doctoral students, for example.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb52-1" aria-hidden="true"></a>survey_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb52-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb52-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> i_have_taken_a_quantitative_research_methods_course_before)) <span class="op">+</span></span>
-<span id="cb52-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb52-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></span>
-<span id="cb52-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb52-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(standing <span class="op">~</span>.) <span class="op">+</span></span>
-<span id="cb52-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb52-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;I have taken a quantitative research methods course before&quot;</span>,</span>
-<span id="cb52-6"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb52-6" aria-hidden="true"></a>       <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
-<span id="cb52-7"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb52-7" aria-hidden="true"></a>       <span class="dt">title =</span> <span class="st">&quot;Reordered Example&quot;</span>)</span></code></pre></div>
-<p><img src="test_course_notes_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb73-1" aria-hidden="true"></a>survey_df <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb73-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb73-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> i_have_taken_a_quantitative_research_methods_course_before)) <span class="op">+</span></span>
+<span id="cb73-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb73-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></span>
+<span id="cb73-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb73-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(standing <span class="op">~</span>.) <span class="op">+</span></span>
+<span id="cb73-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb73-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;I have taken a quantitative research methods course before&quot;</span>,</span>
+<span id="cb73-6"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb73-6" aria-hidden="true"></a>       <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
+<span id="cb73-7"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb73-7" aria-hidden="true"></a>       <span class="dt">title =</span> <span class="st">&quot;Reordered Example&quot;</span>)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <p>The x axis looks a little crowded. What if we try <code>coord_flip()</code>?</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb53-1" aria-hidden="true"></a>survey_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb53-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb53-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(standing <span class="op">==</span><span class="st"> &quot;doctoral&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb53-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb53-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> i_have_taken_a_quantitative_research_methods_course_before)) <span class="op">+</span></span>
-<span id="cb53-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb53-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></span>
-<span id="cb53-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb53-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></span>
-<span id="cb53-6"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb53-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(standing <span class="op">~</span>.) <span class="op">+</span></span>
-<span id="cb53-7"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb53-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;I have taken a quantitative research methods course before&quot;</span>,</span>
-<span id="cb53-8"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb53-8" aria-hidden="true"></a>       <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
-<span id="cb53-9"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb53-9" aria-hidden="true"></a>       <span class="dt">title =</span> <span class="st">&quot;Reordered Example&quot;</span>)</span></code></pre></div>
-<p><img src="test_course_notes_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb74-1" aria-hidden="true"></a>survey_df <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb74-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb74-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(standing <span class="op">==</span><span class="st"> &quot;doctoral&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb74-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb74-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> i_have_taken_a_quantitative_research_methods_course_before)) <span class="op">+</span></span>
+<span id="cb74-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb74-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></span>
+<span id="cb74-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb74-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></span>
+<span id="cb74-6"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb74-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">facet_grid</span>(standing <span class="op">~</span>.) <span class="op">+</span></span>
+<span id="cb74-7"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb74-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;I have taken a quantitative research methods course before&quot;</span>,</span>
+<span id="cb74-8"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb74-8" aria-hidden="true"></a>       <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>,</span>
+<span id="cb74-9"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb74-9" aria-hidden="true"></a>       <span class="dt">title =</span> <span class="st">&quot;Reordered Example&quot;</span>)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <p>That looks much better.</p>
 <div id="a-quick-note-on-filters" class="section level4 unnumbered">
 <h4>A quick note on filters</h4>
 <p>If you want to look at only a subset of your data, you will want to use the <code>filter()</code> function. The general idea is that you can look at observations (rows) that match a certain criteria. For example, you may want to only look at students from a certain region or year or major. In our case, with the prior knowledge survey, let’s say we only want to look at student who have to take the course (i.e., there is a “yes” for them for the <code>required</code> variable). We can do that with the first line. The second line just stores the result as a new dataframe called <code>filtered_df</code>.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb54-1" aria-hidden="true"></a>survey_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(required <span class="op">==</span><span class="st"> &quot;yes&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb75-1" aria-hidden="true"></a>survey_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(required <span class="op">==</span><span class="st"> &quot;yes&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 12 x 52
-##    student_id i_have_taken_a_~ i_am_interested~ i_know_what_a_t~ i_know_what_a_t~ i_know_what_a_s~
-##         &lt;dbl&gt; &lt;ord&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;           
-##  1          1 Somewhat disagr~ Somewhat agree   Strongly disagr~ Strongly disagr~ Somewhat disagr~
-##  2          2 Strongly disagr~ Neither agree n~ Somewhat agree   Somewhat agree   Somewhat agree  
-##  3          4 Somewhat disagr~ Strongly agree   Strongly disagr~ Strongly disagr~ Somewhat agree  
-##  4          8 Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree  
-##  5          9 Strongly disagr~ Strongly agree   Somewhat agree   Somewhat agree   Strongly agree  
-##  6         11 Strongly disagr~ Strongly agree   Strongly disagr~ Strongly disagr~ Strongly disagr~
-##  7         16 Strongly agree   Strongly agree   Somewhat agree   Somewhat agree   Somewhat agree  
-##  8         17 Strongly disagr~ Strongly agree   Strongly disagr~ Strongly disagr~ Somewhat agree  
-##  9         18 Somewhat disagr~ Somewhat agree   Somewhat disagr~ Somewhat disagr~ Somewhat agree  
-## 10         20 Strongly disagr~ Neither agree n~ Neither agree n~ Neither agree n~ Neither agree n~
-## 11         22 Strongly disagr~ Strongly agree   Strongly disagr~ Strongly disagr~ Somewhat disagr~
-## 12         23 Somewhat agree   Strongly agree   Somewhat agree   Somewhat agree   Somewhat agree  
-## # ... with 46 more variables: i_know_what_a_p_value_is &lt;chr&gt;, i_know_what_p_hacking_means &lt;chr&gt;,
-## #   i_know_what_statistical_power_means &lt;chr&gt;, i_have_heard_of_frequentist_statistics_before &lt;chr&gt;,
-## #   i_have_heard_of_bayesian_statistics_before &lt;chr&gt;,
+##    student_id i_have_taken_a_~ i_am_interested~ i_know_what_a_t~ i_know_what_a_t~ i_know_what_a_s~ i_know_what_a_p~
+##         &lt;dbl&gt; &lt;ord&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;           
+##  1          1 Somewhat disagr~ Somewhat agree   Strongly disagr~ Strongly disagr~ Somewhat disagr~ Strongly disagr~
+##  2          2 Strongly disagr~ Neither agree n~ Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree  
+##  3          4 Somewhat disagr~ Strongly agree   Strongly disagr~ Strongly disagr~ Somewhat agree   Neither agree n~
+##  4          8 Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree  
+##  5          9 Strongly disagr~ Strongly agree   Somewhat agree   Somewhat agree   Strongly agree   Strongly agree  
+##  6         11 Strongly disagr~ Strongly agree   Strongly disagr~ Strongly disagr~ Strongly disagr~ Strongly disagr~
+##  7         16 Strongly agree   Strongly agree   Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree  
+##  8         17 Strongly disagr~ Strongly agree   Strongly disagr~ Strongly disagr~ Somewhat agree   Somewhat agree  
+##  9         18 Somewhat disagr~ Somewhat agree   Somewhat disagr~ Somewhat disagr~ Somewhat agree   Somewhat agree  
+## 10         20 Strongly disagr~ Neither agree n~ Neither agree n~ Neither agree n~ Neither agree n~ Neither agree n~
+## 11         22 Strongly disagr~ Strongly agree   Strongly disagr~ Strongly disagr~ Somewhat disagr~ Somewhat disagr~
+## 12         23 Somewhat agree   Strongly agree   Somewhat agree   Somewhat agree   Somewhat agree   Strongly agree  
+## # ... with 45 more variables: i_know_what_p_hacking_means &lt;chr&gt;, i_know_what_statistical_power_means &lt;chr&gt;,
+## #   i_have_heard_of_frequentist_statistics_before &lt;chr&gt;, i_have_heard_of_bayesian_statistics_before &lt;chr&gt;,
 ## #   i_have_heard_the_term_parametric_statistics_before &lt;chr&gt;,
 ## #   i_have_heard_the_term_non_parametric_statistics_before &lt;chr&gt;, i_know_what_a_histogram_is &lt;chr&gt;,
 ## #   i_know_what_a_probability_distribution_is &lt;chr&gt;, i_know_what_a_random_variable_is &lt;chr&gt;,
@@ -348,24 +361,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   i_have_heard_of_linear_regression &lt;chr&gt;,
 ## #   i_know_how_to_run_a_linear_regression_in_some_software_or_by_hand_if_im_feeling_wild &lt;chr&gt;,
 ## #   i_know_how_to_interpret_a_linear_regression &lt;chr&gt;, i_have_heard_of_multiple_regression &lt;chr&gt;,
-## #   i_know_how_to_perform_a_multiple_regression &lt;chr&gt;,
-## #   i_know_how_to_interpret_a_multiple_regression &lt;chr&gt;, i_have_heard_of_logistic_regression &lt;chr&gt;,
-## #   i_understand_when_to_use_a_logistic_regression &lt;chr&gt;,
+## #   i_know_how_to_perform_a_multiple_regression &lt;chr&gt;, i_know_how_to_interpret_a_multiple_regression &lt;chr&gt;,
+## #   i_have_heard_of_logistic_regression &lt;chr&gt;, i_understand_when_to_use_a_logistic_regression &lt;chr&gt;,
 ## #   i_know_how_to_interpret_the_results_of_a_logistic_regression &lt;chr&gt;, i_have_heard_of_t_tests &lt;chr&gt;,
 ## #   i_have_performed_a_t_test_before &lt;chr&gt;, i_know_how_to_interpret_the_results_of_a_t_test &lt;chr&gt;,
-## #   i_have_heard_of_analysis_of_variance &lt;chr&gt;,
-## #   i_understand_when_to_run_an_analysis_of_variance_anova &lt;chr&gt;,
+## #   i_have_heard_of_analysis_of_variance &lt;chr&gt;, i_understand_when_to_run_an_analysis_of_variance_anova &lt;chr&gt;,
 ## #   i_know_how_to_interpret_the_results_from_an_anova &lt;chr&gt;, i_have_heard_of_a_chi_square_test &lt;chr&gt;,
-## #   i_have_used_a_chi_square_test_before &lt;chr&gt;,
-## #   i_know_how_to_interpret_the_results_of_a_chi_square_test &lt;chr&gt;,
+## #   i_have_used_a_chi_square_test_before &lt;chr&gt;, i_know_how_to_interpret_the_results_of_a_chi_square_test &lt;chr&gt;,
 ## #   i_have_heard_of_cluster_analysis_before &lt;chr&gt;, i_have_used_cluster_analysis_before &lt;chr&gt;,
 ## #   i_know_how_to_interpret_the_results_of_a_cluster_analysis &lt;chr&gt;,
 ## #   i_have_heard_of_factor_analysis_either_exploratory_or_confirmatory &lt;chr&gt;,
 ## #   i_have_used_factor_analysis_either_exploratory_or_confirmatory &lt;chr&gt;,
 ## #   i_know_how_to_interpret_the_results_of_a_factor_analysis_either_exploratory_or_confirmatory &lt;chr&gt;,
-## #   i_already_have_r_and_rstudio_downloaded_to_my_computer &lt;chr&gt;, i_have_used_r_before &lt;chr&gt;,
-## #   standing &lt;chr&gt;, college &lt;chr&gt;, required &lt;chr&gt;</code></pre>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb56-1" aria-hidden="true"></a>filtered_df &lt;-<span class="st"> </span>survey_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(required <span class="op">==</span><span class="st"> &quot;yes&quot;</span>)</span></code></pre></div>
+## #   i_already_have_r_and_rstudio_downloaded_to_my_computer &lt;chr&gt;, i_have_used_r_before &lt;chr&gt;, standing &lt;chr&gt;,
+## #   college &lt;chr&gt;, required &lt;chr&gt;</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb77-1" aria-hidden="true"></a>filtered_df &lt;-<span class="st"> </span>survey_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(required <span class="op">==</span><span class="st"> &quot;yes&quot;</span>)</span></code></pre></div>
 </div>
 <div id="a-little-more-about-plotting" class="section level4 unnumbered">
 <h4>A little more about plotting</h4>
@@ -377,33 +387,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>So far we have looked at plots for one variable, but of course we want to have ways to plot multiple variables simultaneously. We will start with the scneario where where we want to plot a continuous variable against a discrete variable. This can arise when you want to plot something like an assessment score and you think it may differ across groups in some way (maybe you intentionally introduced a difference by exposing the two groups to different interventions, for example).</p>
 <p>In these scenarios, a boxplot is a very standard way to go.</p>
 <p>To demonstrate this, we will simulate a situation in which we want to look at differences on an assessment. We are specificially interested in differences between chemistry and chemical engineering students. Let’s go ahead and create the data by creating two groups of 20 students each. The chemical engineering students will have scores generated from a normal distribution with <span class="math inline">\(\mu = 85\)</span> and <span class="math inline">\(\sigma = 4\)</span> (i.e., a mean of 85 and a standard deviation of 4). We will say the chemistry students have scores from a normal distribution with <span class="math inline">\(\mu = 78\)</span> anad <span class="math inline">\(\sigma = 6\)</span>. This about what these distributions might look like in your head.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb57-1" aria-hidden="true"></a>group_size &lt;-<span class="st"> </span><span class="dv">20</span></span>
-<span id="cb57-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb57-2" aria-hidden="true"></a>chem_e_scores &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> group_size, <span class="dt">mean =</span> <span class="dv">85</span>, <span class="dt">sd =</span> <span class="dv">4</span>)</span>
-<span id="cb57-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb57-3" aria-hidden="true"></a>chem_scores &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> group_size, <span class="dt">mean =</span> <span class="dv">78</span>, <span class="dt">sd =</span> <span class="dv">6</span>)</span>
-<span id="cb57-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb57-4" aria-hidden="true"></a></span>
-<span id="cb57-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb57-5" aria-hidden="true"></a></span>
-<span id="cb57-6"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb57-6" aria-hidden="true"></a>data_df &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
-<span id="cb57-7"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb57-7" aria-hidden="true"></a>  <span class="dt">discipline =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;ChemE&quot;</span>, <span class="st">&quot;Chemistry&quot;</span>), <span class="dt">each =</span> group_size),</span>
-<span id="cb57-8"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb57-8" aria-hidden="true"></a>  <span class="dt">score =</span> <span class="kw">c</span>(chem_e_scores, chem_scores)</span>
-<span id="cb57-9"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb57-9" aria-hidden="true"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb78-1" aria-hidden="true"></a>group_size &lt;-<span class="st"> </span><span class="dv">20</span></span>
+<span id="cb78-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb78-2" aria-hidden="true"></a>chem_e_scores &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> group_size, <span class="dt">mean =</span> <span class="dv">85</span>, <span class="dt">sd =</span> <span class="dv">4</span>)</span>
+<span id="cb78-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb78-3" aria-hidden="true"></a>chem_scores &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> group_size, <span class="dt">mean =</span> <span class="dv">78</span>, <span class="dt">sd =</span> <span class="dv">6</span>)</span>
+<span id="cb78-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb78-4" aria-hidden="true"></a></span>
+<span id="cb78-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb78-5" aria-hidden="true"></a></span>
+<span id="cb78-6"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb78-6" aria-hidden="true"></a>data_df &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
+<span id="cb78-7"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb78-7" aria-hidden="true"></a>  <span class="dt">discipline =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;ChemE&quot;</span>, <span class="st">&quot;Chemistry&quot;</span>), <span class="dt">each =</span> group_size),</span>
+<span id="cb78-8"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb78-8" aria-hidden="true"></a>  <span class="dt">score =</span> <span class="kw">c</span>(chem_e_scores, chem_scores)</span>
+<span id="cb78-9"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb78-9" aria-hidden="true"></a>)</span></code></pre></div>
 <p>With these data, we can then create a boxplot using <code>geom_boxplot()</code></p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb58-1" aria-hidden="true"></a>data_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb58-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb58-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> discipline, <span class="dt">y =</span> score)) <span class="op">+</span></span>
-<span id="cb58-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb58-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
-<p><img src="test_course_notes_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb79-1" aria-hidden="true"></a>data_df <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb79-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb79-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> discipline, <span class="dt">y =</span> score)) <span class="op">+</span></span>
+<span id="cb79-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb79-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 <p>You can make a few modifications to possibly make this plot easier to read.</p>
 <p>The first is to put the discrete category on the y axis instead of the x axis.</p>
 <p>The second is to use geom_jitter() in addition to geom_boxplot() to show the individual points in each group.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb59-1" aria-hidden="true"></a>data_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb59-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb59-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> score, <span class="dt">x =</span> discipline)) <span class="op">+</span></span>
-<span id="cb59-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb59-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
-<span id="cb59-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb59-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_jitter</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb80-1" aria-hidden="true"></a>data_df <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb80-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb80-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> score, <span class="dt">x =</span> discipline)) <span class="op">+</span></span>
+<span id="cb80-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb80-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
+<span id="cb80-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb80-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_jitter</span>()</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/box-and-dot-plot-1.png" width="672" /></p>
 </div>
 <div id="continuous-predictor-and-continuous-outcome" class="section level2" number="3.4">
 <h2><span class="header-section-number">3.4</span> Continuous predictor and continuous outcome</h2>
 <p>First, let’s re-do a lot of the steps in this week’s script for reading in data and transforming it a little</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb60-1" aria-hidden="true"></a>mydata &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Free Reduced Lunch by Schools and Grade Structures 2008-2017_final.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb81-1" aria-hidden="true"></a>mydata &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Free Reduced Lunch by Schools and Grade Structures 2008-2017_final.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   .default = col_character(),
@@ -411,7 +421,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## )</code></pre>
 <pre><code>## See spec(...) for full column specifications.</code></pre>
 <p>Check the structure of the data (this output is a bit long).</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb63-1" aria-hidden="true"></a><span class="kw">str</span>(mydata)</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb84-1" aria-hidden="true"></a><span class="kw">str</span>(mydata)</span></code></pre></div>
 <pre><code>## tibble [2,101 x 137] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ sch_id        : chr [1:2101] &quot;001-0070&quot; &quot;001-0080&quot; &quot;001-0530&quot; &quot;001-0540&quot; ...
 ##  $ div_num       : num [1:2101] 1 1 1 1 1 1 1 1 1 1 ...
@@ -654,8 +664,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   ..   grchgyr_2 = col_character()
 ##   .. )</code></pre>
 <p>Or just check the structure of one specific variable.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb65-1" aria-hidden="true"></a><span class="kw">str</span>(mydata<span class="op">$</span>total_<span class="dv">2017</span>)</span></code></pre></div>
-<pre><code>##  chr [1:2101] &quot;742&quot; &quot;236&quot; &quot;60&quot; &quot;624&quot; &quot;286&quot; &quot;485&quot; &quot;583&quot; &quot;550&quot; &quot;600&quot; &quot;514&quot; &quot;519&quot; &quot;468&quot; &quot;351&quot; &quot;264&quot; ...</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb86-1" aria-hidden="true"></a><span class="kw">str</span>(mydata<span class="op">$</span>total_<span class="dv">2017</span>)</span></code></pre></div>
+<pre><code>##  chr [1:2101] &quot;742&quot; &quot;236&quot; &quot;60&quot; &quot;624&quot; &quot;286&quot; &quot;485&quot; &quot;583&quot; &quot;550&quot; &quot;600&quot; &quot;514&quot; &quot;519&quot; &quot;468&quot; &quot;351&quot; &quot;264&quot; &quot;675&quot; &quot;565&quot; ...</code></pre>
 <p><strong>NOTE:</strong> When you have a lot of variables, running this str() function is not a great idea - the output is a little too cumbersome</p>
 </div>
 <div id="mutating-variables" class="section level2" number="3.5">
@@ -667,20 +677,20 @@ We need to fix this.</p>
 <p>Let’s tell R that these columns (at least the two we are going to use) are numeric.</p>
 <p>We are going to see two interchangeable ways to do this.</p>
 <p>First, we use the $ operator which lets me specify a specific column within my data frame in combination with the as.numeric() function</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb67-1" aria-hidden="true"></a>mydata<span class="op">$</span>total_<span class="dv">2017</span>&lt;-<span class="kw">as.numeric</span>(mydata<span class="op">$</span>total_<span class="dv">2017</span>)</span>
-<span id="cb67-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb67-2" aria-hidden="true"></a>mydata<span class="op">$</span>totalFRL_<span class="dv">1718</span>&lt;-<span class="kw">as.numeric</span>(mydata<span class="op">$</span>totalFRL_<span class="dv">1718</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb88-1" aria-hidden="true"></a>mydata<span class="op">$</span>total_<span class="dv">2017</span>&lt;-<span class="kw">as.numeric</span>(mydata<span class="op">$</span>total_<span class="dv">2017</span>)</span>
+<span id="cb88-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb88-2" aria-hidden="true"></a>mydata<span class="op">$</span>totalFRL_<span class="dv">1718</span>&lt;-<span class="kw">as.numeric</span>(mydata<span class="op">$</span>totalFRL_<span class="dv">1718</span>)</span></code></pre></div>
 <p>Some columns have a percent symbol, which you will need to remove before coercing to numeric data type</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb68-1" aria-hidden="true"></a>mydata &lt;-<span class="st"> </span>mydata <span class="op">%&gt;%</span></span>
-<span id="cb68-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb68-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">totalper_0809 =</span> <span class="kw">str_remove</span>(totalper_<span class="dv">0809</span>, <span class="st">&quot;%&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb89-1" aria-hidden="true"></a>mydata &lt;-<span class="st"> </span>mydata <span class="op">%&gt;%</span></span>
+<span id="cb89-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb89-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">totalper_0809 =</span> <span class="kw">str_remove</span>(totalper_<span class="dv">0809</span>, <span class="st">&quot;%&quot;</span>))</span></code></pre></div>
 <p>Then we can change the column from character to numeric</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb69-1" aria-hidden="true"></a>mydata<span class="op">$</span>totalper_<span class="dv">0809</span> &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(mydata<span class="op">$</span>totalper_<span class="dv">0809</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb90-1" aria-hidden="true"></a>mydata<span class="op">$</span>totalper_<span class="dv">0809</span> &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(mydata<span class="op">$</span>totalper_<span class="dv">0809</span>)</span></code></pre></div>
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
 <p>Check to make sure it converted the column type correctly using <code>str()</code>.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb71-1" aria-hidden="true"></a><span class="kw">str</span>(mydata<span class="op">$</span>totalper_<span class="dv">0809</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb92-1" aria-hidden="true"></a><span class="kw">str</span>(mydata<span class="op">$</span>totalper_<span class="dv">0809</span>)</span></code></pre></div>
 <pre><code>##  num [1:2101] 56.1 40.1 47.5 55.5 33.4 ...</code></pre>
 <p>Second, alternatively, we can do this for a whole set of variables at once. We just need to specify a matching criteria.</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb73-1" aria-hidden="true"></a>newdf &lt;-<span class="st"> </span>mydata <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb73-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb73-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="kw">starts_with</span>(<span class="st">&quot;total&quot;</span>)), as.numeric)</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb94-1" aria-hidden="true"></a>newdf &lt;-<span class="st"> </span>mydata <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb94-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb94-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="kw">starts_with</span>(<span class="st">&quot;total&quot;</span>)), as.numeric)</span></code></pre></div>
 <pre><code>## Warning in mask$eval_all_mutate(dots[[i]]): NAs introduced by coercion
 
 ## Warning in mask$eval_all_mutate(dots[[i]]): NAs introduced by coercion
@@ -754,12 +764,12 @@ We need to fix this.</p>
 ## Warning in mask$eval_all_mutate(dots[[i]]): NAs introduced by coercion
 
 ## Warning in mask$eval_all_mutate(dots[[i]]): NAs introduced by coercion</code></pre>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb75-1" aria-hidden="true"></a>newdf &lt;-<span class="st"> </span>newdf <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb75-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb75-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="kw">starts_with</span>(<span class="st">&quot;totalFRL&quot;</span>)), as.numeric)</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb96-1" aria-hidden="true"></a>newdf &lt;-<span class="st"> </span>newdf <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb96-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb96-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="kw">starts_with</span>(<span class="st">&quot;totalFRL&quot;</span>)), as.numeric)</span></code></pre></div>
 <p>Check whether the old and new variables are stored differently (old as a character, new as a numeric variable)</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb76-1" aria-hidden="true"></a><span class="kw">str</span>(mydata<span class="op">$</span>total_<span class="dv">2008</span>)</span></code></pre></div>
-<pre><code>##  chr [1:2101] &quot;731&quot; &quot;263&quot; &quot;80&quot; &quot;638&quot; &quot;333&quot; &quot;536&quot; &quot;610&quot; &quot;490&quot; &quot;585&quot; &quot;450&quot; &quot;477&quot; &quot;502&quot; &quot;359&quot; &quot;187&quot; ...</code></pre>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb78-1" aria-hidden="true"></a><span class="kw">str</span>(newdf<span class="op">$</span>total_<span class="dv">2008</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb97-1" aria-hidden="true"></a><span class="kw">str</span>(mydata<span class="op">$</span>total_<span class="dv">2008</span>)</span></code></pre></div>
+<pre><code>##  chr [1:2101] &quot;731&quot; &quot;263&quot; &quot;80&quot; &quot;638&quot; &quot;333&quot; &quot;536&quot; &quot;610&quot; &quot;490&quot; &quot;585&quot; &quot;450&quot; &quot;477&quot; &quot;502&quot; &quot;359&quot; &quot;187&quot; &quot;439&quot; &quot;491&quot; ...</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb99-1" aria-hidden="true"></a><span class="kw">str</span>(newdf<span class="op">$</span>total_<span class="dv">2008</span>)</span></code></pre></div>
 <pre><code>##  num [1:2101] 731 263 80 638 333 536 610 490 585 450 ...</code></pre>
 </div>
 <div id="filtering-and-selecting" class="section level2" number="3.6">
@@ -767,120 +777,114 @@ We need to fix this.</p>
 <p>A basic operation we do a lot is to filter the data so that we are working with a subset of all that we have.</p>
 <p>We can do this with the filter() function, part of the dplyr package (in the tidyverse collection of packages).</p>
 <p>Let’s say we want to look at the schools with div_num values less than 50.</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb80-1" aria-hidden="true"></a>newdf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(div_num <span class="op">&lt;</span><span class="st"> </span><span class="dv">50</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb101-1" aria-hidden="true"></a>newdf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(div_num <span class="op">&lt;</span><span class="st"> </span><span class="dv">50</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 800 x 137
-##    sch_id div_num div_name school_num school_name school_name2 type0809 lowgrade_2008 higrade_2008
-##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt;       
-##  1 001-0~       1 Accomac~ &quot;0070\xa0&quot; NANDUA HIGH &lt;NA&gt;         SCH-HIGH 9             12          
-##  2 001-0~       1 Accomac~ &quot;0080\xa0&quot; CHINCOTEAG~ &lt;NA&gt;         SCH-ELEM PK            5           
-##  3 001-0~       1 Accomac~ &quot;0530\xa0&quot; TANGIER CO~ &lt;NA&gt;         SCH-COMB KG            12          
-##  4 001-0~       1 Accomac~ &quot;0540\xa0&quot; ARCADIA HI~ &lt;NA&gt;         SCH-HIGH 9             12          
-##  5 001-0~       1 Accomac~ &quot;0580\xa0&quot; CHINCOTEAG~ &lt;NA&gt;         SCH-COMB 6             12          
-##  6 001-0~       1 Accomac~ &quot;0590\xa0&quot; PUNGOTEAGU~ &lt;NA&gt;         SCH-ELEM PK            5           
-##  7 001-0~       1 Accomac~ &quot;0600\xa0&quot; KEGOTANK E~ &lt;NA&gt;         SCH-ELEM PK            5           
-##  8 001-0~       1 Accomac~ &quot;0701\xa0&quot; ACCAWMACKE~ &lt;NA&gt;         SCH-ELEM PK            5           
-##  9 001-0~       1 Accomac~ &quot;0702\xa0&quot; METOMPKIN ~ &lt;NA&gt;         SCH-ELEM PK            5           
-## 10 001-0~       1 Accomac~ &quot;0703\xa0&quot; NANDUA MID~ &lt;NA&gt;         SCH-MID  6             8           
-## # ... with 790 more rows, and 128 more variables: totalFT_2008 &lt;dbl&gt;, total_2008 &lt;dbl&gt;, snp_0809 &lt;chr&gt;,
-## #   free_elig_0809 &lt;chr&gt;, free_per_0809 &lt;chr&gt;, red_elig_0809 &lt;chr&gt;, red_per_0809 &lt;chr&gt;,
-## #   totalFRL_0809 &lt;dbl&gt;, totalper_0809 &lt;dbl&gt;, type0910 &lt;chr&gt;, lowgrade_2009 &lt;chr&gt;, higrade_2009 &lt;chr&gt;,
-## #   totalFT_2009 &lt;dbl&gt;, total_2009 &lt;dbl&gt;, snp_0910 &lt;chr&gt;, free_elig_0910 &lt;chr&gt;, free_per_0910 &lt;chr&gt;,
-## #   red_elig_0910 &lt;chr&gt;, red_per_0910 &lt;chr&gt;, totalFRL_09010 &lt;dbl&gt;, totalper_0910 &lt;dbl&gt;, type1011 &lt;chr&gt;,
-## #   lowgrade_2010 &lt;chr&gt;, higrade_2010 &lt;chr&gt;, totalFT_2010 &lt;dbl&gt;, total_2010 &lt;dbl&gt;, snp_1011 &lt;chr&gt;,
-## #   free_elig_1011 &lt;chr&gt;, free_per_1011 &lt;chr&gt;, red_elig_1011 &lt;chr&gt;, red_per_1011 &lt;chr&gt;,
-## #   totalFRL_1011 &lt;dbl&gt;, totalper_1011 &lt;dbl&gt;, type1112 &lt;chr&gt;, lowgrade_2011 &lt;chr&gt;, higrade_2011 &lt;chr&gt;,
-## #   totalFT_2011 &lt;dbl&gt;, total_2011 &lt;dbl&gt;, snp_1112 &lt;chr&gt;, free_elig_1112 &lt;chr&gt;, free_per_1112 &lt;chr&gt;,
-## #   red_elig_1112 &lt;chr&gt;, red_per_1112 &lt;chr&gt;, totalFRL_1112 &lt;dbl&gt;, totalper_1112 &lt;dbl&gt;, type1213 &lt;chr&gt;,
-## #   lowgrade_2012 &lt;chr&gt;, higrade_2012 &lt;chr&gt;, totalFT_2012 &lt;dbl&gt;, total_2012 &lt;dbl&gt;, snp_1213 &lt;chr&gt;,
-## #   free_elig_1213 &lt;chr&gt;, free_per_1213 &lt;chr&gt;, red_elig_1213 &lt;chr&gt;, red_per_1213 &lt;chr&gt;,
-## #   totalFRL_1213 &lt;dbl&gt;, totalper_1213 &lt;dbl&gt;, type1314 &lt;chr&gt;, lowgrade_2013 &lt;chr&gt;, higrade_2013 &lt;chr&gt;,
-## #   totalFT_2013 &lt;dbl&gt;, total_2013 &lt;dbl&gt;, snp_1314 &lt;chr&gt;, free_elig_1314 &lt;chr&gt;, free_per_1314 &lt;chr&gt;,
-## #   red_elig_1314 &lt;chr&gt;, red_per_1314 &lt;chr&gt;, totalFRL_1314 &lt;dbl&gt;, totalper_1314 &lt;dbl&gt;, type1415 &lt;chr&gt;,
-## #   lowgrade_2014 &lt;chr&gt;, higrade_2014 &lt;chr&gt;, totalFT_2014 &lt;dbl&gt;, total_2014 &lt;dbl&gt;, snp_1415 &lt;chr&gt;,
-## #   free_elig_1415 &lt;chr&gt;, free_per_1415 &lt;chr&gt;, red_elig_1415 &lt;chr&gt;, red_per_1415 &lt;chr&gt;,
-## #   totalFRL_1415 &lt;dbl&gt;, totalper_1415 &lt;dbl&gt;, CEP_1516 &lt;chr&gt;, type1516 &lt;chr&gt;, lowgrade_2015 &lt;chr&gt;,
-## #   higrade_2015 &lt;chr&gt;, totalFT_2015 &lt;dbl&gt;, total_2015 &lt;dbl&gt;, snp_1516 &lt;chr&gt;, free_elig_1516 &lt;chr&gt;,
-## #   free_per_1516 &lt;chr&gt;, red_elig_1516 &lt;chr&gt;, red_Per_1516 &lt;chr&gt;, totalFRL_1516 &lt;dbl&gt;,
-## #   totalper_1516 &lt;dbl&gt;, CEP_1617 &lt;chr&gt;, type1617 &lt;chr&gt;, lowgrade_2016 &lt;chr&gt;, higrade_2016 &lt;chr&gt;,
-## #   totalFT_2016 &lt;dbl&gt;, total_2016 &lt;dbl&gt;, ...</code></pre>
+##    sch_id div_num div_name school_num school_name school_name2 type0809 lowgrade_2008 higrade_2008 totalFT_2008
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt;               &lt;dbl&gt;
+##  1 001-0~       1 Accomac~ &quot;0070\xa0&quot; NANDUA HIGH &lt;NA&gt;         SCH-HIGH 9             12                    731
+##  2 001-0~       1 Accomac~ &quot;0080\xa0&quot; CHINCOTEAG~ &lt;NA&gt;         SCH-ELEM PK            5                     263
+##  3 001-0~       1 Accomac~ &quot;0530\xa0&quot; TANGIER CO~ &lt;NA&gt;         SCH-COMB KG            12                     80
+##  4 001-0~       1 Accomac~ &quot;0540\xa0&quot; ARCADIA HI~ &lt;NA&gt;         SCH-HIGH 9             12                    638
+##  5 001-0~       1 Accomac~ &quot;0580\xa0&quot; CHINCOTEAG~ &lt;NA&gt;         SCH-COMB 6             12                    333
+##  6 001-0~       1 Accomac~ &quot;0590\xa0&quot; PUNGOTEAGU~ &lt;NA&gt;         SCH-ELEM PK            5                     536
+##  7 001-0~       1 Accomac~ &quot;0600\xa0&quot; KEGOTANK E~ &lt;NA&gt;         SCH-ELEM PK            5                     610
+##  8 001-0~       1 Accomac~ &quot;0701\xa0&quot; ACCAWMACKE~ &lt;NA&gt;         SCH-ELEM PK            5                     490
+##  9 001-0~       1 Accomac~ &quot;0702\xa0&quot; METOMPKIN ~ &lt;NA&gt;         SCH-ELEM PK            5                     585
+## 10 001-0~       1 Accomac~ &quot;0703\xa0&quot; NANDUA MID~ &lt;NA&gt;         SCH-MID  6             8                     450
+## # ... with 790 more rows, and 127 more variables: total_2008 &lt;dbl&gt;, snp_0809 &lt;chr&gt;, free_elig_0809 &lt;chr&gt;,
+## #   free_per_0809 &lt;chr&gt;, red_elig_0809 &lt;chr&gt;, red_per_0809 &lt;chr&gt;, totalFRL_0809 &lt;dbl&gt;, totalper_0809 &lt;dbl&gt;,
+## #   type0910 &lt;chr&gt;, lowgrade_2009 &lt;chr&gt;, higrade_2009 &lt;chr&gt;, totalFT_2009 &lt;dbl&gt;, total_2009 &lt;dbl&gt;, snp_0910 &lt;chr&gt;,
+## #   free_elig_0910 &lt;chr&gt;, free_per_0910 &lt;chr&gt;, red_elig_0910 &lt;chr&gt;, red_per_0910 &lt;chr&gt;, totalFRL_09010 &lt;dbl&gt;,
+## #   totalper_0910 &lt;dbl&gt;, type1011 &lt;chr&gt;, lowgrade_2010 &lt;chr&gt;, higrade_2010 &lt;chr&gt;, totalFT_2010 &lt;dbl&gt;,
+## #   total_2010 &lt;dbl&gt;, snp_1011 &lt;chr&gt;, free_elig_1011 &lt;chr&gt;, free_per_1011 &lt;chr&gt;, red_elig_1011 &lt;chr&gt;,
+## #   red_per_1011 &lt;chr&gt;, totalFRL_1011 &lt;dbl&gt;, totalper_1011 &lt;dbl&gt;, type1112 &lt;chr&gt;, lowgrade_2011 &lt;chr&gt;,
+## #   higrade_2011 &lt;chr&gt;, totalFT_2011 &lt;dbl&gt;, total_2011 &lt;dbl&gt;, snp_1112 &lt;chr&gt;, free_elig_1112 &lt;chr&gt;,
+## #   free_per_1112 &lt;chr&gt;, red_elig_1112 &lt;chr&gt;, red_per_1112 &lt;chr&gt;, totalFRL_1112 &lt;dbl&gt;, totalper_1112 &lt;dbl&gt;,
+## #   type1213 &lt;chr&gt;, lowgrade_2012 &lt;chr&gt;, higrade_2012 &lt;chr&gt;, totalFT_2012 &lt;dbl&gt;, total_2012 &lt;dbl&gt;, snp_1213 &lt;chr&gt;,
+## #   free_elig_1213 &lt;chr&gt;, free_per_1213 &lt;chr&gt;, red_elig_1213 &lt;chr&gt;, red_per_1213 &lt;chr&gt;, totalFRL_1213 &lt;dbl&gt;,
+## #   totalper_1213 &lt;dbl&gt;, type1314 &lt;chr&gt;, lowgrade_2013 &lt;chr&gt;, higrade_2013 &lt;chr&gt;, totalFT_2013 &lt;dbl&gt;,
+## #   total_2013 &lt;dbl&gt;, snp_1314 &lt;chr&gt;, free_elig_1314 &lt;chr&gt;, free_per_1314 &lt;chr&gt;, red_elig_1314 &lt;chr&gt;,
+## #   red_per_1314 &lt;chr&gt;, totalFRL_1314 &lt;dbl&gt;, totalper_1314 &lt;dbl&gt;, type1415 &lt;chr&gt;, lowgrade_2014 &lt;chr&gt;,
+## #   higrade_2014 &lt;chr&gt;, totalFT_2014 &lt;dbl&gt;, total_2014 &lt;dbl&gt;, snp_1415 &lt;chr&gt;, free_elig_1415 &lt;chr&gt;,
+## #   free_per_1415 &lt;chr&gt;, red_elig_1415 &lt;chr&gt;, red_per_1415 &lt;chr&gt;, totalFRL_1415 &lt;dbl&gt;, totalper_1415 &lt;dbl&gt;,
+## #   CEP_1516 &lt;chr&gt;, type1516 &lt;chr&gt;, lowgrade_2015 &lt;chr&gt;, higrade_2015 &lt;chr&gt;, totalFT_2015 &lt;dbl&gt;, total_2015 &lt;dbl&gt;,
+## #   snp_1516 &lt;chr&gt;, free_elig_1516 &lt;chr&gt;, free_per_1516 &lt;chr&gt;, red_elig_1516 &lt;chr&gt;, red_Per_1516 &lt;chr&gt;,
+## #   totalFRL_1516 &lt;dbl&gt;, totalper_1516 &lt;dbl&gt;, CEP_1617 &lt;chr&gt;, type1617 &lt;chr&gt;, lowgrade_2016 &lt;chr&gt;,
+## #   higrade_2016 &lt;chr&gt;, totalFT_2016 &lt;dbl&gt;, total_2016 &lt;dbl&gt;, snp_2016 &lt;chr&gt;, ...</code></pre>
 <p>Or, if we want to look at schools where the highest grade in 2008 was grade five, we can try:</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb82-1" aria-hidden="true"></a>newdf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(higrade_<span class="dv">2008</span> <span class="op">==</span><span class="st"> &quot;5&quot;</span>) <span class="co"># this returns a subsetted dataframe with 878 rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb103-1" aria-hidden="true"></a>newdf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(higrade_<span class="dv">2008</span> <span class="op">==</span><span class="st"> &quot;5&quot;</span>) <span class="co"># this returns a subsetted dataframe with 878 rows</span></span></code></pre></div>
 <pre><code>## # A tibble: 878 x 137
-##    sch_id div_num div_name school_num school_name school_name2 type0809 lowgrade_2008 higrade_2008
-##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt;       
-##  1 001-0~       1 Accomac~ &quot;0080\xa0&quot; CHINCOTEAG~ &lt;NA&gt;         SCH-ELEM PK            5           
-##  2 001-0~       1 Accomac~ &quot;0590\xa0&quot; PUNGOTEAGU~ &lt;NA&gt;         SCH-ELEM PK            5           
-##  3 001-0~       1 Accomac~ &quot;0600\xa0&quot; KEGOTANK E~ &lt;NA&gt;         SCH-ELEM PK            5           
-##  4 001-0~       1 Accomac~ &quot;0701\xa0&quot; ACCAWMACKE~ &lt;NA&gt;         SCH-ELEM PK            5           
-##  5 001-0~       1 Accomac~ &quot;0702\xa0&quot; METOMPKIN ~ &lt;NA&gt;         SCH-ELEM PK            5           
-##  6 002-0~       2 Albemar~ &quot;0010\xa0&quot; HOLLYMEAD ~ &lt;NA&gt;         SCH-ELEM PK            5           
-##  7 002-0~       2 Albemar~ &quot;0030\xa0&quot; SCOTTSVILL~ &lt;NA&gt;         SCH-ELEM PK            5           
-##  8 002-0~       2 Albemar~ &quot;0040\xa0&quot; MARY CARR ~ &lt;NA&gt;         SCH-ELEM PK            5           
-##  9 002-0~       2 Albemar~ &quot;0100\xa0&quot; BROADUS WO~ &lt;NA&gt;         SCH-ELEM PK            5           
-## 10 002-0~       2 Albemar~ &quot;0150\xa0&quot; PAUL H CAL~ &lt;NA&gt;         SCH-ELEM PK            5           
-## # ... with 868 more rows, and 128 more variables: totalFT_2008 &lt;dbl&gt;, total_2008 &lt;dbl&gt;, snp_0809 &lt;chr&gt;,
-## #   free_elig_0809 &lt;chr&gt;, free_per_0809 &lt;chr&gt;, red_elig_0809 &lt;chr&gt;, red_per_0809 &lt;chr&gt;,
-## #   totalFRL_0809 &lt;dbl&gt;, totalper_0809 &lt;dbl&gt;, type0910 &lt;chr&gt;, lowgrade_2009 &lt;chr&gt;, higrade_2009 &lt;chr&gt;,
-## #   totalFT_2009 &lt;dbl&gt;, total_2009 &lt;dbl&gt;, snp_0910 &lt;chr&gt;, free_elig_0910 &lt;chr&gt;, free_per_0910 &lt;chr&gt;,
-## #   red_elig_0910 &lt;chr&gt;, red_per_0910 &lt;chr&gt;, totalFRL_09010 &lt;dbl&gt;, totalper_0910 &lt;dbl&gt;, type1011 &lt;chr&gt;,
-## #   lowgrade_2010 &lt;chr&gt;, higrade_2010 &lt;chr&gt;, totalFT_2010 &lt;dbl&gt;, total_2010 &lt;dbl&gt;, snp_1011 &lt;chr&gt;,
-## #   free_elig_1011 &lt;chr&gt;, free_per_1011 &lt;chr&gt;, red_elig_1011 &lt;chr&gt;, red_per_1011 &lt;chr&gt;,
-## #   totalFRL_1011 &lt;dbl&gt;, totalper_1011 &lt;dbl&gt;, type1112 &lt;chr&gt;, lowgrade_2011 &lt;chr&gt;, higrade_2011 &lt;chr&gt;,
-## #   totalFT_2011 &lt;dbl&gt;, total_2011 &lt;dbl&gt;, snp_1112 &lt;chr&gt;, free_elig_1112 &lt;chr&gt;, free_per_1112 &lt;chr&gt;,
-## #   red_elig_1112 &lt;chr&gt;, red_per_1112 &lt;chr&gt;, totalFRL_1112 &lt;dbl&gt;, totalper_1112 &lt;dbl&gt;, type1213 &lt;chr&gt;,
-## #   lowgrade_2012 &lt;chr&gt;, higrade_2012 &lt;chr&gt;, totalFT_2012 &lt;dbl&gt;, total_2012 &lt;dbl&gt;, snp_1213 &lt;chr&gt;,
-## #   free_elig_1213 &lt;chr&gt;, free_per_1213 &lt;chr&gt;, red_elig_1213 &lt;chr&gt;, red_per_1213 &lt;chr&gt;,
-## #   totalFRL_1213 &lt;dbl&gt;, totalper_1213 &lt;dbl&gt;, type1314 &lt;chr&gt;, lowgrade_2013 &lt;chr&gt;, higrade_2013 &lt;chr&gt;,
-## #   totalFT_2013 &lt;dbl&gt;, total_2013 &lt;dbl&gt;, snp_1314 &lt;chr&gt;, free_elig_1314 &lt;chr&gt;, free_per_1314 &lt;chr&gt;,
-## #   red_elig_1314 &lt;chr&gt;, red_per_1314 &lt;chr&gt;, totalFRL_1314 &lt;dbl&gt;, totalper_1314 &lt;dbl&gt;, type1415 &lt;chr&gt;,
-## #   lowgrade_2014 &lt;chr&gt;, higrade_2014 &lt;chr&gt;, totalFT_2014 &lt;dbl&gt;, total_2014 &lt;dbl&gt;, snp_1415 &lt;chr&gt;,
-## #   free_elig_1415 &lt;chr&gt;, free_per_1415 &lt;chr&gt;, red_elig_1415 &lt;chr&gt;, red_per_1415 &lt;chr&gt;,
-## #   totalFRL_1415 &lt;dbl&gt;, totalper_1415 &lt;dbl&gt;, CEP_1516 &lt;chr&gt;, type1516 &lt;chr&gt;, lowgrade_2015 &lt;chr&gt;,
-## #   higrade_2015 &lt;chr&gt;, totalFT_2015 &lt;dbl&gt;, total_2015 &lt;dbl&gt;, snp_1516 &lt;chr&gt;, free_elig_1516 &lt;chr&gt;,
-## #   free_per_1516 &lt;chr&gt;, red_elig_1516 &lt;chr&gt;, red_Per_1516 &lt;chr&gt;, totalFRL_1516 &lt;dbl&gt;,
-## #   totalper_1516 &lt;dbl&gt;, CEP_1617 &lt;chr&gt;, type1617 &lt;chr&gt;, lowgrade_2016 &lt;chr&gt;, higrade_2016 &lt;chr&gt;,
-## #   totalFT_2016 &lt;dbl&gt;, total_2016 &lt;dbl&gt;, ...</code></pre>
+##    sch_id div_num div_name school_num school_name school_name2 type0809 lowgrade_2008 higrade_2008 totalFT_2008
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt;               &lt;dbl&gt;
+##  1 001-0~       1 Accomac~ &quot;0080\xa0&quot; CHINCOTEAG~ &lt;NA&gt;         SCH-ELEM PK            5                     263
+##  2 001-0~       1 Accomac~ &quot;0590\xa0&quot; PUNGOTEAGU~ &lt;NA&gt;         SCH-ELEM PK            5                     536
+##  3 001-0~       1 Accomac~ &quot;0600\xa0&quot; KEGOTANK E~ &lt;NA&gt;         SCH-ELEM PK            5                     610
+##  4 001-0~       1 Accomac~ &quot;0701\xa0&quot; ACCAWMACKE~ &lt;NA&gt;         SCH-ELEM PK            5                     490
+##  5 001-0~       1 Accomac~ &quot;0702\xa0&quot; METOMPKIN ~ &lt;NA&gt;         SCH-ELEM PK            5                     585
+##  6 002-0~       2 Albemar~ &quot;0010\xa0&quot; HOLLYMEAD ~ &lt;NA&gt;         SCH-ELEM PK            5                     502
+##  7 002-0~       2 Albemar~ &quot;0030\xa0&quot; SCOTTSVILL~ &lt;NA&gt;         SCH-ELEM PK            5                     187
+##  8 002-0~       2 Albemar~ &quot;0040\xa0&quot; MARY CARR ~ &lt;NA&gt;         SCH-ELEM PK            5                     439
+##  9 002-0~       2 Albemar~ &quot;0100\xa0&quot; BROADUS WO~ &lt;NA&gt;         SCH-ELEM PK            5                     289
+## 10 002-0~       2 Albemar~ &quot;0150\xa0&quot; PAUL H CAL~ &lt;NA&gt;         SCH-ELEM PK            5                     575
+## # ... with 868 more rows, and 127 more variables: total_2008 &lt;dbl&gt;, snp_0809 &lt;chr&gt;, free_elig_0809 &lt;chr&gt;,
+## #   free_per_0809 &lt;chr&gt;, red_elig_0809 &lt;chr&gt;, red_per_0809 &lt;chr&gt;, totalFRL_0809 &lt;dbl&gt;, totalper_0809 &lt;dbl&gt;,
+## #   type0910 &lt;chr&gt;, lowgrade_2009 &lt;chr&gt;, higrade_2009 &lt;chr&gt;, totalFT_2009 &lt;dbl&gt;, total_2009 &lt;dbl&gt;, snp_0910 &lt;chr&gt;,
+## #   free_elig_0910 &lt;chr&gt;, free_per_0910 &lt;chr&gt;, red_elig_0910 &lt;chr&gt;, red_per_0910 &lt;chr&gt;, totalFRL_09010 &lt;dbl&gt;,
+## #   totalper_0910 &lt;dbl&gt;, type1011 &lt;chr&gt;, lowgrade_2010 &lt;chr&gt;, higrade_2010 &lt;chr&gt;, totalFT_2010 &lt;dbl&gt;,
+## #   total_2010 &lt;dbl&gt;, snp_1011 &lt;chr&gt;, free_elig_1011 &lt;chr&gt;, free_per_1011 &lt;chr&gt;, red_elig_1011 &lt;chr&gt;,
+## #   red_per_1011 &lt;chr&gt;, totalFRL_1011 &lt;dbl&gt;, totalper_1011 &lt;dbl&gt;, type1112 &lt;chr&gt;, lowgrade_2011 &lt;chr&gt;,
+## #   higrade_2011 &lt;chr&gt;, totalFT_2011 &lt;dbl&gt;, total_2011 &lt;dbl&gt;, snp_1112 &lt;chr&gt;, free_elig_1112 &lt;chr&gt;,
+## #   free_per_1112 &lt;chr&gt;, red_elig_1112 &lt;chr&gt;, red_per_1112 &lt;chr&gt;, totalFRL_1112 &lt;dbl&gt;, totalper_1112 &lt;dbl&gt;,
+## #   type1213 &lt;chr&gt;, lowgrade_2012 &lt;chr&gt;, higrade_2012 &lt;chr&gt;, totalFT_2012 &lt;dbl&gt;, total_2012 &lt;dbl&gt;, snp_1213 &lt;chr&gt;,
+## #   free_elig_1213 &lt;chr&gt;, free_per_1213 &lt;chr&gt;, red_elig_1213 &lt;chr&gt;, red_per_1213 &lt;chr&gt;, totalFRL_1213 &lt;dbl&gt;,
+## #   totalper_1213 &lt;dbl&gt;, type1314 &lt;chr&gt;, lowgrade_2013 &lt;chr&gt;, higrade_2013 &lt;chr&gt;, totalFT_2013 &lt;dbl&gt;,
+## #   total_2013 &lt;dbl&gt;, snp_1314 &lt;chr&gt;, free_elig_1314 &lt;chr&gt;, free_per_1314 &lt;chr&gt;, red_elig_1314 &lt;chr&gt;,
+## #   red_per_1314 &lt;chr&gt;, totalFRL_1314 &lt;dbl&gt;, totalper_1314 &lt;dbl&gt;, type1415 &lt;chr&gt;, lowgrade_2014 &lt;chr&gt;,
+## #   higrade_2014 &lt;chr&gt;, totalFT_2014 &lt;dbl&gt;, total_2014 &lt;dbl&gt;, snp_1415 &lt;chr&gt;, free_elig_1415 &lt;chr&gt;,
+## #   free_per_1415 &lt;chr&gt;, red_elig_1415 &lt;chr&gt;, red_per_1415 &lt;chr&gt;, totalFRL_1415 &lt;dbl&gt;, totalper_1415 &lt;dbl&gt;,
+## #   CEP_1516 &lt;chr&gt;, type1516 &lt;chr&gt;, lowgrade_2015 &lt;chr&gt;, higrade_2015 &lt;chr&gt;, totalFT_2015 &lt;dbl&gt;, total_2015 &lt;dbl&gt;,
+## #   snp_1516 &lt;chr&gt;, free_elig_1516 &lt;chr&gt;, free_per_1516 &lt;chr&gt;, red_elig_1516 &lt;chr&gt;, red_Per_1516 &lt;chr&gt;,
+## #   totalFRL_1516 &lt;dbl&gt;, totalper_1516 &lt;dbl&gt;, CEP_1617 &lt;chr&gt;, type1617 &lt;chr&gt;, lowgrade_2016 &lt;chr&gt;,
+## #   higrade_2016 &lt;chr&gt;, totalFT_2016 &lt;dbl&gt;, total_2016 &lt;dbl&gt;, snp_2016 &lt;chr&gt;, ...</code></pre>
 <p>Note that we had to set it equal to the character value “5” rather than the numeric value 5. Why?</p>
 <p>If we wanted to filter on numeric values instead, we would want to do something like this:</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb84-1" aria-hidden="true"></a>newdf <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb84-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb84-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">higrade_2008 =</span> <span class="kw">as.numeric</span>(higrade_<span class="dv">2008</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb84-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb84-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(higrade_<span class="dv">2008</span> <span class="op">==</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># again, this returns a subsetted dataframe with 878 rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb105-1" aria-hidden="true"></a>newdf <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb105-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb105-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">higrade_2008 =</span> <span class="kw">as.numeric</span>(higrade_<span class="dv">2008</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb105-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb105-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(higrade_<span class="dv">2008</span> <span class="op">==</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># again, this returns a subsetted dataframe with 878 rows</span></span></code></pre></div>
 <pre><code>## Warning in mask$eval_all_mutate(dots[[i]]): NAs introduced by coercion</code></pre>
 <pre><code>## # A tibble: 878 x 137
-##    sch_id div_num div_name school_num school_name school_name2 type0809 lowgrade_2008 higrade_2008
-##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt;
-##  1 001-0~       1 Accomac~ &quot;0080\xa0&quot; CHINCOTEAG~ &lt;NA&gt;         SCH-ELEM PK                       5
-##  2 001-0~       1 Accomac~ &quot;0590\xa0&quot; PUNGOTEAGU~ &lt;NA&gt;         SCH-ELEM PK                       5
-##  3 001-0~       1 Accomac~ &quot;0600\xa0&quot; KEGOTANK E~ &lt;NA&gt;         SCH-ELEM PK                       5
-##  4 001-0~       1 Accomac~ &quot;0701\xa0&quot; ACCAWMACKE~ &lt;NA&gt;         SCH-ELEM PK                       5
-##  5 001-0~       1 Accomac~ &quot;0702\xa0&quot; METOMPKIN ~ &lt;NA&gt;         SCH-ELEM PK                       5
-##  6 002-0~       2 Albemar~ &quot;0010\xa0&quot; HOLLYMEAD ~ &lt;NA&gt;         SCH-ELEM PK                       5
-##  7 002-0~       2 Albemar~ &quot;0030\xa0&quot; SCOTTSVILL~ &lt;NA&gt;         SCH-ELEM PK                       5
-##  8 002-0~       2 Albemar~ &quot;0040\xa0&quot; MARY CARR ~ &lt;NA&gt;         SCH-ELEM PK                       5
-##  9 002-0~       2 Albemar~ &quot;0100\xa0&quot; BROADUS WO~ &lt;NA&gt;         SCH-ELEM PK                       5
-## 10 002-0~       2 Albemar~ &quot;0150\xa0&quot; PAUL H CAL~ &lt;NA&gt;         SCH-ELEM PK                       5
-## # ... with 868 more rows, and 128 more variables: totalFT_2008 &lt;dbl&gt;, total_2008 &lt;dbl&gt;, snp_0809 &lt;chr&gt;,
-## #   free_elig_0809 &lt;chr&gt;, free_per_0809 &lt;chr&gt;, red_elig_0809 &lt;chr&gt;, red_per_0809 &lt;chr&gt;,
-## #   totalFRL_0809 &lt;dbl&gt;, totalper_0809 &lt;dbl&gt;, type0910 &lt;chr&gt;, lowgrade_2009 &lt;chr&gt;, higrade_2009 &lt;chr&gt;,
-## #   totalFT_2009 &lt;dbl&gt;, total_2009 &lt;dbl&gt;, snp_0910 &lt;chr&gt;, free_elig_0910 &lt;chr&gt;, free_per_0910 &lt;chr&gt;,
-## #   red_elig_0910 &lt;chr&gt;, red_per_0910 &lt;chr&gt;, totalFRL_09010 &lt;dbl&gt;, totalper_0910 &lt;dbl&gt;, type1011 &lt;chr&gt;,
-## #   lowgrade_2010 &lt;chr&gt;, higrade_2010 &lt;chr&gt;, totalFT_2010 &lt;dbl&gt;, total_2010 &lt;dbl&gt;, snp_1011 &lt;chr&gt;,
-## #   free_elig_1011 &lt;chr&gt;, free_per_1011 &lt;chr&gt;, red_elig_1011 &lt;chr&gt;, red_per_1011 &lt;chr&gt;,
-## #   totalFRL_1011 &lt;dbl&gt;, totalper_1011 &lt;dbl&gt;, type1112 &lt;chr&gt;, lowgrade_2011 &lt;chr&gt;, higrade_2011 &lt;chr&gt;,
-## #   totalFT_2011 &lt;dbl&gt;, total_2011 &lt;dbl&gt;, snp_1112 &lt;chr&gt;, free_elig_1112 &lt;chr&gt;, free_per_1112 &lt;chr&gt;,
-## #   red_elig_1112 &lt;chr&gt;, red_per_1112 &lt;chr&gt;, totalFRL_1112 &lt;dbl&gt;, totalper_1112 &lt;dbl&gt;, type1213 &lt;chr&gt;,
-## #   lowgrade_2012 &lt;chr&gt;, higrade_2012 &lt;chr&gt;, totalFT_2012 &lt;dbl&gt;, total_2012 &lt;dbl&gt;, snp_1213 &lt;chr&gt;,
-## #   free_elig_1213 &lt;chr&gt;, free_per_1213 &lt;chr&gt;, red_elig_1213 &lt;chr&gt;, red_per_1213 &lt;chr&gt;,
-## #   totalFRL_1213 &lt;dbl&gt;, totalper_1213 &lt;dbl&gt;, type1314 &lt;chr&gt;, lowgrade_2013 &lt;chr&gt;, higrade_2013 &lt;chr&gt;,
-## #   totalFT_2013 &lt;dbl&gt;, total_2013 &lt;dbl&gt;, snp_1314 &lt;chr&gt;, free_elig_1314 &lt;chr&gt;, free_per_1314 &lt;chr&gt;,
-## #   red_elig_1314 &lt;chr&gt;, red_per_1314 &lt;chr&gt;, totalFRL_1314 &lt;dbl&gt;, totalper_1314 &lt;dbl&gt;, type1415 &lt;chr&gt;,
-## #   lowgrade_2014 &lt;chr&gt;, higrade_2014 &lt;chr&gt;, totalFT_2014 &lt;dbl&gt;, total_2014 &lt;dbl&gt;, snp_1415 &lt;chr&gt;,
-## #   free_elig_1415 &lt;chr&gt;, free_per_1415 &lt;chr&gt;, red_elig_1415 &lt;chr&gt;, red_per_1415 &lt;chr&gt;,
-## #   totalFRL_1415 &lt;dbl&gt;, totalper_1415 &lt;dbl&gt;, CEP_1516 &lt;chr&gt;, type1516 &lt;chr&gt;, lowgrade_2015 &lt;chr&gt;,
-## #   higrade_2015 &lt;chr&gt;, totalFT_2015 &lt;dbl&gt;, total_2015 &lt;dbl&gt;, snp_1516 &lt;chr&gt;, free_elig_1516 &lt;chr&gt;,
-## #   free_per_1516 &lt;chr&gt;, red_elig_1516 &lt;chr&gt;, red_Per_1516 &lt;chr&gt;, totalFRL_1516 &lt;dbl&gt;,
-## #   totalper_1516 &lt;dbl&gt;, CEP_1617 &lt;chr&gt;, type1617 &lt;chr&gt;, lowgrade_2016 &lt;chr&gt;, higrade_2016 &lt;chr&gt;,
-## #   totalFT_2016 &lt;dbl&gt;, total_2016 &lt;dbl&gt;, ...</code></pre>
+##    sch_id div_num div_name school_num school_name school_name2 type0809 lowgrade_2008 higrade_2008 totalFT_2008
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;
+##  1 001-0~       1 Accomac~ &quot;0080\xa0&quot; CHINCOTEAG~ &lt;NA&gt;         SCH-ELEM PK                       5          263
+##  2 001-0~       1 Accomac~ &quot;0590\xa0&quot; PUNGOTEAGU~ &lt;NA&gt;         SCH-ELEM PK                       5          536
+##  3 001-0~       1 Accomac~ &quot;0600\xa0&quot; KEGOTANK E~ &lt;NA&gt;         SCH-ELEM PK                       5          610
+##  4 001-0~       1 Accomac~ &quot;0701\xa0&quot; ACCAWMACKE~ &lt;NA&gt;         SCH-ELEM PK                       5          490
+##  5 001-0~       1 Accomac~ &quot;0702\xa0&quot; METOMPKIN ~ &lt;NA&gt;         SCH-ELEM PK                       5          585
+##  6 002-0~       2 Albemar~ &quot;0010\xa0&quot; HOLLYMEAD ~ &lt;NA&gt;         SCH-ELEM PK                       5          502
+##  7 002-0~       2 Albemar~ &quot;0030\xa0&quot; SCOTTSVILL~ &lt;NA&gt;         SCH-ELEM PK                       5          187
+##  8 002-0~       2 Albemar~ &quot;0040\xa0&quot; MARY CARR ~ &lt;NA&gt;         SCH-ELEM PK                       5          439
+##  9 002-0~       2 Albemar~ &quot;0100\xa0&quot; BROADUS WO~ &lt;NA&gt;         SCH-ELEM PK                       5          289
+## 10 002-0~       2 Albemar~ &quot;0150\xa0&quot; PAUL H CAL~ &lt;NA&gt;         SCH-ELEM PK                       5          575
+## # ... with 868 more rows, and 127 more variables: total_2008 &lt;dbl&gt;, snp_0809 &lt;chr&gt;, free_elig_0809 &lt;chr&gt;,
+## #   free_per_0809 &lt;chr&gt;, red_elig_0809 &lt;chr&gt;, red_per_0809 &lt;chr&gt;, totalFRL_0809 &lt;dbl&gt;, totalper_0809 &lt;dbl&gt;,
+## #   type0910 &lt;chr&gt;, lowgrade_2009 &lt;chr&gt;, higrade_2009 &lt;chr&gt;, totalFT_2009 &lt;dbl&gt;, total_2009 &lt;dbl&gt;, snp_0910 &lt;chr&gt;,
+## #   free_elig_0910 &lt;chr&gt;, free_per_0910 &lt;chr&gt;, red_elig_0910 &lt;chr&gt;, red_per_0910 &lt;chr&gt;, totalFRL_09010 &lt;dbl&gt;,
+## #   totalper_0910 &lt;dbl&gt;, type1011 &lt;chr&gt;, lowgrade_2010 &lt;chr&gt;, higrade_2010 &lt;chr&gt;, totalFT_2010 &lt;dbl&gt;,
+## #   total_2010 &lt;dbl&gt;, snp_1011 &lt;chr&gt;, free_elig_1011 &lt;chr&gt;, free_per_1011 &lt;chr&gt;, red_elig_1011 &lt;chr&gt;,
+## #   red_per_1011 &lt;chr&gt;, totalFRL_1011 &lt;dbl&gt;, totalper_1011 &lt;dbl&gt;, type1112 &lt;chr&gt;, lowgrade_2011 &lt;chr&gt;,
+## #   higrade_2011 &lt;chr&gt;, totalFT_2011 &lt;dbl&gt;, total_2011 &lt;dbl&gt;, snp_1112 &lt;chr&gt;, free_elig_1112 &lt;chr&gt;,
+## #   free_per_1112 &lt;chr&gt;, red_elig_1112 &lt;chr&gt;, red_per_1112 &lt;chr&gt;, totalFRL_1112 &lt;dbl&gt;, totalper_1112 &lt;dbl&gt;,
+## #   type1213 &lt;chr&gt;, lowgrade_2012 &lt;chr&gt;, higrade_2012 &lt;chr&gt;, totalFT_2012 &lt;dbl&gt;, total_2012 &lt;dbl&gt;, snp_1213 &lt;chr&gt;,
+## #   free_elig_1213 &lt;chr&gt;, free_per_1213 &lt;chr&gt;, red_elig_1213 &lt;chr&gt;, red_per_1213 &lt;chr&gt;, totalFRL_1213 &lt;dbl&gt;,
+## #   totalper_1213 &lt;dbl&gt;, type1314 &lt;chr&gt;, lowgrade_2013 &lt;chr&gt;, higrade_2013 &lt;chr&gt;, totalFT_2013 &lt;dbl&gt;,
+## #   total_2013 &lt;dbl&gt;, snp_1314 &lt;chr&gt;, free_elig_1314 &lt;chr&gt;, free_per_1314 &lt;chr&gt;, red_elig_1314 &lt;chr&gt;,
+## #   red_per_1314 &lt;chr&gt;, totalFRL_1314 &lt;dbl&gt;, totalper_1314 &lt;dbl&gt;, type1415 &lt;chr&gt;, lowgrade_2014 &lt;chr&gt;,
+## #   higrade_2014 &lt;chr&gt;, totalFT_2014 &lt;dbl&gt;, total_2014 &lt;dbl&gt;, snp_1415 &lt;chr&gt;, free_elig_1415 &lt;chr&gt;,
+## #   free_per_1415 &lt;chr&gt;, red_elig_1415 &lt;chr&gt;, red_per_1415 &lt;chr&gt;, totalFRL_1415 &lt;dbl&gt;, totalper_1415 &lt;dbl&gt;,
+## #   CEP_1516 &lt;chr&gt;, type1516 &lt;chr&gt;, lowgrade_2015 &lt;chr&gt;, higrade_2015 &lt;chr&gt;, totalFT_2015 &lt;dbl&gt;, total_2015 &lt;dbl&gt;,
+## #   snp_1516 &lt;chr&gt;, free_elig_1516 &lt;chr&gt;, free_per_1516 &lt;chr&gt;, red_elig_1516 &lt;chr&gt;, red_Per_1516 &lt;chr&gt;,
+## #   totalFRL_1516 &lt;dbl&gt;, totalper_1516 &lt;dbl&gt;, CEP_1617 &lt;chr&gt;, type1617 &lt;chr&gt;, lowgrade_2016 &lt;chr&gt;,
+## #   higrade_2016 &lt;chr&gt;, totalFT_2016 &lt;dbl&gt;, total_2016 &lt;dbl&gt;, snp_2016 &lt;chr&gt;, ...</code></pre>
 </div>
 <div id="grouping-and-summarizing" class="section level2" number="3.7">
 <h2><span class="header-section-number">3.7</span> Grouping and Summarizing</h2>
@@ -891,42 +895,42 @@ Imagine we want to see the county level aggregate numbers for FRL in the 2017-20
 The final result will be stored in our new data frame that we are creating, called county_level_aggregate.</p>
 <p>First, select will pick columns
 Next, group_by and summarize work together to get us our aggregate totals.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb87-1" aria-hidden="true"></a>county_level_aggregate &lt;-<span class="st"> </span>newdf <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb87-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb87-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">select</span>(div_name, total_<span class="dv">2017</span>, totalFRL_<span class="dv">1718</span>) <span class="op">%&gt;%</span></span>
-<span id="cb87-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb87-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(div_name) <span class="op">%&gt;%</span></span>
-<span id="cb87-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb87-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">totalstudents =</span> <span class="kw">sum</span>(total_<span class="dv">2017</span>), </span>
-<span id="cb87-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb87-5" aria-hidden="true"></a>            <span class="dt">totalFRL =</span> <span class="kw">sum</span>(totalFRL_<span class="dv">1718</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb108-1" aria-hidden="true"></a>county_level_aggregate &lt;-<span class="st"> </span>newdf <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb108-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb108-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">select</span>(div_name, total_<span class="dv">2017</span>, totalFRL_<span class="dv">1718</span>) <span class="op">%&gt;%</span></span>
+<span id="cb108-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb108-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(div_name) <span class="op">%&gt;%</span></span>
+<span id="cb108-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb108-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">totalstudents =</span> <span class="kw">sum</span>(total_<span class="dv">2017</span>), </span>
+<span id="cb108-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb108-5" aria-hidden="true"></a>            <span class="dt">totalFRL =</span> <span class="kw">sum</span>(totalFRL_<span class="dv">1718</span>))</span></code></pre></div>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <p>Now, we can compute percentages if we like and we can specify a new column by referring to. One that doesn’t exist yet but will after we run this code. We will do this two interchangeable ways.</p>
 <p>First, the old school way:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb89-1" aria-hidden="true"></a>county_level_aggregate<span class="op">$</span>percent_FRL &lt;-<span class="st"> </span>county_level_aggregate<span class="op">$</span>totalFRL<span class="op">/</span>county_level_aggregate<span class="op">$</span>totalstudents<span class="op">*</span><span class="dv">100</span></span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb110-1" aria-hidden="true"></a>county_level_aggregate<span class="op">$</span>percent_FRL &lt;-<span class="st"> </span>county_level_aggregate<span class="op">$</span>totalFRL<span class="op">/</span>county_level_aggregate<span class="op">$</span>totalstudents<span class="op">*</span><span class="dv">100</span></span></code></pre></div>
 <p>Second, the tidyverse way:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb90-1" aria-hidden="true"></a>county_level_aggregate &lt;-<span class="st"> </span>county_level_aggregate <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb90-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb90-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">percent_frl =</span> totalFRL <span class="op">/</span><span class="st"> </span>totalstudents <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb111-1" aria-hidden="true"></a>county_level_aggregate &lt;-<span class="st"> </span>county_level_aggregate <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb111-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb111-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">percent_frl =</span> totalFRL <span class="op">/</span><span class="st"> </span>totalstudents <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)</span></code></pre></div>
 <p>Just for fun, let’s see how this could have been incorporated into our summarize call</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb91-1" aria-hidden="true"></a>county_level_percents &lt;-<span class="st"> </span>newdf <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb91-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb91-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">select</span>(div_name, total_<span class="dv">2017</span>, totalFRL_<span class="dv">1718</span>) <span class="op">%&gt;%</span></span>
-<span id="cb91-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb91-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(div_name) <span class="op">%&gt;%</span></span>
-<span id="cb91-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb91-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">percentFRL=</span><span class="kw">sum</span>(totalFRL_<span class="dv">1718</span>)<span class="op">/</span><span class="kw">sum</span>(total_<span class="dv">2017</span>) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb112-1" aria-hidden="true"></a>county_level_percents &lt;-<span class="st"> </span>newdf <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb112-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb112-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">select</span>(div_name, total_<span class="dv">2017</span>, totalFRL_<span class="dv">1718</span>) <span class="op">%&gt;%</span></span>
+<span id="cb112-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb112-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(div_name) <span class="op">%&gt;%</span></span>
+<span id="cb112-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb112-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">percentFRL=</span><span class="kw">sum</span>(totalFRL_<span class="dv">1718</span>)<span class="op">/</span><span class="kw">sum</span>(total_<span class="dv">2017</span>) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)</span></code></pre></div>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <p>Something is going to look weird with this plot</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb93-1" aria-hidden="true"></a>newdf <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb93-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb93-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(totalFRL_<span class="dv">0809</span>, totalFT_<span class="dv">2008</span>)) <span class="op">+</span></span>
-<span id="cb93-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb93-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb93-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb93-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;FRL 2008&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;totalFRL_0809&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb114-1" aria-hidden="true"></a>newdf <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb114-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb114-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(totalFRL_<span class="dv">0809</span>, totalFT_<span class="dv">2008</span>)) <span class="op">+</span></span>
+<span id="cb114-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb114-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb114-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb114-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;FRL 2008&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;totalFRL_0809&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning: Removed 236 rows containing missing values (geom_point).</code></pre>
-<p><img src="test_course_notes_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
 <p>Let’s see if we can fix it</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb95-1" aria-hidden="true"></a>newdf <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb95-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb95-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(totalFRL_<span class="dv">0809</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb95-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb95-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(totalFRL_<span class="dv">0809</span>, totalFT_<span class="dv">2008</span>)) <span class="op">+</span></span>
-<span id="cb95-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb95-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb95-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb95-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;FRL 2008&quot;</span>, </span>
-<span id="cb95-6"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb95-6" aria-hidden="true"></a>       <span class="dt">x =</span> <span class="st">&quot;totalFRL_0809&quot;</span>) <span class="op">+</span></span>
-<span id="cb95-7"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb95-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>, <span class="dv">1000</span>) <span class="op">+</span></span>
-<span id="cb95-8"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb95-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">1000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb116-1" aria-hidden="true"></a>newdf <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb116-2"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb116-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(totalFRL_<span class="dv">0809</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb116-3"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb116-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(totalFRL_<span class="dv">0809</span>, totalFT_<span class="dv">2008</span>)) <span class="op">+</span></span>
+<span id="cb116-4"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb116-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb116-5"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb116-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;FRL 2008&quot;</span>, </span>
+<span id="cb116-6"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb116-6" aria-hidden="true"></a>       <span class="dt">x =</span> <span class="st">&quot;totalFRL_0809&quot;</span>) <span class="op">+</span></span>
+<span id="cb116-7"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb116-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>, <span class="dv">1000</span>) <span class="op">+</span></span>
+<span id="cb116-8"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#cb116-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">1000</span>)</span></code></pre></div>
 <pre><code>## Warning: Removed 324 rows containing missing values (geom_point).</code></pre>
-<p><img src="test_course_notes_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
 
 </div>
 </div>

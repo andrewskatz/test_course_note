@@ -191,5 +191,92 @@ prior_survey %>%
 
 
 
+## Some brief stats
 
+In this week's reading, there was also discussion about standard errors and the central limit theorem. These are fairly important theoretical concepts to grasp. To some extent they deal with the scenario where you go out and repeatedly sample from a population and calculate a statistic from each of those samples. The distributions _of that statistic_ is what we will call the sampling distribution (as opposed to the sample distribution, which would more accurately describe the distribution of the data that we get in any one sample that we draw from the population).
+
+
+
+
+### Central Limit Theorem and Standard Error Demo ----
+
+```{r}
+pop_students <- 10000
+
+zoom_min_pop <- rnorm(n = pop_students, mean = 600, sd = 100)
+
+hist(zoom_min_pop)
+
+
+zoom_min_sample <- sample(x = zoom_min_pop,
+                          size = 200,
+                          replace = FALSE)
+
+
+hist(zoom_min_sample)
+mean(zoom_min_sample)
+sd(zoom_min_sample)
+```
+
+As a brief aside, let's review the idea of a loop
+```{r}
+num_reps <- 100
+
+data_vec <- rep(NA, num_reps) # this creates an empty vector of size num_reps with NA in each entry
+
+# this loops through the vector starting at position 1 and ending at the final position (num_reps). For demonstration purposes, we replacing the NA in each entry with the number of that entry (i.e., the NA in the 20th entry is replaced with the number 20)
+
+for (i in 1:num_reps){
+  data_vec[i] <- i
+}
+```
+
+Okay, so that's how we create an empty vector and how we loop through its different entries. For this demo, we will also need to remenber how to generate random numbers from a norm distribution with a specified mean and standard deviation.
+
+```{r}
+rnorm(n = 10, mean = 5, sd = 2) # n is the number of random numbers we draw from this normal distribution
+```
+
+
+Okay, so that's not bad. Now, that command will produce a vector with 10 random numbers. We can calculate the mean and standard deviation of those 10 numbers (which should be close to the values that we specified in `rnorm()` with the `mean()` and `sd()` functions.
+```{r}
+mean(rnorm(n = 10, mean = 5, sd = 2))
+sd(rnorm(n = 10, mean = 5, sd = 2))
+```
+
+
+
+Next, let's act as if we are drawing a certain sample of size `samp_size` of data points for `num_reps` number of times. Keep in mind that, in practice, when we are collecting data ourselves in our own research, num_reps will almost always be 1. We are just demonstrating the underlying assumptions for how we can calculate some of the statistics that we use.
+
+```{r}
+num_reps <- 1000 # specify how many times to take a sample
+samp_size <- 200 # specify the size of each sample
+data_vec <- rep(NA, num_reps) # create an empty vector of size num_reps with NA in each entry.
+for (i in 1:num_reps){
+  data_vec[i] <- mean(rnorm(n = samp_size, mean = 600, sd = 100)) # store the mean of each of the num_rep samples
+}
+```
+
+With this, we have a vector `data_vec` of size `num_reps` with the mean of each of our samples that we drew. This vector contains our sampling distribution of our sample means. **NOTE**: The standard deviation of this sampling mean is what we are calling our _standard error_. 
+
+We can plot a histogram of this sampling distribution and calculate the standard deviation of the sampling mean.
+
+```{r}
+hist(data_vec)
+sd(data_vec)
+```
+
+On your own, try copying this code and changing the num_reps and sample_size variables to larger and smaller values. Focus on how the x-axis values in your histogram change when you change the num_reps and samp_size variables.
+
+Hint: CLT will explain the normal distribution of the sampling mean (the shape you see in the histogram) while the Weak Law of Large Numbers will explain the concentration around the true mean as samp_size increases (i.e., when we draw a larger sample size from the population, our sample mean gets closer to the population mean).
+
+
+```{r}
+## Quick note on the rep() function: notice what happens when you specify "each" vs "times".
+rep(c(1, 2), times = 5)
+
+rep(c(1, 2), each = 5)
+
+
+```
 

@@ -1,3 +1,33 @@
 # Week 4: Assumptions and Correlations
 
-Say "week 4" three times and the notes might appear here...
+This week we will be discussing Chapters 5 and 6 from DSUR. These notes will pull out some of the important pieces from each chapter.
+
+
+## Assumptions
+
+These assumptions 
+
+
+### Normally distributed data
+This assumption is about the normality of the sampling distribution. The big idea here is that we tend to operate under the belief that if our _sampled_ data are normally distributed then the underlying _sampling distribution_ is also normally distributed. Also, keep in mind that this becomes less of a concern as our sample size increases (thank, Central Limit Theorem!). 
+
+There are several tests for normality that we will discuss, which include either (a) calculations or (b) visual examination. We will discuss both.
+
+#### Visual check of normality
+
+
+
+
+### Homogeneity of variance
+
+
+### Interval data
+
+
+### Independence
+
+
+
+
+## Correlation
+
