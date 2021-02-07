@@ -25,5 +25,11 @@ homogeneity-of-variance
 interval-data
 independence
 correlation
+covariance
+correlation-coefficient
+another-worked-example-for-cleaning-and-prelim-analysis
+loading-in-data
+data-prep-and-cleaning
+preliminary-analysis
 week-5-regression-i
 week-6-regression-ii
