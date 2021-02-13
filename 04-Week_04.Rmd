@@ -11,23 +11,27 @@ $x_i \sim \mathcal{N} (\mu, \,\sigma^{2})$
 
 
 ### Normally distributed data
+
 This assumption is about the normality of the sampling distribution. The big idea here is that we tend to operate under the belief that if our _sampled_ data are normally distributed then the underlying _sampling distribution_ is also normally distributed. Also, keep in mind that this becomes less of a concern as our sample size increases (thank, Central Limit Theorem!). 
 
 There are several tests for normality that we will discuss, which include either (a) calculations or (b) visual examination. We will discuss both.
 
 #### Visual check of normality
 
-
+You can accomplish this with a histogram (e.g., `hist()` or `geom_histogram()` or a q-q plot `qplot()` (which stands for quantile-quantile). 
 
 
 ### Homogeneity of variance
 
+Here, you want to know whether the variance of a variable is the same across different groups. For example, if you are looking at test scores in chemistry and chemical engineering students, you want to know if the variances (spread) of the test scores in the chemistry group and the chemical engineering group are close to each other. 
 
 ### Interval data
 
+This might be a little redundant given that we want normally distributed data, but you want at least interval data (ratio data are also fine, but in practice very few things we work with actually qualify as ratio variables). If you have ordinal or nominal variables, you might be in trouble with this assumption...
 
 ### Independence
 
+This assumption is about the observations not being related to each other or affecting each other in some way. In practice, this can also be a little tricky. For example, if you are sampling students from different classrooms, depending on the variables you are measuring, you might actually have reason to believe that students in one classroom are more related to each other than students in a different classroom. In practice, you can handle this with a multi-level model (aka hierarchical model), but that is beyond the scope of this class.
 
 
 
