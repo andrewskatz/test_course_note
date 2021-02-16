@@ -1,6 +1,6 @@
-# Week 5: Regression I
+# Week 5: Simple Regression
 
-Week 5 notes coming soon to an online book near you...
+
 
 
 
@@ -14,7 +14,7 @@ library(broom)
 ```
 
 
-# Week 5 - Simple Regression
+
 
 
 This week we will start learning about linear regression. In particular, we focus on simple regression. These kinds of models involve one predictor variable and one continuous outcome variable. Next week we will move to models with multiple regression, which involves - you guessed it - multiple predictor variables. 
@@ -95,7 +95,7 @@ This final plot should remind you have the standard normal plot (with mean 0 and
 
 
 
-## data generation demo - one set sample size ##########
+## Data generation demo - one set sample size ##########
 The following is a demo from class, found in the week_5_demo.R file
 
 
@@ -788,7 +788,7 @@ summary(fit_demo_min)
 
 ```
 
-# can also look at model results with the glance() function from the broom package
+We can also look at model results with the glance() function from the broom package
 
 ```{r}
 

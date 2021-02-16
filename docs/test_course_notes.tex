@@ -5,12 +5,13 @@
 \documentclass[
 ]{book}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
+\usepackage{amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
+  \usepackage{amssymb}
 \else % if luatex or xetex
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
@@ -37,7 +38,7 @@
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
   pdftitle={ENGE 5714 Course Notes 2021},
-  pdfauthor={A. Katz},
+  pdfauthor={Dr.~Katz},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
@@ -82,6 +83,7 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs}
+\usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
 \makeatletter
@@ -108,6 +110,20 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
 \usepackage{booktabs}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 \ifluatex
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -115,8 +131,8 @@
 \bibliographystyle{apalike}
 
 \title{ENGE 5714 Course Notes 2021}
-\author{A. Katz}
-\date{2021-02-04}
+\author{Dr.~Katz}
+\date{2021-02-16}
 
 \begin{document}
 \maketitle
@@ -125,35 +141,65 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
-The following are notes for ENGE 5714 in Spring 2021.
+\hypertarget{preamble}{%
+\chapter*{Preamble}\label{preamble}}
+\addcontentsline{toc}{chapter}{Preamble}
 
-\hypertarget{intro}{%
-\chapter{Week 1}\label{intro}}
+This book will be a living document of notes for ENGE 5714 - Quantitative Research Methods in Engineering Education. I will try to keep it updated and post alerts about updates in our course Slack workspace.
+
+\hypertarget{week-1-introductions}{%
+\chapter{Week 1: Introductions}\label{week-1-introductions}}
 
 In week one we just reviewed some of the materials from the fall semester. By the end we discussed R and RStudio, but this first week was primarily about getting to know each other and the outline of the course.
 
-\hypertarget{week-2---intro-stats-data-distributions-intro-r-rstudio}{%
-\chapter{Week 2 - Intro stats, Data \& Distributions, Intro R \& RStudio}\label{week-2---intro-stats-data-distributions-intro-r-rstudio}}
+\hypertarget{week-2-intro-stats-data-distributions-intro-r-rstudio}{%
+\chapter{Week 2: Intro stats, Data \& Distributions, Intro R \& RStudio}\label{week-2-intro-stats-data-distributions-intro-r-rstudio}}
 
-Here is a review of existing methods.
+This week, we discuss some very basic ideas related to statistics, data, and working in R.
 
-\hypertarget{very-basics}{%
-\section{Very basics}\label{very-basics}}
+\hypertarget{first-steps-in-r}{%
+\section{First steps in R}\label{first-steps-in-r}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x \textless{}{-}}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
-\NormalTok{y \textless{}{-}}\StringTok{ }\DecValTok{2}\OperatorTok{*}\StringTok{ }\NormalTok{x }\OperatorTok{+}\StringTok{ }\DecValTok{3}
-\end{Highlighting}
-\end{Shaded}
+We can create a new variable by assigning it a value with the \texttt{\textless{}-} operator. Let's create a vector of numbers 1 to 10 with the \texttt{seq()} function and then a separate vector that takes each of the x values, multiplies it by 2, and adds 3.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(x, y)}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{)}
+\NormalTok{y }\OtherTok{\textless{}{-}} \DecValTok{2}\SpecialCharTok{*}\NormalTok{ x }\SpecialCharTok{+} \DecValTok{3}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-2-1.pdf}
+Just to make sure everything worked as expected, we can then just type \texttt{x} and \texttt{y} and R will print their values. We could also look in the ``environment'' window to see whether those variables (and their expected values) were actually created.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  1  2  3  4  5  6  7  8  9 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  5  7  9 11 13 15 17 19 21 23
+\end{verbatim}
+
+So far, so good. If we want to quickly visualize this, we could create a simple scatter plot with the \texttt{plot()} command (note: we will come back to plotting data much more in week 3).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x, y)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-3-1.pdf}
 
 \hypertarget{getting-your-r-environment-set-up}{%
 \section{Getting your R environment set up}\label{getting-your-r-environment-set-up}}
@@ -168,12 +214,12 @@ with this installed, you can then load the package using the library() function
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## -- Attaching packages ----------------------------------- tidyverse 1.3.0 --
+## -- Attaching packages --------------------------------------------------- tidyverse 1.3.0 --
 \end{verbatim}
 
 \begin{verbatim}
@@ -184,14 +230,14 @@ with this installed, you can then load the package using the library() function
 \end{verbatim}
 
 \begin{verbatim}
-## -- Conflicts -------------------------------------- tidyverse_conflicts() --
+## -- Conflicts ------------------------------------------------------ tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(janitor)}
+\FunctionTok{library}\NormalTok{(janitor)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -212,7 +258,7 @@ with this installed, you can then load the package using the library() function
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(psych)}
+\FunctionTok{library}\NormalTok{(psych)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -230,24 +276,66 @@ with this installed, you can then load the package using the library() function
 \hypertarget{reading-in-data}{%
 \section{Reading in data}\label{reading-in-data}}
 
-A good first step is to check which directory you are working in with the getwd() function
+A good first step when working in R is to check which directory you are working in with the \texttt{getwd()} function. You should get a directory in response.
 
-\texttt{getwd()}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{getwd}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "C:/Users/akatz4/Desktop/test_course_note"
+\end{verbatim}
 
 You can also check which files are in that directory with \texttt{list.files()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{list.files}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "_book"                                                                 
+##  [2] "_bookdown.yml"                                                         
+##  [3] "_bookdown_files"                                                       
+##  [4] "_output.yml"                                                           
+##  [5] "01-Week_01.Rmd"                                                        
+##  [6] "02-Week_02.Rmd"                                                        
+##  [7] "03-Week_03.Rmd"                                                        
+##  [8] "04-Week_04.Rmd"                                                        
+##  [9] "05-Week_05.Rmd"                                                        
+## [10] "06-Week_06.Rmd"                                                        
+## [11] "book.bib"                                                              
+## [12] "docs"                                                                  
+## [13] "ENGE_5714_2021_pre_survey.csv"                                         
+## [14] "Free Reduced Lunch by Schools and Grade Structures 2008-2017_final.csv"
+## [15] "index.Rmd"                                                             
+## [16] "packages.bib"                                                          
+## [17] "preamble.tex"                                                          
+## [18] "README.md"                                                             
+## [19] "RExam.dat"                                                             
+## [20] "seniorsurvey.csv"                                                      
+## [21] "style.css"                                                             
+## [22] "survey_student_info.csv"                                               
+## [23] "test_course_note.Rproj"                                                
+## [24] "test_course_notes.Rmd"                                                 
+## [25] "test_course_notes_files"
+\end{verbatim}
 
 If you notice that the file you are looking for is not there, then you can use setwd() to change your working directory
 
 \texttt{setwd("./Week\ 2/")}
 
 After that, make sure you have switched to the correct working directory
-\texttt{getwd()} and then \texttt{list.files()}
+\texttt{getwd()} and then \texttt{list.files()}.
 
-Assuming you have directed yourself to the correct place, you can now read in the file(s) that you want to be working with.
+Assuming you have directed yourself to the correct place, you can now read in the file(s) that you want to be working with. There are a \emph{lot} of ways to do this. Since we will be spending a lot of time in class working with .csv files, we will focus on using the \texttt{read\_csv()} function from the readr package (part of the tidyverse collection of packages). This function will read in the .csv file and store the data as a tibble (a tidyverse version of a data frame, which we can think of as a collection of observations stored in rows with values for variables for each observation stored in columns).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{prior\_survey \textless{}{-}}\StringTok{ }\KeywordTok{read\_csv}\NormalTok{(}\StringTok{"ENGE\_5714\_2021\_pre\_survey.csv"}\NormalTok{)}
+\NormalTok{prior\_survey }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"ENGE\_5714\_2021\_pre\_survey.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -266,7 +354,7 @@ Assuming you have directed yourself to the correct place, you can now read in th
 \hypertarget{exploring-the-data}{%
 \section{Exploring the data}\label{exploring-the-data}}
 
-Take a look at the csv
+Now that we have loaded in the data, let's take a look at the csv. If we just run a line with the name of the tibble - i.e., \texttt{prior\_survey} then we should receive a printout that shows the first several rows of that tibble and a listing of all the columns, along with the data types (i.e., double for numeric values, character for strings, etc) of each column.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -326,28 +414,87 @@ Take a look at the csv
 ## #   R before` <chr>
 \end{verbatim}
 
-Next, try cleaning the column names with \texttt{clean\_names()} from the janitor package.
+When we do this, we see that there are a bunch of columns that have spaces in their names. This is okay (in the sense that R can handle this), but it can be a little frustrating to work with. Let's try cleaning the column names with \texttt{clean\_names()} from the janitor package. This function will replace the spaces in the column names with underscores and make everything lower case. So, a column name like ``I have take a statistics course before'' will be changed to ``i\_have\_taken\_a\_statistics\_course\_before''.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{prior\_survey \textless{}{-}}\StringTok{ }\NormalTok{prior\_survey }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{clean\_names}\NormalTok{() }\CommentTok{\# from janitor package}
+\NormalTok{prior\_survey }\OtherTok{\textless{}{-}}\NormalTok{ prior\_survey }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{clean\_names}\NormalTok{() }\CommentTok{\# from janitor package}
+\end{Highlighting}
+\end{Shaded}
 
-\NormalTok{prior\_survey}\OperatorTok{$}\StringTok{\textasciigrave{}}\DataTypeTok{I have heard the term "non{-}parametric statistics" before}\StringTok{\textasciigrave{}}
+Look at the data in prior\_survey again and see if anything looks different (hint: it should).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{prior\_survey}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## Warning: Unknown or uninitialised column: `I have heard the term "non-parametric
-## statistics" before`.
+## # A tibble: 24 x 49
+##    student_id i_have_taken_a_~ i_am_interested~ i_know_what_a_t~
+##         <dbl> <chr>            <chr>            <chr>           
+##  1          1 Somewhat disagr~ Somewhat agree   Strongly disagr~
+##  2          2 Strongly disagr~ Neither agree n~ Somewhat agree  
+##  3          3 Strongly disagr~ Somewhat agree   Somewhat agree  
+##  4          4 Somewhat disagr~ Strongly agree   Strongly disagr~
+##  5          5 Somewhat agree   Strongly agree   Somewhat agree  
+##  6          6 Somewhat disagr~ Somewhat agree   Somewhat disagr~
+##  7          7 Strongly disagr~ Somewhat agree   Strongly disagr~
+##  8          8 Somewhat agree   Somewhat agree   Somewhat agree  
+##  9          9 Strongly disagr~ Strongly agree   Somewhat agree  
+## 10         10 Neither agree n~ Strongly agree   Somewhat agree  
+## # ... with 14 more rows, and 45 more variables:
+## #   i_know_what_a_type_ii_error_is <chr>,
+## #   i_know_what_a_statistical_confidence_level_is <chr>,
+## #   i_know_what_a_p_value_is <chr>, i_know_what_p_hacking_means <chr>,
+## #   i_know_what_statistical_power_means <chr>,
+## #   i_have_heard_of_frequentist_statistics_before <chr>,
+## #   i_have_heard_of_bayesian_statistics_before <chr>,
+## #   i_have_heard_the_term_parametric_statistics_before <chr>,
+## #   i_have_heard_the_term_non_parametric_statistics_before <chr>,
+## #   i_know_what_a_histogram_is <chr>,
+## #   i_know_what_a_probability_distribution_is <chr>,
+## #   i_know_what_a_random_variable_is <chr>,
+## #   i_know_what_a_probability_distribution_function_is <chr>,
+## #   i_know_what_a_cumulative_distribution_function_is <chr>,
+## #   i_know_what_the_expectation_of_a_random_variable_is <chr>,
+## #   i_know_how_to_calculate_the_variance_of_a_random_variable <chr>,
+## #   i_know_what_a_z_score_is <chr>,
+## #   i_know_how_to_calculate_the_correlation_between_two_variables <chr>,
+## #   i_know_how_to_interpret_the_correlation_coefficient_between_two_variables <chr>,
+## #   i_have_heard_of_linear_regression <chr>,
+## #   i_know_how_to_run_a_linear_regression_in_some_software_or_by_hand_if_im_feeling_wild <chr>,
+## #   i_know_how_to_interpret_a_linear_regression <chr>,
+## #   i_have_heard_of_multiple_regression <chr>,
+## #   i_know_how_to_perform_a_multiple_regression <chr>,
+## #   i_know_how_to_interpret_a_multiple_regression <chr>,
+## #   i_have_heard_of_logistic_regression <chr>,
+## #   i_understand_when_to_use_a_logistic_regression <chr>,
+## #   i_know_how_to_interpret_the_results_of_a_logistic_regression <chr>,
+## #   i_have_heard_of_t_tests <chr>, i_have_performed_a_t_test_before <chr>,
+## #   i_know_how_to_interpret_the_results_of_a_t_test <chr>,
+## #   i_have_heard_of_analysis_of_variance <chr>,
+## #   i_understand_when_to_run_an_analysis_of_variance_anova <chr>,
+## #   i_know_how_to_interpret_the_results_from_an_anova <chr>,
+## #   i_have_heard_of_a_chi_square_test <chr>,
+## #   i_have_used_a_chi_square_test_before <chr>,
+## #   i_know_how_to_interpret_the_results_of_a_chi_square_test <chr>,
+## #   i_have_heard_of_cluster_analysis_before <chr>,
+## #   i_have_used_cluster_analysis_before <chr>,
+## #   i_know_how_to_interpret_the_results_of_a_cluster_analysis <chr>,
+## #   i_have_heard_of_factor_analysis_either_exploratory_or_confirmatory <chr>,
+## #   i_have_used_factor_analysis_either_exploratory_or_confirmatory <chr>,
+## #   i_know_how_to_interpret_the_results_of_a_factor_analysis_either_exploratory_or_confirmatory <chr>,
+## #   i_already_have_r_and_rstudio_downloaded_to_my_computer <chr>,
+## #   i_have_used_r_before <chr>
 \end{verbatim}
 
-\begin{verbatim}
-## NULL
-\end{verbatim}
+One other function that will we see more in the future is the \texttt{table()} function, which will create a table with the counts of the values for a variable. For example, if we wanted to quickly know how students answered the ``I have taken a quantitative research methods course before'' question, we can run the following:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{table}\NormalTok{(prior\_survey}\OperatorTok{$}\NormalTok{i\_have\_taken\_a\_quantitative\_research\_methods\_course\_before)}
+\FunctionTok{table}\NormalTok{(prior\_survey}\SpecialCharTok{$}\NormalTok{i\_have\_taken\_a\_quantitative\_research\_methods\_course\_before)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -364,32 +511,34 @@ Next, try cleaning the column names with \texttt{clean\_names()} from the janito
 \hypertarget{plotting-data}{%
 \section{Plotting data}\label{plotting-data}}
 
+We will discuss plotting more next week, but here is a brief preview of what's to come\ldots{}
+
 There are multiple ways to plot data. Focusing on using ggplot, here are two.
 
 The first way passes the prior\_survey dataframe explicitly to ggplot
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ prior\_survey, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ i\_know\_what\_a\_type\_i\_error\_is)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_bar}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{coord\_flip}\NormalTok{()}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ prior\_survey, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ i\_know\_what\_a\_type\_i\_error\_is)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-7-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-12-1.pdf}
 
 The second way does this implicitly, using the pipe operator. Note that the results should be the same.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{prior\_survey }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ i\_know\_what\_a\_type\_i\_error\_is)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_bar}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{coord\_flip}\NormalTok{()}
+\NormalTok{prior\_survey }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ i\_know\_what\_a\_type\_i\_error\_is)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-8-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-13-1.pdf}
 
 If we wanted to get extra fancy, we could first convert the data from a wide format to a long format and then start plotting all the items together.
 
@@ -397,8 +546,8 @@ Converting to long format would produce something like this:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{prior\_survey }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{gather}\NormalTok{(}\DataTypeTok{key =} \StringTok{"survey\_item"}\NormalTok{, }\DataTypeTok{value =} \StringTok{"survey\_response"}\NormalTok{)}
+\NormalTok{prior\_survey }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{gather}\NormalTok{(}\AttributeTok{key =} \StringTok{"survey\_item"}\NormalTok{, }\AttributeTok{value =} \StringTok{"survey\_response"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -423,12 +572,12 @@ Then we can combine that with the \texttt{group\_by()} and \texttt{summarize()} 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{prior\_survey }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{gather}\NormalTok{(}\DataTypeTok{key =} \StringTok{"survey\_item"}\NormalTok{, }\DataTypeTok{value =} \StringTok{"survey\_response"}\NormalTok{) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{group\_by}\NormalTok{(survey\_item, survey\_response) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ survey\_response, }\DataTypeTok{y =}\NormalTok{ survey\_item, }\DataTypeTok{fill =}\NormalTok{ n)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_tile}\NormalTok{()}
+\NormalTok{prior\_survey }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{gather}\NormalTok{(}\AttributeTok{key =} \StringTok{"survey\_item"}\NormalTok{, }\AttributeTok{value =} \StringTok{"survey\_response"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(survey\_item, survey\_response) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ survey\_response, }\AttributeTok{y =}\NormalTok{ survey\_item, }\AttributeTok{fill =}\NormalTok{ n)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_tile}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -436,7 +585,7 @@ Then we can combine that with the \texttt{group\_by()} and \texttt{summarize()} 
 ## `summarise()` regrouping output by 'survey_item' (override with `.groups` argument)
 \end{verbatim}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-10-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-15-1.pdf}
 
 This plot is okay for giving a general sense of what is going on in these plots but there are a bunch of other ways to go about doing this.
 
@@ -444,13 +593,13 @@ First, maybe we want to rename the response categories to a numerical scale. We 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{prior\_survey \textless{}{-}}\StringTok{ }\NormalTok{prior\_survey }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{gather}\NormalTok{(}\DataTypeTok{key =} \StringTok{"survey\_item"}\NormalTok{, }\DataTypeTok{value =} \StringTok{"survey\_response"}\NormalTok{) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{survey\_response\_num =} \KeywordTok{case\_when}\NormalTok{(survey\_response }\OperatorTok{==}\StringTok{ "Strongly disagree"} \OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{0}\NormalTok{,}
-\NormalTok{                                         survey\_response }\OperatorTok{==}\StringTok{ "Somewhat disagree"} \OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1}\NormalTok{,}
-\NormalTok{                                         survey\_response }\OperatorTok{==}\StringTok{ "Neither agree nor disagree"} \OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{2}\NormalTok{,}
-\NormalTok{                                         survey\_response }\OperatorTok{==}\StringTok{ "Somewhat agree"} \OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{3}\NormalTok{,}
-\NormalTok{                                         survey\_response }\OperatorTok{==}\StringTok{ "Strongly agree"} \OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{4}\NormalTok{,}
+\NormalTok{prior\_survey }\OtherTok{\textless{}{-}}\NormalTok{ prior\_survey }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{gather}\NormalTok{(}\AttributeTok{key =} \StringTok{"survey\_item"}\NormalTok{, }\AttributeTok{value =} \StringTok{"survey\_response"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{survey\_response\_num =} \FunctionTok{case\_when}\NormalTok{(survey\_response }\SpecialCharTok{==} \StringTok{"Strongly disagree"} \SpecialCharTok{\textasciitilde{}} \DecValTok{0}\NormalTok{,}
+\NormalTok{                                         survey\_response }\SpecialCharTok{==} \StringTok{"Somewhat disagree"} \SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{,}
+\NormalTok{                                         survey\_response }\SpecialCharTok{==} \StringTok{"Neither agree nor disagree"} \SpecialCharTok{\textasciitilde{}} \DecValTok{2}\NormalTok{,}
+\NormalTok{                                         survey\_response }\SpecialCharTok{==} \StringTok{"Somewhat agree"} \SpecialCharTok{\textasciitilde{}} \DecValTok{3}\NormalTok{,}
+\NormalTok{                                         survey\_response }\SpecialCharTok{==} \StringTok{"Strongly agree"} \SpecialCharTok{\textasciitilde{}} \DecValTok{4}\NormalTok{,}
 \NormalTok{                                         )) }
 \end{Highlighting}
 \end{Shaded}
@@ -459,11 +608,11 @@ Then we plot the same data but with the numerical scale along the x-axis.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{prior\_survey }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{group\_by}\NormalTok{(survey\_item, survey\_response\_num) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ survey\_response\_num, }\DataTypeTok{y =}\NormalTok{ survey\_item, }\DataTypeTok{fill =}\NormalTok{ n)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_tile}\NormalTok{()}
+\NormalTok{prior\_survey }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(survey\_item, survey\_response\_num) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ survey\_response\_num, }\AttributeTok{y =}\NormalTok{ survey\_item, }\AttributeTok{fill =}\NormalTok{ n)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_tile}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -475,38 +624,217 @@ Then we plot the same data but with the numerical scale along the x-axis.
 ## Warning: Removed 3 rows containing missing values (geom_tile).
 \end{verbatim}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-12-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-17-1.pdf}
 
-\hypertarget{week-3---data-cleaning-organizing-describing-and-communicating}{%
-\chapter{Week 3 - Data Cleaning, Organizing, Describing, and Communicating}\label{week-3---data-cleaning-organizing-describing-and-communicating}}
+\hypertarget{some-brief-stats}{%
+\section{Some brief stats}\label{some-brief-stats}}
 
-\hypertarget{one-continuous-variable-either-predictor-or-outcome-variable}{%
-\section{One continuous variable (either predictor or outcome variable)}\label{one-continuous-variable-either-predictor-or-outcome-variable}}
+In this week's reading, there was also discussion about standard errors and the central limit theorem. These are fairly important theoretical concepts to grasp. To some extent they deal with the scenario where you go out and repeatedly sample from a population and calculate a statistic from each of those samples. The distributions \emph{of that statistic} is what we will call the sampling distribution (as opposed to the sample distribution, which would more accurately describe the distribution of the data that we get in any one sample that we draw from the population).
+
+\hypertarget{central-limit-theorem-and-standard-error-demo--}{%
+\subsection{Central Limit Theorem and Standard Error Demo ----}\label{central-limit-theorem-and-standard-error-demo--}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{num \textless{}{-}}\StringTok{ }\DecValTok{50}
-\NormalTok{mu \textless{}{-}}\StringTok{ }\DecValTok{5}
-\NormalTok{stdev \textless{}{-}}\StringTok{ }\DecValTok{2}
+\NormalTok{pop\_students }\OtherTok{\textless{}{-}} \DecValTok{10000}
 
-\NormalTok{x \textless{}{-}}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ num, }\DataTypeTok{mean =}\NormalTok{ mu, }\DataTypeTok{sd =}\NormalTok{ stdev)}
-\KeywordTok{hist}\NormalTok{(x)}
+\NormalTok{zoom\_min\_pop }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ pop\_students, }\AttributeTok{mean =} \DecValTok{600}\NormalTok{, }\AttributeTok{sd =} \DecValTok{100}\NormalTok{)}
+
+\FunctionTok{hist}\NormalTok{(zoom\_min\_pop)}
 \end{Highlighting}
 \end{Shaded}
 
-You can also do this using ggplot rather than base R graphics
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-18-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{num \textless{}{-}}\StringTok{ }\DecValTok{50}
-\NormalTok{mu \textless{}{-}}\StringTok{ }\DecValTok{5}
-\NormalTok{stdev \textless{}{-}}\StringTok{ }\DecValTok{2}
+\NormalTok{zoom\_min\_sample }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\AttributeTok{x =}\NormalTok{ zoom\_min\_pop,}
+                          \AttributeTok{size =} \DecValTok{200}\NormalTok{,}
+                          \AttributeTok{replace =} \ConstantTok{FALSE}\NormalTok{)}
 
-\NormalTok{x\_vec \textless{}{-}}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ num, }\DataTypeTok{mean =}\NormalTok{ mu, }\DataTypeTok{sd =}\NormalTok{ stdev)}
-\NormalTok{x\_df \textless{}{-}}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{x\_col =}\NormalTok{ x\_vec)}
 
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ x\_df, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_histogram}\NormalTok{()}
+\FunctionTok{hist}\NormalTok{(zoom\_min\_sample)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-18-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(zoom\_min\_sample)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 599.6767
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sd}\NormalTok{(zoom\_min\_sample)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 100.8203
+\end{verbatim}
+
+As a brief aside, let's review the idea of a loop
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{num\_reps }\OtherTok{\textless{}{-}} \DecValTok{100}
+
+\NormalTok{data\_vec }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, num\_reps) }\CommentTok{\# this creates an empty vector of size num\_reps with NA in each entry}
+
+\CommentTok{\# this loops through the vector starting at position 1 and ending at the final position (num\_reps). For demonstration purposes, we replacing the NA in each entry with the number of that entry (i.e., the NA in the 20th entry is replaced with the number 20)}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{num\_reps)\{}
+\NormalTok{  data\_vec[i] }\OtherTok{\textless{}{-}}\NormalTok{ i}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Okay, so that's how we create an empty vector and how we loop through its different entries. For this demo, we will also need to remenber how to generate random numbers from a norm distribution with a specified mean and standard deviation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{, }\AttributeTok{mean =} \DecValTok{5}\NormalTok{, }\AttributeTok{sd =} \DecValTok{2}\NormalTok{) }\CommentTok{\# n is the number of random numbers we draw from this normal distribution}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 6.087313 5.135112 4.883394 3.267231 5.729493 2.639171 4.271634 5.450025
+##  [9] 0.766896 6.309798
+\end{verbatim}
+
+Okay, so that's not bad. Now, that command will produce a vector with 10 random numbers. We can calculate the mean and standard deviation of those 10 numbers (which should be close to the values that we specified in \texttt{rnorm()} with the \texttt{mean()} and \texttt{sd()} functions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{, }\AttributeTok{mean =} \DecValTok{5}\NormalTok{, }\AttributeTok{sd =} \DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4.627293
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sd}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{, }\AttributeTok{mean =} \DecValTok{5}\NormalTok{, }\AttributeTok{sd =} \DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.63701
+\end{verbatim}
+
+Next, let's act as if we are drawing a certain sample of size \texttt{samp\_size} of data points for \texttt{num\_reps} number of times. Keep in mind that, in practice, when we are collecting data ourselves in our own research, num\_reps will almost always be 1. We are just demonstrating the underlying assumptions for how we can calculate some of the statistics that we use.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{num\_reps }\OtherTok{\textless{}{-}} \DecValTok{1000} \CommentTok{\# specify how many times to take a sample}
+\NormalTok{samp\_size }\OtherTok{\textless{}{-}} \DecValTok{200} \CommentTok{\# specify the size of each sample}
+\NormalTok{data\_vec }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, num\_reps) }\CommentTok{\# create an empty vector of size num\_reps with NA in each entry.}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{num\_reps)\{}
+\NormalTok{  data\_vec[i] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ samp\_size, }\AttributeTok{mean =} \DecValTok{600}\NormalTok{, }\AttributeTok{sd =} \DecValTok{100}\NormalTok{)) }\CommentTok{\# store the mean of each of the num\_rep samples}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+With this, we have a vector \texttt{data\_vec} of size \texttt{num\_reps} with the mean of each of our samples that we drew. This vector contains our sampling distribution of our sample means. \textbf{NOTE}: The standard deviation of this sampling mean is what we are calling our \emph{standard error}.
+
+We can plot a histogram of this sampling distribution and calculate the standard deviation of the sampling mean.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(data\_vec)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-23-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sd}\NormalTok{(data\_vec)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6.865372
+\end{verbatim}
+
+On your own, try copying this code and changing the num\_reps and sample\_size variables to larger and smaller values. Focus on how the x-axis values in your histogram change when you change the num\_reps and samp\_size variables.
+
+Hint: CLT will explain the normal distribution of the sampling mean (the shape you see in the histogram) while the Weak Law of Large Numbers will explain the concentration around the true mean as samp\_size increases (i.e., when we draw a larger sample size from the population, our sample mean gets closer to the population mean).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Quick note on the rep() function: notice what happens when you specify "each" vs "times".}
+\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{times =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 1 2 1 2 1 2 1 2 1 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{each =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 1 1 1 1 1 2 2 2 2 2
+\end{verbatim}
+
+\hypertarget{week-3-data-cleaning-organizing-describing-and-communicating}{%
+\chapter{Week 3: Data Cleaning, Organizing, Describing, and Communicating}\label{week-3-data-cleaning-organizing-describing-and-communicating}}
+
+This week we focus on different steps you will often take when you first start working with your data. These tend to fall under the umbrella of ``data processing'' and often need to happen before you can start doing any kind of analysis.
+
+\hypertarget{visualizing-your-data}{%
+\section{Visualizing your data}\label{visualizing-your-data}}
+
+Once your data have been clearned, you are ready to start visualizing what you are working with. There is a huge range of what you can do with these plots. That's great! On the other hand, it can quickly start to feel overwhelming. To help get this under control and make it more manageable, it is convenient to think about the \emph{types} of data that you have. In particular, are your variables nominal, ordinal, interval, or ratio variables?
+
+\hypertarget{one-continuous-variable-either-predictor-or-outcome-variable}{%
+\subsection{One continuous variable (either predictor or outcome variable)}\label{one-continuous-variable-either-predictor-or-outcome-variable}}
+
+When you have one continuous variable, a standard option is to plot a histogram. These are plots that show the frequency of each of the values that the variable takes. Oftentimes it is helpful to create bins of values so that any number that falls in the 0-4 range counts in one bin, numbers from 5-9 are in a second bin, and so on.
+
+For this example, we will start by generating some data using \texttt{rnorm()}, which generates a random number (or in our case, \texttt{num} numbers) from a normal distribution with mean \texttt{mu} and standard deviation \texttt{stdev}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{num }\OtherTok{\textless{}{-}} \DecValTok{50}
+\NormalTok{mu }\OtherTok{\textless{}{-}} \DecValTok{5}
+\NormalTok{stdev }\OtherTok{\textless{}{-}} \DecValTok{2}
+
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ num, }\AttributeTok{mean =}\NormalTok{ mu, }\AttributeTok{sd =}\NormalTok{ stdev)}
+\end{Highlighting}
+\end{Shaded}
+
+With these data generated, we can then quickly plot the histogram with \texttt{hist()}. This will use base R graphics.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-25-1.pdf}
+
+You can also do this using ggplot rather than base R graphics.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x\_df }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{x\_col =}\NormalTok{ x)}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ x\_df, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x\_col)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -516,73 +844,89 @@ You can also do this using ggplot rather than base R graphics
 
 \includegraphics{test_course_notes_files/figure-latex/ggplot-hist-1.pdf}
 
-You can use geom\_density() instead of geom\_histogram() to get a smooth graph
+The histogram is a very standard plot, and you should consider it a go-to option in your toolkit. Alternatively, you can use geom\_density() instead of geom\_histogram() to get a smooth graph rather than one with discrete bins. We will use the same data that we generated before.
+
+We will write this two ways to demnostrate how the pipe \texttt{\%\textgreater{}\%} operator works.
+
+First way:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{num \textless{}{-}}\StringTok{ }\DecValTok{50}
-\NormalTok{mu \textless{}{-}}\StringTok{ }\DecValTok{5}
-\NormalTok{stdev \textless{}{-}}\StringTok{ }\DecValTok{2}
-
-\NormalTok{x\_vec \textless{}{-}}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ num, }\DataTypeTok{mean =}\NormalTok{ mu, }\DataTypeTok{sd =}\NormalTok{ stdev)}
-\NormalTok{x\_df \textless{}{-}}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{x\_col =}\NormalTok{ x\_vec)}
-
-
-
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ x\_df, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x\_col)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_density}\NormalTok{()}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ x\_df, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x\_col)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-13-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-26-1.pdf}
+
+Second way:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x\_df }\OperatorTok{\%\textgreater{}\%}
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x\_col)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_density}\NormalTok{()}
+\NormalTok{x\_df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x\_col)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-13-2.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x\_df }\OperatorTok{\%\textgreater{}\%}
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(x\_col)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_density}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-13-3.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-27-1.pdf}
 
 Just for fun, look at what happens to the the plot if you increase the sample size
 
+First, we will generate the data with a sample size of 5,000 rather than 50.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{num \textless{}{-}}\StringTok{ }\DecValTok{5000}
-\NormalTok{mu \textless{}{-}}\StringTok{ }\DecValTok{5}
-\NormalTok{stdev \textless{}{-}}\StringTok{ }\DecValTok{2}
+\NormalTok{num }\OtherTok{\textless{}{-}} \DecValTok{5000}
+\NormalTok{mu }\OtherTok{\textless{}{-}} \DecValTok{5}
+\NormalTok{stdev }\OtherTok{\textless{}{-}} \DecValTok{2}
 
-\NormalTok{x\_vec \textless{}{-}}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ num, }\DataTypeTok{mean =}\NormalTok{ mu, }\DataTypeTok{sd =}\NormalTok{ stdev)}
-\NormalTok{x\_df \textless{}{-}}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{x\_col =}\NormalTok{ x\_vec)}
-
-
-
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ x\_df, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x\_col)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_density}\NormalTok{()}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ num, }\AttributeTok{mean =}\NormalTok{ mu, }\AttributeTok{sd =}\NormalTok{ stdev)}
+\NormalTok{x\_df }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{x\_col =}\NormalTok{ x)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-14-1.pdf}
-
-\hypertarget{one-discrete-variable-either-predictor-or-outcome}{%
-\section{One Discrete Variable (either predictor or outcome)}\label{one-discrete-variable-either-predictor-or-outcome}}
+Then we will plot the histogram
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\#\# load in the data}
-\NormalTok{survey\_df \textless{}{-}}\StringTok{ }\KeywordTok{read\_csv}\NormalTok{(}\StringTok{"ENGE\_5714\_2021\_pre\_survey.csv"}\NormalTok{)}
+\NormalTok{x\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x\_col)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"x value"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Count"}\NormalTok{,}
+       \AttributeTok{title =} \StringTok{"Histogram of normal distribution with n = 5000, mu = 5, sd = 2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-29-1.pdf}
+
+And, finally, we can make the density plot instead of the histogram, if that's our jam.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ x\_df, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x\_col)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-30-1.pdf}
+
+\hypertarget{one-discrete-variable-either-predictor-or-outcome}{%
+\subsection{One Discrete Variable (either predictor or outcome)}\label{one-discrete-variable-either-predictor-or-outcome}}
+
+What if instead of a continuous (i.e., interval or ratio) variable we have a discrete variable such as a nominal (e.g., major, university) or ordinal (e.g., Likert scale item, level of education) variable? For that we can use something like \texttt{geom\_bar()} or \texttt{geom\_col()} to plot the counts of observations within each of those categories.
+
+To demonstrate this, we first need some data to work with. We will use the pre-semester, prior knowledge survey that everyone took. I have combined this year's results with last year's results in order to increase the sample size. After reading in the data, I will also use the \texttt{clean\_names()} function from the \texttt{janitor} package.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# load in the data}
+\NormalTok{survey\_df }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"ENGE\_5714\_2021\_pre\_survey.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -600,52 +944,59 @@ Just for fun, look at what happens to the the plot if you increase the sample si
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{survey\_df \textless{}{-}}\StringTok{ }\NormalTok{survey\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{clean\_names}\NormalTok{()}
+\NormalTok{survey\_df }\OtherTok{\textless{}{-}}\NormalTok{ survey\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{clean\_names}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
+Next, we can go ahead and make a bar plot with the following code:
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{survey\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ i\_have\_taken\_a\_quantitative\_research\_methods\_course\_before)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_bar}\NormalTok{()}
+\NormalTok{survey\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ i\_have\_taken\_a\_quantitative\_research\_methods\_course\_before)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \includegraphics{test_course_notes_files/figure-latex/geom-bar-1.pdf}
 
-Notice that the ordering is not quite what we would want. It is alphabetical. Try to find how we can fix this.
+Notice that the ordering is not quite what we would want. It is alphabetical. Let's try to fix this.
 
-Here is one way:
+Here is one way: we first specify the levels of that variable (i.e., the different values that it could take) and store that in the variable \texttt{q\_levels}. Then, we pass that to the \texttt{factor()} function, which will tell R that we want whichever variable is passed to \texttt{factor()} two things. First, it will say that we want to make that variable a factor variable with \texttt{levels\ =\ ...}. Second, we set \texttt{ordered\ =\ TRUE} to tell R that there is a specific ordering to that variable. This way, whenever there is something like a plot that we make, the ordering will persist in the labeling and R will not show the labels in alphabetical order.
+
+Here is an example of that in action:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{q\_levels \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Strongly disagree"}\NormalTok{, }\StringTok{"Somewhat disagree"}\NormalTok{, }\StringTok{"Neither agree nor disagree"}\NormalTok{,}
+\NormalTok{q\_levels }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Strongly disagree"}\NormalTok{, }\StringTok{"Somewhat disagree"}\NormalTok{, }\StringTok{"Neither agree nor disagree"}\NormalTok{,}
               \StringTok{"Somewhat agree"}\NormalTok{, }\StringTok{"Strongly agree"}\NormalTok{)}
 
 
 
-\NormalTok{survey\_df}\OperatorTok{$}\NormalTok{i\_have\_taken\_a\_quantitative\_research\_methods\_course\_before \textless{}{-}}\StringTok{ }\KeywordTok{factor}\NormalTok{(survey\_df}\OperatorTok{$}\NormalTok{i\_have\_taken\_a\_quantitative\_research\_methods\_course\_before, }
-                                                                               \DataTypeTok{levels =}\NormalTok{ q\_levels,}
-                                                                               \DataTypeTok{ordered =} \OtherTok{TRUE}\NormalTok{)}
-
-
-\CommentTok{\#\# Now try plotting}
-
-\NormalTok{survey\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ i\_have\_taken\_a\_quantitative\_research\_methods\_course\_before)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_bar}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{coord\_flip}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"I have taken a quantitative research methods course before"}\NormalTok{,}
-       \DataTypeTok{y =} \StringTok{"Count"}\NormalTok{,}
-       \DataTypeTok{title =} \StringTok{"Reordered Example"}\NormalTok{)}
+\NormalTok{survey\_df}\SpecialCharTok{$}\NormalTok{i\_have\_taken\_a\_quantitative\_research\_methods\_course\_before }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(survey\_df}\SpecialCharTok{$}\NormalTok{i\_have\_taken\_a\_quantitative\_research\_methods\_course\_before, }
+                                                                               \AttributeTok{levels =}\NormalTok{ q\_levels,}
+                                                                               \AttributeTok{ordered =} \ConstantTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-15-1.pdf}
+Now try plotting these data. We will also add in a \texttt{coord\_flip()} to plot the categories along the y-axis. This is a common move to avoid text from the different levels overlapping with each other. Finally, we will also change the x, y, and title labels with \texttt{labs()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{survey\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ i\_have\_taken\_a\_quantitative\_research\_methods\_course\_before)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"I have taken a quantitative research methods course before"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Count"}\NormalTok{,}
+       \AttributeTok{title =} \StringTok{"Reordered Example"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-32-1.pdf}
 
 \hypertarget{joining-two-datasets}{%
-\subsection{Joining two datasets}\label{joining-two-datasets}}
+\section{Joining two datasets}\label{joining-two-datasets}}
 
 Let's imagine that we have a separate dataset that has information about the students who completed the pre-course prior knowledge survey.
 
@@ -653,7 +1004,7 @@ First, we will load in that dataset
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{survey\_info\_df \textless{}{-}}\StringTok{ }\KeywordTok{read\_csv}\NormalTok{(}\StringTok{"survey\_student\_info.csv"}\NormalTok{)}
+\NormalTok{survey\_info\_df }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"survey\_student\_info.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -671,7 +1022,7 @@ Next, let's join the two datasets based on the student id column, which is in ea
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{survey\_df \textless{}{-}}\StringTok{ }\NormalTok{survey\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{inner\_join}\NormalTok{(survey\_info\_df, }\DataTypeTok{by =} \StringTok{"student\_id"}\NormalTok{)}
+\NormalTok{survey\_df }\OtherTok{\textless{}{-}}\NormalTok{ survey\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{inner\_join}\NormalTok{(survey\_info\_df, }\AttributeTok{by =} \StringTok{"student\_id"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -681,41 +1032,47 @@ With this, we can make some nicer plots and do something like use facet\_grid() 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{survey\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ i\_have\_taken\_a\_quantitative\_research\_methods\_course\_before)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_bar}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{facet\_grid}\NormalTok{(standing }\OperatorTok{\textasciitilde{}}\NormalTok{.) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"I have taken a quantitative research methods course before"}\NormalTok{,}
-       \DataTypeTok{y =} \StringTok{"Count"}\NormalTok{,}
-       \DataTypeTok{title =} \StringTok{"Reordered Example"}\NormalTok{)}
+\NormalTok{survey\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ i\_have\_taken\_a\_quantitative\_research\_methods\_course\_before)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{facet\_grid}\NormalTok{(standing }\SpecialCharTok{\textasciitilde{}}\NormalTok{.) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"I have taken a quantitative research methods course before"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Count"}\NormalTok{,}
+       \AttributeTok{title =} \StringTok{"Reordered Example"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-18-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-35-1.pdf}
 
-The x axis looks a little crowded. What if we try coord\_flip()
+The x axis looks a little crowded. What if we try \texttt{coord\_flip()}?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{survey\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(standing }\OperatorTok{==}\StringTok{ "doctoral"}\NormalTok{) }\OperatorTok{\%\textgreater{}\%}
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ i\_have\_taken\_a\_quantitative\_research\_methods\_course\_before)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_bar}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{coord\_flip}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{facet\_grid}\NormalTok{(standing }\OperatorTok{\textasciitilde{}}\NormalTok{.) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"I have taken a quantitative research methods course before"}\NormalTok{,}
-       \DataTypeTok{y =} \StringTok{"Count"}\NormalTok{,}
-       \DataTypeTok{title =} \StringTok{"Reordered Example"}\NormalTok{)}
+\NormalTok{survey\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(standing }\SpecialCharTok{==} \StringTok{"doctoral"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ i\_have\_taken\_a\_quantitative\_research\_methods\_course\_before)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{facet\_grid}\NormalTok{(standing }\SpecialCharTok{\textasciitilde{}}\NormalTok{.) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"I have taken a quantitative research methods course before"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Count"}\NormalTok{,}
+       \AttributeTok{title =} \StringTok{"Reordered Example"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-19-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-36-1.pdf}
 
-A quick note on filters
+That looks much better.
+
+\hypertarget{a-quick-note-on-filters}{%
+\subsubsection*{A quick note on filters}\label{a-quick-note-on-filters}}
+\addcontentsline{toc}{subsubsection}{A quick note on filters}
+
+If you want to look at only a subset of your data, you will want to use the \texttt{filter()} function. The general idea is that you can look at observations (rows) that match a certain criteria. For example, you may want to only look at students from a certain region or year or major. In our case, with the prior knowledge survey, let's say we only want to look at student who have to take the course (i.e., there is a ``yes'' for them for the \texttt{required} variable). We can do that with the first line. The second line just stores the result as a new dataframe called \texttt{filtered\_df}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{survey\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{filter}\NormalTok{(required }\OperatorTok{==}\StringTok{ "yes"}\NormalTok{)}
+\NormalTok{survey\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(required }\SpecialCharTok{==} \StringTok{"yes"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -782,39 +1139,52 @@ A quick note on filters
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{filtered\_df \textless{}{-}}\StringTok{ }\NormalTok{survey\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{filter}\NormalTok{(required }\OperatorTok{==}\StringTok{ "yes"}\NormalTok{)}
+\NormalTok{filtered\_df }\OtherTok{\textless{}{-}}\NormalTok{ survey\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(required }\SpecialCharTok{==} \StringTok{"yes"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \hypertarget{a-little-more-about-plotting}{%
-\subsubsection{A little more about plotting}\label{a-little-more-about-plotting}}
+\subsubsection*{A little more about plotting}\label{a-little-more-about-plotting}}
+\addcontentsline{toc}{subsubsection}{A little more about plotting}
 
 We are going to shift gears again and look at a few different kinds of plots. The main thing to remember here is that you want to think about whether the variables you have are nominal, ordinal, or continuous (that includes interval and ratio).
 
 \hypertarget{discrete-predictor-continuous-outcome}{%
 \section{Discrete Predictor, Continuous Outcome}\label{discrete-predictor-continuous-outcome}}
 
+So far we have looked at plots for one variable, but of course we want to have ways to plot multiple variables simultaneously. We will start with the scneario where where we want to plot a continuous variable against a discrete variable. This can arise when you want to plot something like an assessment score and you think it may differ across groups in some way (maybe you intentionally introduced a difference by exposing the two groups to different interventions, for example).
+
+In these scenarios, a boxplot is a very standard way to go.
+
+To demonstrate this, we will simulate a situation in which we want to look at differences on an assessment. We are specificially interested in differences between chemistry and chemical engineering students. Let's go ahead and create the data by creating two groups of 20 students each. The chemical engineering students will have scores generated from a normal distribution with \(\mu = 85\) and \(\sigma = 4\) (i.e., a mean of 85 and a standard deviation of 4). We will say the chemistry students have scores from a normal distribution with \(\mu = 78\) anad \(\sigma = 6\). This about what these distributions might look like in your head.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{group\_size \textless{}{-}}\StringTok{ }\DecValTok{20}
-\NormalTok{chem\_e\_scores \textless{}{-}}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ group\_size, }\DataTypeTok{mean =} \DecValTok{85}\NormalTok{, }\DataTypeTok{sd =} \DecValTok{4}\NormalTok{)}
-\NormalTok{chem\_scores \textless{}{-}}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ group\_size, }\DataTypeTok{mean =} \DecValTok{78}\NormalTok{, }\DataTypeTok{sd =} \DecValTok{6}\NormalTok{)}
+\NormalTok{group\_size }\OtherTok{\textless{}{-}} \DecValTok{20}
+\NormalTok{chem\_e\_scores }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ group\_size, }\AttributeTok{mean =} \DecValTok{85}\NormalTok{, }\AttributeTok{sd =} \DecValTok{4}\NormalTok{)}
+\NormalTok{chem\_scores }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ group\_size, }\AttributeTok{mean =} \DecValTok{78}\NormalTok{, }\AttributeTok{sd =} \DecValTok{6}\NormalTok{)}
 
 
-\NormalTok{data\_df \textless{}{-}}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
-  \DataTypeTok{discipline =} \KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"ChemE"}\NormalTok{, }\StringTok{"Chemistry"}\NormalTok{), }\DataTypeTok{each =}\NormalTok{ group\_size),}
-  \DataTypeTok{score =} \KeywordTok{c}\NormalTok{(chem\_e\_scores, chem\_scores)}
+\NormalTok{data\_df }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{discipline =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"ChemE"}\NormalTok{, }\StringTok{"Chemistry"}\NormalTok{), }\AttributeTok{each =}\NormalTok{ group\_size),}
+  \AttributeTok{score =} \FunctionTok{c}\NormalTok{(chem\_e\_scores, chem\_scores)}
 \NormalTok{)}
-
-\NormalTok{data\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ discipline, }\DataTypeTok{y =}\NormalTok{ score)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_boxplot}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{test_course_notes_files/figure-latex/boxplot-example-1.pdf}
+With these data, we can then create a boxplot using \texttt{geom\_boxplot()}
 
-You can make a few modifications to possibly make this easier to read.
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ discipline, }\AttributeTok{y =}\NormalTok{ score)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-38-1.pdf}
+
+You can make a few modifications to possibly make this plot easier to read.
 
 The first is to put the discrete category on the y axis instead of the x axis.
 
@@ -822,10 +1192,10 @@ The second is to use geom\_jitter() in addition to geom\_boxplot() to show the i
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{data\_df }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ score, }\DataTypeTok{x =}\NormalTok{ discipline)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_boxplot}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_jitter}\NormalTok{()}
+\NormalTok{data\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ score, }\AttributeTok{x =}\NormalTok{ discipline)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -838,7 +1208,7 @@ First, let's re-do a lot of the steps in this week's script for reading in data 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mydata \textless{}{-}}\StringTok{ }\KeywordTok{read\_csv}\NormalTok{(}\StringTok{"Free Reduced Lunch by Schools and Grade Structures 2008{-}2017\_final.csv"}\NormalTok{)}
+\NormalTok{mydata }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"Free Reduced Lunch by Schools and Grade Structures 2008{-}2017\_final.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -854,10 +1224,11 @@ First, let's re-do a lot of the steps in this week's script for reading in data 
 ## See spec(...) for full column specifications.
 \end{verbatim}
 
+Check the structure of the data (this output is a bit long).
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# check the structure of the data (this output is a bit long)}
-\KeywordTok{str}\NormalTok{(mydata)}
+\FunctionTok{str}\NormalTok{(mydata)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1105,9 +1476,11 @@ First, let's re-do a lot of the steps in this week's script for reading in data 
 ##   .. )
 \end{verbatim}
 
+Or just check the structure of one specific variable.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{str}\NormalTok{(mydata}\OperatorTok{$}\NormalTok{total\_}\DecValTok{2017}\NormalTok{)}
+\FunctionTok{str}\NormalTok{(mydata}\SpecialCharTok{$}\NormalTok{total\_2017)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1134,8 +1507,8 @@ First, we use the \$ operator which lets me specify a specific column within my 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mydata}\OperatorTok{$}\NormalTok{total\_}\DecValTok{2017}\NormalTok{\textless{}{-}}\KeywordTok{as.numeric}\NormalTok{(mydata}\OperatorTok{$}\NormalTok{total\_}\DecValTok{2017}\NormalTok{)}
-\NormalTok{mydata}\OperatorTok{$}\NormalTok{totalFRL\_}\DecValTok{1718}\NormalTok{\textless{}{-}}\KeywordTok{as.numeric}\NormalTok{(mydata}\OperatorTok{$}\NormalTok{totalFRL\_}\DecValTok{1718}\NormalTok{)}
+\NormalTok{mydata}\SpecialCharTok{$}\NormalTok{total\_2017}\OtherTok{\textless{}{-}}\FunctionTok{as.numeric}\NormalTok{(mydata}\SpecialCharTok{$}\NormalTok{total\_2017)}
+\NormalTok{mydata}\SpecialCharTok{$}\NormalTok{totalFRL\_1718}\OtherTok{\textless{}{-}}\FunctionTok{as.numeric}\NormalTok{(mydata}\SpecialCharTok{$}\NormalTok{totalFRL\_1718)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1143,8 +1516,8 @@ Some columns have a percent symbol, which you will need to remove before coercin
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mydata \textless{}{-}}\StringTok{ }\NormalTok{mydata }\OperatorTok{\%\textgreater{}\%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{totalper\_0809 =} \KeywordTok{str\_remove}\NormalTok{(totalper\_}\DecValTok{0809}\NormalTok{, }\StringTok{"\%"}\NormalTok{))}
+\NormalTok{mydata }\OtherTok{\textless{}{-}}\NormalTok{ mydata }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{totalper\_0809 =} \FunctionTok{str\_remove}\NormalTok{(totalper\_0809, }\StringTok{"\%"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1152,7 +1525,7 @@ Then we can change the column from character to numeric
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mydata}\OperatorTok{$}\NormalTok{totalper\_}\DecValTok{0809}\NormalTok{ \textless{}{-}}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(mydata}\OperatorTok{$}\NormalTok{totalper\_}\DecValTok{0809}\NormalTok{)}
+\NormalTok{mydata}\SpecialCharTok{$}\NormalTok{totalper\_0809 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(mydata}\SpecialCharTok{$}\NormalTok{totalper\_0809)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1164,7 +1537,7 @@ Check to make sure it converted the column type correctly using \texttt{str()}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{str}\NormalTok{(mydata}\OperatorTok{$}\NormalTok{totalper\_}\DecValTok{0809}\NormalTok{)}
+\FunctionTok{str}\NormalTok{(mydata}\SpecialCharTok{$}\NormalTok{totalper\_0809)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1176,8 +1549,8 @@ Second, alternatively, we can do this for a whole set of variables at once. We j
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{newdf \textless{}{-}}\StringTok{ }\NormalTok{mydata }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate\_at}\NormalTok{(}\KeywordTok{vars}\NormalTok{(}\KeywordTok{starts\_with}\NormalTok{(}\StringTok{"total"}\NormalTok{)), as.numeric)}
+\NormalTok{newdf }\OtherTok{\textless{}{-}}\NormalTok{ mydata }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate\_at}\NormalTok{(}\FunctionTok{vars}\NormalTok{(}\FunctionTok{starts\_with}\NormalTok{(}\StringTok{"total"}\NormalTok{)), as.numeric)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1259,8 +1632,8 @@ Second, alternatively, we can do this for a whole set of variables at once. We j
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{newdf \textless{}{-}}\StringTok{ }\NormalTok{newdf }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate\_at}\NormalTok{(}\KeywordTok{vars}\NormalTok{(}\KeywordTok{starts\_with}\NormalTok{(}\StringTok{"totalFRL"}\NormalTok{)), as.numeric)}
+\NormalTok{newdf }\OtherTok{\textless{}{-}}\NormalTok{ newdf }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate\_at}\NormalTok{(}\FunctionTok{vars}\NormalTok{(}\FunctionTok{starts\_with}\NormalTok{(}\StringTok{"totalFRL"}\NormalTok{)), as.numeric)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1268,7 +1641,7 @@ Check whether the old and new variables are stored differently (old as a charact
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{str}\NormalTok{(mydata}\OperatorTok{$}\NormalTok{total\_}\DecValTok{2008}\NormalTok{)}
+\FunctionTok{str}\NormalTok{(mydata}\SpecialCharTok{$}\NormalTok{total\_2008)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1278,7 +1651,7 @@ Check whether the old and new variables are stored differently (old as a charact
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{str}\NormalTok{(newdf}\OperatorTok{$}\NormalTok{total\_}\DecValTok{2008}\NormalTok{)}
+\FunctionTok{str}\NormalTok{(newdf}\SpecialCharTok{$}\NormalTok{total\_2008)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1297,7 +1670,7 @@ Let's say we want to look at the schools with div\_num values less than 50.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{newdf }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{filter}\NormalTok{(div\_num }\OperatorTok{\textless{}}\StringTok{ }\DecValTok{50}\NormalTok{)}
+\NormalTok{newdf }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(div\_num }\SpecialCharTok{\textless{}} \DecValTok{50}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1354,7 +1727,7 @@ Or, if we want to look at schools where the highest grade in 2008 was grade five
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{newdf }\OperatorTok{\%\textgreater{}\%}\StringTok{ }\KeywordTok{filter}\NormalTok{(higrade\_}\DecValTok{2008} \OperatorTok{==}\StringTok{ "5"}\NormalTok{) }\CommentTok{\# this returns a subsetted dataframe with 878 rows}
+\NormalTok{newdf }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(higrade\_2008 }\SpecialCharTok{==} \StringTok{"5"}\NormalTok{) }\CommentTok{\# this returns a subsetted dataframe with 878 rows}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1413,9 +1786,9 @@ If we wanted to filter on numeric values instead, we would want to do something 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{newdf }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{higrade\_2008 =} \KeywordTok{as.numeric}\NormalTok{(higrade\_}\DecValTok{2008}\NormalTok{)) }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(higrade\_}\DecValTok{2008} \OperatorTok{==}\StringTok{ }\DecValTok{5}\NormalTok{) }\CommentTok{\# again, this returns a subsetted dataframe with 878 rows}
+\NormalTok{newdf }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{higrade\_2008 =} \FunctionTok{as.numeric}\NormalTok{(higrade\_2008)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(higrade\_2008 }\SpecialCharTok{==} \DecValTok{5}\NormalTok{) }\CommentTok{\# again, this returns a subsetted dataframe with 878 rows}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1488,11 +1861,11 @@ Next, group\_by and summarize work together to get us our aggregate totals.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{county\_level\_aggregate \textless{}{-}}\StringTok{ }\NormalTok{newdf }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(div\_name, total\_}\DecValTok{2017}\NormalTok{, totalFRL\_}\DecValTok{1718}\NormalTok{) }\OperatorTok{\%\textgreater{}\%}
-\StringTok{  }\KeywordTok{group\_by}\NormalTok{(div\_name) }\OperatorTok{\%\textgreater{}\%}
-\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{totalstudents =} \KeywordTok{sum}\NormalTok{(total\_}\DecValTok{2017}\NormalTok{), }
-            \DataTypeTok{totalFRL =} \KeywordTok{sum}\NormalTok{(totalFRL\_}\DecValTok{1718}\NormalTok{))}
+\NormalTok{county\_level\_aggregate }\OtherTok{\textless{}{-}}\NormalTok{ newdf }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(div\_name, total\_2017, totalFRL\_1718) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(div\_name) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{totalstudents =} \FunctionTok{sum}\NormalTok{(total\_2017), }
+            \AttributeTok{totalFRL =} \FunctionTok{sum}\NormalTok{(totalFRL\_1718))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1506,7 +1879,7 @@ First, the old school way:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{county\_level\_aggregate}\OperatorTok{$}\NormalTok{percent\_FRL \textless{}{-}}\StringTok{ }\NormalTok{county\_level\_aggregate}\OperatorTok{$}\NormalTok{totalFRL}\OperatorTok{/}\NormalTok{county\_level\_aggregate}\OperatorTok{$}\NormalTok{totalstudents}\OperatorTok{*}\DecValTok{100}
+\NormalTok{county\_level\_aggregate}\SpecialCharTok{$}\NormalTok{percent\_FRL }\OtherTok{\textless{}{-}}\NormalTok{ county\_level\_aggregate}\SpecialCharTok{$}\NormalTok{totalFRL}\SpecialCharTok{/}\NormalTok{county\_level\_aggregate}\SpecialCharTok{$}\NormalTok{totalstudents}\SpecialCharTok{*}\DecValTok{100}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1514,8 +1887,8 @@ Second, the tidyverse way:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{county\_level\_aggregate \textless{}{-}}\StringTok{ }\NormalTok{county\_level\_aggregate }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{percent\_frl =}\NormalTok{ totalFRL }\OperatorTok{/}\StringTok{ }\NormalTok{totalstudents }\OperatorTok{*}\StringTok{ }\DecValTok{100}\NormalTok{)}
+\NormalTok{county\_level\_aggregate }\OtherTok{\textless{}{-}}\NormalTok{ county\_level\_aggregate }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{percent\_frl =}\NormalTok{ totalFRL }\SpecialCharTok{/}\NormalTok{ totalstudents }\SpecialCharTok{*} \DecValTok{100}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1523,10 +1896,10 @@ Just for fun, let's see how this could have been incorporated into our summarize
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{county\_level\_percents \textless{}{-}}\StringTok{ }\NormalTok{newdf }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(div\_name, total\_}\DecValTok{2017}\NormalTok{, totalFRL\_}\DecValTok{1718}\NormalTok{) }\OperatorTok{\%\textgreater{}\%}
-\StringTok{  }\KeywordTok{group\_by}\NormalTok{(div\_name) }\OperatorTok{\%\textgreater{}\%}
-\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{percentFRL=}\KeywordTok{sum}\NormalTok{(totalFRL\_}\DecValTok{1718}\NormalTok{)}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(total\_}\DecValTok{2017}\NormalTok{) }\OperatorTok{*}\StringTok{ }\DecValTok{100}\NormalTok{)}
+\NormalTok{county\_level\_percents }\OtherTok{\textless{}{-}}\NormalTok{ newdf }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(div\_name, total\_2017, totalFRL\_1718) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(div\_name) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarize}\NormalTok{(}\AttributeTok{percentFRL=}\FunctionTok{sum}\NormalTok{(totalFRL\_1718)}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(total\_2017) }\SpecialCharTok{*} \DecValTok{100}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1538,10 +1911,10 @@ Something is going to look weird with this plot
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{newdf }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(totalFRL\_}\DecValTok{0809}\NormalTok{, totalFT\_}\DecValTok{2008}\NormalTok{)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_point}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"FRL 2008"}\NormalTok{, }\DataTypeTok{x =} \StringTok{"totalFRL\_0809"}\NormalTok{)}
+\NormalTok{newdf }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(totalFRL\_0809, totalFT\_2008)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"FRL 2008"}\NormalTok{, }\AttributeTok{x =} \StringTok{"totalFRL\_0809"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1549,20 +1922,20 @@ Something is going to look weird with this plot
 ## Warning: Removed 236 rows containing missing values (geom_point).
 \end{verbatim}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-35-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-55-1.pdf}
 
 Let's see if we can fix it
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{newdf }\OperatorTok{\%\textgreater{}\%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(totalFRL\_}\DecValTok{0809}\NormalTok{)) }\OperatorTok{\%\textgreater{}\%}
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(totalFRL\_}\DecValTok{0809}\NormalTok{, totalFT\_}\DecValTok{2008}\NormalTok{)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom\_point}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"FRL 2008"}\NormalTok{, }
-       \DataTypeTok{x =} \StringTok{"totalFRL\_0809"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{xlim}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1000}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{ylim}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1000}\NormalTok{)}
+\NormalTok{newdf }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(totalFRL\_0809)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(totalFRL\_0809, totalFT\_2008)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"FRL 2008"}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{"totalFRL\_0809"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlim}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1000}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylim}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1000}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1570,23 +1943,1774 @@ Let's see if we can fix it
 ## Warning: Removed 324 rows containing missing values (geom_point).
 \end{verbatim}
 
-\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-36-1.pdf}
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-56-1.pdf}
 
-\hypertarget{applications}{%
-\chapter{Applications}\label{applications}}
+\hypertarget{week-4-assumptions-and-correlations}{%
+\chapter{Week 4: Assumptions and Correlations}\label{week-4-assumptions-and-correlations}}
 
-Some \emph{significant} applications are demonstrated in this chapter.
+This week we will be discussing Chapters 5 and 6 from DSUR. These notes will pull out some of the important pieces from each chapter.
 
-\hypertarget{example-one}{%
-\section{Example one}\label{example-one}}
+\hypertarget{assumptions}{%
+\section{Assumptions}\label{assumptions}}
 
-\hypertarget{example-two}{%
-\section{Example two}\label{example-two}}
+These assumptions that we are making are helpful when determining whether we should be using parametric vs non-parametric statistical tests. What does ``parametric'' mean here? It means that the data are from a parameterized distribution (i.e., parameters characterize the distribution that the data come from). An example of a parameterized distribution that we have already seen is the normal distribution. The two parameters for the normal distribution are \(\mu\) for the mean and \(\sigma\) for the standard deviation. We have seen this altogether with this kind of notation to denote that \(x_i\) is from a normal distribution:
 
-\hypertarget{final-words}{%
-\chapter{Final Words}\label{final-words}}
+\(x_i \sim \mathcal{N} (\mu, \,\sigma^{2})\)
 
-We have finished a nice book.
+\hypertarget{normally-distributed-data}{%
+\subsection{Normally distributed data}\label{normally-distributed-data}}
+
+This assumption is about the normality of the sampling distribution. The big idea here is that we tend to operate under the belief that if our \emph{sampled} data are normally distributed then the underlying \emph{sampling distribution} is also normally distributed. Also, keep in mind that this becomes less of a concern as our sample size increases (thank, Central Limit Theorem!).
+
+There are several tests for normality that we will discuss, which include either (a) calculations or (b) visual examination. We will discuss both.
+
+\hypertarget{visual-check-of-normality}{%
+\subsubsection{Visual check of normality}\label{visual-check-of-normality}}
+
+You can accomplish this with a histogram (e.g., \texttt{hist()} or \texttt{geom\_histogram()} or a q-q plot \texttt{qplot()} (which stands for quantile-quantile).
+
+\hypertarget{homogeneity-of-variance}{%
+\subsection{Homogeneity of variance}\label{homogeneity-of-variance}}
+
+Here, you want to know whether the variance of a variable is the same across different groups. For example, if you are looking at test scores in chemistry and chemical engineering students, you want to know if the variances (spread) of the test scores in the chemistry group and the chemical engineering group are close to each other.
+
+\hypertarget{interval-data}{%
+\subsection{Interval data}\label{interval-data}}
+
+This might be a little redundant given that we want normally distributed data, but you want at least interval data (ratio data are also fine, but in practice very few things we work with actually qualify as ratio variables). If you have ordinal or nominal variables, you might be in trouble with this assumption\ldots{}
+
+\hypertarget{independence}{%
+\subsection{Independence}\label{independence}}
+
+This assumption is about the observations not being related to each other or affecting each other in some way. In practice, this can also be a little tricky. For example, if you are sampling students from different classrooms, depending on the variables you are measuring, you might actually have reason to believe that students in one classroom are more related to each other than students in a different classroom. In practice, you can handle this with a multi-level model (aka hierarchical model), but that is beyond the scope of this class.
+
+\hypertarget{correlation}{%
+\section{Correlation}\label{correlation}}
+
+\hypertarget{covariance}{%
+\subsection{Covariance}\label{covariance}}
+
+First, start with the observation that variance is calculated with:
+\(Variance(s^2) = \frac{\sum(x_i - \overline{x})^2}{N - 1} = \frac{\sum(x_i - \overline{x})(x_i - \overline{x})}{N - 1}\)
+
+But now let's say that we want to know how, for each observation we have, how does the value of \(x\) vary with the value of \(y\) on average. For example, when the value of \(x\) increases, does the value of \(y\) also increase? This could happen when \(x\) represents the number of hours of sleep you get each night and \(y\) is your average grade on an exam you take the next day. The opposite could arise when \(x\) increases but we expect \(y\) to go down. An example of this might be when \(x\) is the number of hilarious jokes that a teacher tells in class and \(y\) is the number of students who fall asleep in class. As the number of jokes increases, we might expect/hope that it keeps students' attention and keeps them from dozing. This generally process of considering how one variable changes when another variable changes is where the notion of covariance comes in.
+
+In practice, what we really want to know is: when \(x_i\) is above its average value in a sample (\(\overline{x}\)), how does \(y_i\) change? Does it also tend to be above the sample average for \(y\) (\(\overline{y}\))? This is expressed in the general formular for covariance:
+
+\(cov(x,y) = \frac{\sum(x_i - \overline{x})(y_i - \overline{y})}{N - 1}\)
+
+While covariance can be a helpful value to work with in many settings, for most of what we do in this class, we will be using correlation coefficients instead of covariance. This is because covariance is an unnormalized value, which can make comparisons across different ranges of values difficult.
+
+\hypertarget{correlation-coefficient}{%
+\subsection{Correlation coefficient}\label{correlation-coefficient}}
+
+In order to standardize the covariance to a value the is easier to work with across ranges of values, we use the correlatoin coefficient. There are several version of this, depending on the type of data you are working with. The most basic version is the Pearson correlation coefficient. It is calculated by dividing the covariance by the standard deviations of your two variables of interest:
+
+\(r = \frac{cov_{xy}}{s_xs_y} = \frac{\sum(x_i - \overline{x})(y_i - \overline{y})}{(N-1)s_xs_y}\)
+
+This is a \emph{bivariate} correlation coefficient because it is looking at the correlation between \emph{two variables}. There are also partial correlation coefficients, which look at the correlation between two variables whil controlling for other variables.
+
+We can calculate the correlatoin between two variables using the \texttt{cor()} or \texttt{cor.test()} functions, which are part of base R.
+
+\hypertarget{another-worked-example-for-cleaning-and-prelim-analysis}{%
+\section{Another worked example for cleaning and prelim analysis}\label{another-worked-example-for-cleaning-and-prelim-analysis}}
+
+This script takes an incomplete subset of senior data from a .csv file, cleans it,
+computes factor scores, and prepares it for analysis.
+
+If you have not already done so, make sure that you have run \texttt{library(tidyverse)} and \texttt{library(psych)} since we will be using functions from both of those packages.
+
+\hypertarget{loading-in-data}{%
+\subsection{Loading in data}\label{loading-in-data}}
+
+First, as usual, load in your data. We will use the file \texttt{seniorsurvey.csv} for this demo.
+
+\texttt{file\_path\ \textless{}-\ "YOUR\ PATH\ HERE"}
+\texttt{setwd(file\_path)} use this command to change the working directory to the folder where you have your file
+\texttt{list.files()} run this to make sure that your file is in your current working directory
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{seniorSurvey\_df }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"seniorsurvey.csv"}\NormalTok{) }\CommentTok{\# replace text in the parentheses with your file name}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   .default = col_double()
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## See spec(...) for full column specifications.
+\end{verbatim}
+
+\hypertarget{data-prep-and-cleaning}{%
+\subsection{Data prep and cleaning}\label{data-prep-and-cleaning}}
+
+After loading, it is always nice to just see how things loaded in. Functions like str() and describe() from the psych package are nice for this. For example, if we use describe(), we can see the following (we deleted some variables):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{psych}\SpecialCharTok{::}\FunctionTok{describe}\NormalTok{(seniorSurvey\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                                   vars    n  mean    sd median
+## What is your PRIMARY MAJOR?                          1 1849 31.79 20.43     29
+## Internship, field experience, co-op, or practicum    2 1121  1.00  0.00      1
+## ParticipateServiceL                                  3  489  1.00  0.00      1
+## ParticipateCService                                  4 1296  1.00  0.00      1
+## ParticipateStudyAbroadSemester                       5  142  1.00  0.00      1
+## SJ1                                                  6 1733  2.32  1.03      2
+## SJ2                                                  7 1732  2.08  0.96      2
+## SJ3                                                  8 1731  2.77  0.88      3
+## SJ4                                                  9 1726  2.27  1.01      2
+## SJ5                                                 10 1728  3.27  0.92      3
+## SJ6                                                 11 1719  3.50  0.83      4
+## SJ7                                                 12 1719  4.01  0.79      4
+## SJ8                                                 13 1719  4.15  0.83      4
+## DA1                                                 14 1719  2.23  0.93      2
+## DA2                                                 15 1719  2.86  0.95      3
+## DA3                                                 16 1720  1.97  0.81      2
+## DA4                                                 17 1721  4.20  0.72      4
+## DA5                                                 18 1721  4.06  0.81      4
+## LocalRole                                           19 1453  3.49  0.94      4
+## LocalFinance                                        20 1453  3.22  0.90      3
+## LocalTime                                           21 1453  3.58  0.89      4
+## GlobalRole                                          22 1446  3.57  0.99      4
+## GlobalFinance                                       23 1449  3.19  1.00      3
+## GlobalTime                                          24 1449  3.42  0.98      3
+## Your gender?                                        25 1678  1.49  0.50      1
+##                                                   trimmed   mad min max range
+## What is your PRIMARY MAJOR?                         31.25 28.17   1  70    69
+## Internship, field experience, co-op, or practicum    1.00  0.00   1   1     0
+## ParticipateServiceL                                  1.00  0.00   1   1     0
+## ParticipateCService                                  1.00  0.00   1   1     0
+## ParticipateStudyAbroadSemester                       1.00  0.00   1   1     0
+## SJ1                                                  2.25  1.48   1   5     4
+## SJ2                                                  1.98  1.48   1   5     4
+## SJ3                                                  2.79  1.48   1   5     4
+## SJ4                                                  2.20  1.48   1   5     4
+## SJ5                                                  3.27  1.48   1   5     4
+## SJ6                                                  3.54  1.48   1   5     4
+## SJ7                                                  4.07  0.00   1   5     4
+## SJ8                                                  4.23  1.48   1   5     4
+## DA1                                                  2.15  1.48   1   5     4
+## DA2                                                  2.89  1.48   1   5     4
+## DA3                                                  1.90  0.00   1   5     4
+## DA4                                                  4.27  1.48   1   5     4
+## DA5                                                  4.11  1.48   1   5     4
+## LocalRole                                            3.51  1.48   1   5     4
+## LocalFinance                                         3.23  1.48   1   5     4
+## LocalTime                                            3.63  1.48   1   5     4
+## GlobalRole                                           3.62  1.48   1   5     4
+## GlobalFinance                                        3.18  1.48   1   5     4
+## GlobalTime                                           3.44  1.48   1   5     4
+## Your gender?                                         1.49  0.00   1   2     1
+##                                                    skew kurtosis   se
+## What is your PRIMARY MAJOR?                        0.18    -1.33 0.48
+## Internship, field experience, co-op, or practicum   NaN      NaN 0.00
+## ParticipateServiceL                                 NaN      NaN 0.00
+## ParticipateCService                                 NaN      NaN 0.00
+## ParticipateStudyAbroadSemester                      NaN      NaN 0.00
+## SJ1                                                0.46    -0.51 0.02
+## SJ2                                                0.64    -0.16 0.02
+## SJ3                                               -0.03    -0.14 0.02
+## SJ4                                                0.52    -0.40 0.02
+## SJ5                                               -0.19    -0.03 0.02
+## SJ6                                               -0.40     0.15 0.02
+## SJ7                                               -0.75     1.05 0.02
+## SJ8                                               -0.86     0.69 0.02
+## DA1                                                0.57    -0.11 0.02
+## DA2                                               -0.09    -0.41 0.02
+## DA3                                                0.70     0.31 0.02
+## DA4                                               -0.66     0.54 0.02
+## DA5                                               -0.59     0.16 0.02
+## LocalRole                                         -0.44    -0.33 0.02
+## LocalFinance                                      -0.19    -0.27 0.02
+## LocalTime                                         -0.59     0.22 0.02
+## GlobalRole                                        -0.47    -0.30 0.03
+## GlobalFinance                                     -0.11    -0.33 0.03
+## GlobalTime                                        -0.35    -0.17 0.03
+## Your gender?                                       0.03    -2.00 0.01
+\end{verbatim}
+
+Upon examining this, we can notice a few things:
+Primary Major variable is all messed up. We won't fix it here, but basically there is a numeric code needed (e.g., 13 = underwater basket weaving)
+
+Columns 3 and 5 have lots of missing values (note the small N's) -- this means that this was asked via checkbox so (1) is true and missing is not missing but False
+
+SJ1-8 and DA1-5 all look essentially ok -- about the same N (some survey fatigue or skips) but all values in range (1-5)
+
+Now, we know that SJ and DA are scales from the literature and we want to compute scale scores for those. Typically for attitude scales like these we just report means across the items. So, we will use the ``psych'' package to use a built in function to help us with this. If you have not used psych yet, be sure it is installed using the command install.packages(``psych'') -- you need only do this once and then in subsequent uses you only need \texttt{library(psych)} to tell R to look in that package for the functions you will be using.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(psych)}
+\end{Highlighting}
+\end{Shaded}
+
+Subset out only the SJ and DA items in their own dataframe and then use tools in the psych package to compute scale means
+
+The first method to do this - use numbering of the columns:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{seniorSurveyScales\_df }\OtherTok{\textless{}{-}}\NormalTok{ seniorSurvey\_df[}\DecValTok{6}\SpecialCharTok{:}\DecValTok{18}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+A second method to do this - use select() from dplyr
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{seniorSurveyScales\_df }\OtherTok{\textless{}{-}}\NormalTok{ seniorSurvey\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(SJ1}\SpecialCharTok{:}\NormalTok{DA5)}
+\end{Highlighting}
+\end{Shaded}
+
+Use the make.keys() function from psych package to key-in how the scales are built (mapping items to scales, use - for reverse scored items)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_keys }\OtherTok{\textless{}{-}} \FunctionTok{make.keys}\NormalTok{(seniorSurveyScales\_df, }\FunctionTok{list}\NormalTok{(}\AttributeTok{SJCa=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{4}\NormalTok{),}\AttributeTok{SJCh=}\FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{),}\AttributeTok{DA=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{9}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{11}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{13}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+Use scoreItems function to score each respondent on the three scales of interest SJCa, SJCh, and DA -- the default here in scoreItems is to takes the mean of the items (not additive though that is sometimes used) and also, it imputes missing values instead of dropping cases the scoreItems function calculates many things. At this stage, all we really want are the scores, so we include a line to only extract that info.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_scales }\OtherTok{\textless{}{-}} \FunctionTok{scoreItems}\NormalTok{(my\_keys, seniorSurveyScales\_df) }
+\NormalTok{my\_scores }\OtherTok{\textless{}{-}}\NormalTok{ my\_scales}\SpecialCharTok{$}\NormalTok{scores}
+\end{Highlighting}
+\end{Shaded}
+
+Now, if you view the first few rows of the my.scores vector using the header -- head() command -- it looks like we expect:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(my\_scores)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      SJCa     SJCh  DA
+## [1,] 2.75 3.000000 3.2
+## [2,] 3.75 3.333333 4.2
+## [3,] 3.00 3.000000 3.0
+## [4,] 2.25 4.333333 3.6
+## [5,] 3.00 3.333333 3.4
+## [6,] 4.50 4.333333 3.4
+\end{verbatim}
+
+Now, let's build a clean dataframe to prep for analysis - by clean in this case I mean that we have replaced item scores from the scales with their means and also that we have fixed the NAs that don't belong (for participation variables, in this dataset, the NAs should be 0s)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(seniorSurvey\_df[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{],my\_scores, seniorSurvey\_df[}\DecValTok{19}\SpecialCharTok{:}\DecValTok{25}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+This is an old school method to replace NAs in specific columns
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_df}\SpecialCharTok{$}\NormalTok{ParticipateServiceL[}\FunctionTok{is.na}\NormalTok{(my\_df}\SpecialCharTok{$}\NormalTok{ParticipateServiceL)] }\OtherTok{\textless{}{-}} \DecValTok{0} 
+\NormalTok{my\_df}\SpecialCharTok{$}\NormalTok{ParticipateCService[}\FunctionTok{is.na}\NormalTok{(my\_df}\SpecialCharTok{$}\NormalTok{ParticipateCService)] }\OtherTok{\textless{}{-}} \DecValTok{0} 
+\NormalTok{my\_df}\SpecialCharTok{$}\NormalTok{ParticipateStudyAbroadSemester[}\FunctionTok{is.na}\NormalTok{(my\_df}\SpecialCharTok{$}\NormalTok{ParticipateStudyAbroadSemester)] }\OtherTok{\textless{}{-}} \DecValTok{0} 
+\end{Highlighting}
+\end{Shaded}
+
+my\_df\(ParticipateInternCoop...[is.na(mydf\)ParticipateInternCoop\ldots){]} \textless- 0 ------- this variable read in cumbersomely named and I don't care about it right now so I'll skip
+
+Here is An alternative method to replace NAs in specific columns:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_df }\OtherTok{\textless{}{-}}\NormalTok{ my\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{replace\_na}\NormalTok{(}\FunctionTok{list}\NormalTok{(}\AttributeTok{ParticipateCService =} \DecValTok{0}\NormalTok{, }\AttributeTok{ParticipateStudyAbroadSemester =} \DecValTok{0}\NormalTok{, }\AttributeTok{ParticipateServiceL =} \DecValTok{0}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{preliminary-analysis}{%
+\subsection{Preliminary analysis}\label{preliminary-analysis}}
+
+At this point, we are ready for some analysis
+
+Let's investigate correlations. What seems most obvious would just be to run cor() but, as we found out in class, this can cause us to run full speed ahead without considering assumptions
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_correlations }\OtherTok{\textless{}{-}}\NormalTok{ my\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(SJCa,SJCh,DA) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{cor}\NormalTok{()}
+\FunctionTok{print}\NormalTok{(my\_correlations)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           SJCa      SJCh        DA
+## SJCa 1.0000000 0.2590211 0.3342276
+## SJCh 0.2590211 1.0000000 0.2310703
+## DA   0.3342276 0.2310703 1.0000000
+\end{verbatim}
+
+Ok, so, it is important that we note that this ran correlations but R doesn't know that this was sample data and therefore that we are interested instatistical significance (or not) of these results AND that our data may need another method (e.g., non-parametric). cor() does have a way to run spearman instead.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_spearman\_correlations }\OtherTok{\textless{}{-}}\NormalTok{ my\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(SJCa,SJCh,DA) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{cor}\NormalTok{(}\AttributeTok{method=}\StringTok{"spearman"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(my\_spearman\_correlations)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           SJCa      SJCh        DA
+## SJCa 1.0000000 0.2727828 0.3148168
+## SJCh 0.2727828 1.0000000 0.2340174
+## DA   0.3148168 0.2340174 1.0000000
+\end{verbatim}
+
+If we need p values though, we need to change to something else -- corr.test
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_results }\OtherTok{\textless{}{-}} \FunctionTok{corr.test}\NormalTok{(my\_df}\SpecialCharTok{$}\NormalTok{SJCa,my\_df}\SpecialCharTok{$}\NormalTok{DA)}
+\end{Highlighting}
+\end{Shaded}
+
+Then we can pull out results from this list or print it. Let's do both.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(my\_results,}\AttributeTok{short=}\ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call:corr.test(x = my_df$SJCa, y = my_df$DA)
+## Correlation matrix 
+## [1] 0.33
+## Sample Size 
+## [1] 1852
+## Probability values  adjusted for multiple tests. 
+## [1] 0
+## 
+##  Confidence intervals based upon normal theory.  To get bootstrapped values, try cor.ci
+##       raw.lower raw.r raw.upper raw.p lower.adj upper.adj
+## NA-NA      0.29  0.33      0.37     0      0.29      0.37
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_results}\SpecialCharTok{$}\NormalTok{r }\CommentTok{\# correlation coefficient}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3342276
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_results}\SpecialCharTok{$}\NormalTok{p }\CommentTok{\# p{-}value}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.433637e-49
+\end{verbatim}
+
+Visually, we should be able to see this on a scatterplot. We are going to use qplot which stands for quickplot from within ggplot. It is useful and quicker for simple plotting than building up ggplot (though from the same package) we need to jitter my points (take geom=``jitter'' out if you want to see why)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qplot}\NormalTok{(SJCa,DA,}\AttributeTok{data=}\NormalTok{my\_df,}\AttributeTok{geom=}\StringTok{"jitter"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-72-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qqnorm}\NormalTok{(my\_df}\SpecialCharTok{$}\NormalTok{SJCa, }\AttributeTok{frame =} \ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{qqline}\NormalTok{(my\_df}\SpecialCharTok{$}\NormalTok{SJCa, }\AttributeTok{col =} \StringTok{"steelblue"}\NormalTok{, }\AttributeTok{lwd =} \FloatTok{1.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-72-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ SJCa)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-72-3.pdf}
+
+Other functions we used today in class were describe() and also the q-q plot creation to investigate normality assumption copying syntax from the Field, Miles, \& Field book
+
+\hypertarget{week-5-simple-regression}{%
+\chapter{Week 5: Simple Regression}\label{week-5-simple-regression}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{require}\NormalTok{(tidyverse)}
+\FunctionTok{require}\NormalTok{(psych)}
+\FunctionTok{require}\NormalTok{(kableExtra)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: kableExtra
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'kableExtra'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     group_rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(broom)}
+\end{Highlighting}
+\end{Shaded}
+
+This week we will start learning about linear regression. In particular, we focus on simple regression. These kinds of models involve one predictor variable and one continuous outcome variable. Next week we will move to models with multiple regression, which involves - you guessed it - multiple predictor variables.
+
+\hypertarget{general-modeling-philosophy}{%
+\section{General Modeling Philosophy}\label{general-modeling-philosophy}}
+
+The general approach is to model the outcome variable as a function of some predictor(s) plus an error term. Mathematically, this looks like:
+
+\(outcome_i = model + error_i\)
+
+where the \(i\) subscript refers to the \(i^{th}\) person in the sample.
+
+\hypertarget{review-of-the-normal-distribution-and-standardizing-variables}{%
+\subsubsection{Review of the normal distribution and standardizing variables}\label{review-of-the-normal-distribution-and-standardizing-variables}}
+
+Just to review, let's think about normally distributed variables and the notion of centering and standardizing.
+
+First, we will generate some data by drawing \texttt{n} random numbers from a normal distribution with a mean and standard deviation that we will specify.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mean }\OtherTok{\textless{}{-}} \DecValTok{5}
+\NormalTok{sd }\OtherTok{\textless{}{-}} \DecValTok{3}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{1000}
+
+\NormalTok{random\_x }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ n, }\AttributeTok{mean =}\NormalTok{ mean, }\AttributeTok{sd =}\NormalTok{ sd)}
+\end{Highlighting}
+\end{Shaded}
+
+We can then visualize those numbers
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(random\_x)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-74-1.pdf}
+
+Now if we subtract the mean and plot the histogram, notice how the values have all basically shifted to the left along the x-axis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_mean }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(random\_x)}
+
+\NormalTok{centered\_x }\OtherTok{\textless{}{-}}\NormalTok{ random\_x }\SpecialCharTok{{-}}\NormalTok{ sample\_mean}
+
+\FunctionTok{hist}\NormalTok{(centered\_x)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-75-1.pdf}
+
+Finally, we can divide by the sample standard deviation, which should have the effect of either stretching or squishing the values along the x-axis (without changing their mean). Pay attention again to the values along the x-axis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_sd }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(random\_x)}
+
+\NormalTok{standardized\_x }\OtherTok{\textless{}{-}}\NormalTok{ centered\_x }\SpecialCharTok{/}\NormalTok{ sample\_sd}
+
+\FunctionTok{hist}\NormalTok{(standardized\_x)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-76-1.pdf}
+
+This final plot should remind you have the standard normal plot (with mean 0 and standard deviation 1). This is noted as \(x \sim \mathcal{N}(0, 1)\) and is read as ``x is distributed according to a normal distribution with a mean of 0 and variance of 1''.
+
+\hypertarget{data-generation-demo---one-set-sample-size}{%
+\section{Data generation demo - one set sample size}\label{data-generation-demo---one-set-sample-size}}
+
+The following is a demo from class, found in the week\_5\_demo.R file
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#store the sample size that we want to use}
+\NormalTok{samp\_size }\OtherTok{\textless{}{-}} \DecValTok{100}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# uniformly sample X values (values for our predictor variable) from 0 to 20 }
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\FunctionTok{runif}\NormalTok{(}\AttributeTok{n =}\NormalTok{ samp\_size, }\AttributeTok{min =} \DecValTok{0}\NormalTok{, }\AttributeTok{max =} \DecValTok{30}\NormalTok{), }\AttributeTok{digits =} \DecValTok{1}\NormalTok{) }\CommentTok{\# this gives samp\_size number of random numbers}
+\end{Highlighting}
+\end{Shaded}
+
+Store the noise values for our different test models
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sd\_min }\OtherTok{\textless{}{-}} \DecValTok{2} \CommentTok{\# low noise}
+\NormalTok{sd\_med }\OtherTok{\textless{}{-}} \DecValTok{6} \CommentTok{\# medium noise}
+\NormalTok{sd\_max }\OtherTok{\textless{}{-}} \DecValTok{12} \CommentTok{\# high noise}
+\end{Highlighting}
+\end{Shaded}
+
+Generate the outcome variable values under different amounts of noise (the rnorm() function is what is generating noise here)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y\_noise\_sd\_none }\OtherTok{\textless{}{-}} \DecValTok{3} \SpecialCharTok{+} \DecValTok{2}\SpecialCharTok{*}\NormalTok{x }\CommentTok{\# this is the true relationship without any noise}
+\NormalTok{y\_noise\_sd\_min }\OtherTok{\textless{}{-}} \DecValTok{3} \SpecialCharTok{+} \DecValTok{2}\SpecialCharTok{*}\NormalTok{x }\SpecialCharTok{+} \FunctionTok{round}\NormalTok{(}\AttributeTok{x =} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ samp\_size, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =}\NormalTok{ sd\_min), }\AttributeTok{digits =} \DecValTok{1}\NormalTok{)}
+\NormalTok{y\_noise\_sd\_med }\OtherTok{\textless{}{-}} \DecValTok{3} \SpecialCharTok{+} \DecValTok{2}\SpecialCharTok{*}\NormalTok{x }\SpecialCharTok{+} \FunctionTok{round}\NormalTok{(}\AttributeTok{x =} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ samp\_size, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =}\NormalTok{ sd\_med), }\AttributeTok{digits =} \DecValTok{1}\NormalTok{)}
+\NormalTok{y\_noise\_sd\_max }\OtherTok{\textless{}{-}} \DecValTok{3} \SpecialCharTok{+} \DecValTok{2}\SpecialCharTok{*}\NormalTok{x }\SpecialCharTok{+} \FunctionTok{round}\NormalTok{(}\AttributeTok{x =} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ samp\_size, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =}\NormalTok{ sd\_max), }\AttributeTok{digits =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Typical step 1: visualize! Let's plot each of these x values vs y
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x, y\_noise\_sd\_none)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/remedy006-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x, y\_noise\_sd\_min)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/remedy006-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x, y\_noise\_sd\_med)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/remedy006-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x, y\_noise\_sd\_max)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/remedy006-4.pdf}
+
+Let's put all of these vectors together into a data frame to make it easier to analyze later on
+Note, this is not a vital step for conducting the simple regression
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo\_df }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\StringTok{"x"} \OtherTok{=}\NormalTok{ x, }
+                  \StringTok{"y\_noise\_sd\_none"}\OtherTok{=}\NormalTok{y\_noise\_sd\_none, }
+                  \StringTok{"y\_noise\_sd\_min"} \OtherTok{=}\NormalTok{ y\_noise\_sd\_min,}
+                  \StringTok{"y\_noise\_sd\_med"} \OtherTok{=}\NormalTok{ y\_noise\_sd\_med,}
+                  \StringTok{"y\_noise\_sd\_max"} \OtherTok{=}\NormalTok{ y\_noise\_sd\_max)}
+\end{Highlighting}
+\end{Shaded}
+
+Check out what demo\_df looks like
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(demo\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 5
+##       x y_noise_sd_none y_noise_sd_min y_noise_sd_med y_noise_sd_max
+##   <dbl>           <dbl>          <dbl>          <dbl>          <dbl>
+## 1  14.9            32.8           32.6           32.6           33  
+## 2   2.6             8.2            6.7           15.2           10.5
+## 3   9.9            22.8           24.9           27.7           17.3
+## 4  24.2            51.4           51.1           57.4           57.6
+## 5  21              45             43.8           43.2           62.6
+## 6  16.8            36.6           37.3           26.7           36.3
+\end{verbatim}
+
+Order by increasing x value
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo\_df }\OtherTok{\textless{}{-}}\NormalTok{ demo\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+Check out what the arrange() function did
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(demo\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 5
+##       x y_noise_sd_none y_noise_sd_min y_noise_sd_med y_noise_sd_max
+##   <dbl>           <dbl>          <dbl>          <dbl>          <dbl>
+## 1   0.4             3.8            1.8            3.8           29.5
+## 2   0.9             4.8            6             11.9          -10  
+## 3   1.2             5.4            4.6            6.4           -6.6
+## 4   1.3             5.6            3.7           -6.3           12  
+## 5   1.6             6.2            8.2           -8.7            6.3
+## 6   1.6             6.2            3              1.9            9.8
+\end{verbatim}
+
+Let's make this a long df so that we can plot multiple standard deviation values together
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo\_df\_long }\OtherTok{\textless{}{-}}\NormalTok{ demo\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{starts\_with}\NormalTok{(}\StringTok{"y\_noise"}\NormalTok{),}
+               \AttributeTok{names\_to =} \StringTok{"y\_col"}\NormalTok{,}
+               \AttributeTok{values\_to =} \StringTok{"y\_val"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+Again, check on what this did
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(demo\_df\_long)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+##       x y_col           y_val
+##   <dbl> <chr>           <dbl>
+## 1   0.4 y_noise_sd_none   3.8
+## 2   0.4 y_noise_sd_min    1.8
+## 3   0.4 y_noise_sd_med    3.8
+## 4   0.4 y_noise_sd_max   29.5
+## 5   0.9 y_noise_sd_none   4.8
+## 6   0.9 y_noise_sd_min    6
+\end{verbatim}
+
+Let's add in a column to note whether the value is from the min, med, max, or zero sd (noise) model
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo\_df\_long }\OtherTok{\textless{}{-}}\NormalTok{ demo\_df\_long }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{sd\_val =} \FunctionTok{case\_when}\NormalTok{(}\FunctionTok{str\_detect}\NormalTok{(y\_col, }\StringTok{"sd\_none"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \DecValTok{0}\NormalTok{,}
+                            \FunctionTok{str\_detect}\NormalTok{(y\_col, }\StringTok{"sd\_min"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sd\_min,}
+                            \FunctionTok{str\_detect}\NormalTok{(y\_col, }\StringTok{"sd\_med"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sd\_med,}
+                            \FunctionTok{str\_detect}\NormalTok{(y\_col, }\StringTok{"sd\_max"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sd\_max))}
+\end{Highlighting}
+\end{Shaded}
+
+Use facet\_grid to separate the plots out by
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo\_df\_long }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ y\_val)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{facet\_grid}\NormalTok{(.}\SpecialCharTok{\textasciitilde{}}\NormalTok{y\_col)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/remedy014-1.pdf}
+
+You can also automatically add in a line with the geom\_smooth() function
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo\_df\_long }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ y\_val)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{facet\_grid}\NormalTok{(.}\SpecialCharTok{\textasciitilde{}}\NormalTok{y\_col)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{test_course_notes_files/figure-latex/remedy015-1.pdf}
+
+Now we can create a linear model for the data with minimum noise with the following command:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit\_demo\_min }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(y\_noise\_sd\_min }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x)}
+\end{Highlighting}
+\end{Shaded}
+
+\ldots and we can look at the summary of the model with:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(fit\_demo\_min)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_noise_sd_min ~ x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.9636 -1.5735 -0.1374  1.4690  5.4681 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  2.99463    0.41102   7.286 8.18e-11 ***
+## x            2.00833    0.02483  80.892  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.155 on 98 degrees of freedom
+## Multiple R-squared:  0.9852, Adjusted R-squared:  0.9851 
+## F-statistic:  6543 on 1 and 98 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+We can also look at model results with the glance() function from the broom package
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{broom}\SpecialCharTok{::}\FunctionTok{glance}\NormalTok{(fit\_demo\_min)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 12
+##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+##       <dbl>         <dbl> <dbl>     <dbl>    <dbl> <dbl>  <dbl> <dbl> <dbl>
+## 1     0.985         0.985  2.15     6543. 1.54e-91     1  -218.  441.  449.
+## # ... with 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
+\end{verbatim}
+
+We can create models for the med and max sd values as well and take a look at those with the summary() function once again
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit\_demo\_med }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(y\_noise\_sd\_med }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x)}
+\FunctionTok{summary}\NormalTok{(fit\_demo\_med)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_noise_sd_med ~ x)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -16.7568  -4.1599  -0.1476   4.2789  14.1738 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  0.90051    1.21652    0.74    0.461    
+## x            2.14779    0.07348   29.23   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 6.377 on 98 degrees of freedom
+## Multiple R-squared:  0.8971, Adjusted R-squared:  0.896 
+## F-statistic: 854.3 on 1 and 98 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit\_demo\_max }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(y\_noise\_sd\_max }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x)}
+\FunctionTok{summary}\NormalTok{(fit\_demo\_max)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_noise_sd_max ~ x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -33.355  -6.300  -0.224   7.972  28.081 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)    4.835      2.318   2.086   0.0396 *  
+## x              1.944      0.140  13.884   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 12.15 on 98 degrees of freedom
+## Multiple R-squared:  0.663,  Adjusted R-squared:  0.6595 
+## F-statistic: 192.8 on 1 and 98 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+Notice the increase in the standard error of the coefficient estimates as the noise in y values went up
+
+From a programming perspective, this was not very efficient because I just copied, pasted, and corrected these values.
+There is a better way to do this using lists (see below)
+
+Let's do some fancy stuff to make multiple models at once rather than having to write new lines for each model
+*Some of these ideas are taken from the R4DS book chapter 25
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test\_nest }\OtherTok{\textless{}{-}}\NormalTok{ demo\_df\_long }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{nest}\NormalTok{(}\AttributeTok{data =} \SpecialCharTok{{-}}\NormalTok{sd\_val)}
+
+
+\NormalTok{linear\_model }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(df) \{}
+  \FunctionTok{lm}\NormalTok{(y\_val }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ df)}
+\NormalTok{\}}
+
+
+\NormalTok{models }\OtherTok{\textless{}{-}} \FunctionTok{map}\NormalTok{(test\_nest}\SpecialCharTok{$}\NormalTok{data, linear\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(models[[}\DecValTok{2}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_val ~ x, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.9636 -1.5735 -0.1374  1.4690  5.4681 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  2.99463    0.41102   7.286 8.18e-11 ***
+## x            2.00833    0.02483  80.892  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.155 on 98 degrees of freedom
+## Multiple R-squared:  0.9852, Adjusted R-squared:  0.9851 
+## F-statistic:  6543 on 1 and 98 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(models[[}\DecValTok{3}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_val ~ x, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -16.7568  -4.1599  -0.1476   4.2789  14.1738 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  0.90051    1.21652    0.74    0.461    
+## x            2.14779    0.07348   29.23   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 6.377 on 98 degrees of freedom
+## Multiple R-squared:  0.8971, Adjusted R-squared:  0.896 
+## F-statistic: 854.3 on 1 and 98 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(models[[}\DecValTok{4}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_val ~ x, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -33.355  -6.300  -0.224   7.972  28.081 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)    4.835      2.318   2.086   0.0396 *  
+## x              1.944      0.140  13.884   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 12.15 on 98 degrees of freedom
+## Multiple R-squared:  0.663,  Adjusted R-squared:  0.6595 
+## F-statistic: 192.8 on 1 and 98 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+We can also store the models as new columns in the nested dataframe
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test\_nest }\OtherTok{\textless{}{-}}\NormalTok{ test\_nest }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{model =} \FunctionTok{map}\NormalTok{(data, linear\_model))}
+\end{Highlighting}
+\end{Shaded}
+
+Finally, we can unnest the models to make it easier to compare them with each other in a data frame
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test\_nest }\OtherTok{\textless{}{-}}\NormalTok{ test\_nest }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{glance =} \FunctionTok{map}\NormalTok{(model, broom}\SpecialCharTok{::}\NormalTok{glance)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{unnest}\NormalTok{(glance)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in summary.lm(x): essentially perfect fit: summary may be unreliable
+
+## Warning in summary.lm(x): essentially perfect fit: summary may be unreliable
+\end{verbatim}
+
+\hypertarget{data-generation-demo---one-set-sample-size-1}{%
+\section{Data generation demo - one set sample size;}\label{data-generation-demo---one-set-sample-size-1}}
+
+The change from the past demo is that we are now sampling from integer values rather than continuous for the predictor
+
+Store the sample size that we want to use
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{samp\_size }\OtherTok{\textless{}{-}} \DecValTok{200}
+\end{Highlighting}
+\end{Shaded}
+
+Instead of sampling uniformly from 0 to 20, this is to sample integers from 40 to 100 uniformly.
+We take ``samp\_size'' number of samples. Replace = TRUE means we can get the same x value multiple times
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\DecValTok{60}\SpecialCharTok{:}\DecValTok{100}\NormalTok{), }\AttributeTok{size =}\NormalTok{ samp\_size, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+As before, store the noise values for our different test models
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sd\_min }\OtherTok{\textless{}{-}} \DecValTok{2}
+\NormalTok{sd\_med }\OtherTok{\textless{}{-}} \DecValTok{6}
+\NormalTok{sd\_max }\OtherTok{\textless{}{-}} \DecValTok{12}
+
+\NormalTok{y\_noise\_sd\_none }\OtherTok{\textless{}{-}} \DecValTok{3} \SpecialCharTok{+} \DecValTok{2}\SpecialCharTok{*}\NormalTok{x}
+\NormalTok{y\_noise\_sd\_min }\OtherTok{\textless{}{-}} \DecValTok{3} \SpecialCharTok{+} \DecValTok{2}\SpecialCharTok{*}\NormalTok{x }\SpecialCharTok{+} \FunctionTok{round}\NormalTok{(}\AttributeTok{x =} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ samp\_size, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =}\NormalTok{ sd\_min), }\AttributeTok{digits =} \DecValTok{1}\NormalTok{)}
+\NormalTok{y\_noise\_sd\_med }\OtherTok{\textless{}{-}} \DecValTok{3} \SpecialCharTok{+} \DecValTok{2}\SpecialCharTok{*}\NormalTok{x }\SpecialCharTok{+} \FunctionTok{round}\NormalTok{(}\AttributeTok{x =} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ samp\_size, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =}\NormalTok{ sd\_med), }\AttributeTok{digits =} \DecValTok{1}\NormalTok{)}
+\NormalTok{y\_noise\_sd\_max }\OtherTok{\textless{}{-}} \DecValTok{3} \SpecialCharTok{+} \DecValTok{2}\SpecialCharTok{*}\NormalTok{x }\SpecialCharTok{+} \FunctionTok{round}\NormalTok{(}\AttributeTok{x =} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ samp\_size, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =}\NormalTok{ sd\_max), }\AttributeTok{digits =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Typical step 1: visualize! Let's plot each of these x values vs y
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x, y\_noise\_sd\_none)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/remedy030-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x, y\_noise\_sd\_min)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/remedy030-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x, y\_noise\_sd\_med)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/remedy030-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x, y\_noise\_sd\_max)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/remedy030-4.pdf}
+
+Let's put all of these vectors together into a data frame to make it easier to analyze later on.
+Note, this is not a vital step for conducting the simple regression
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo\_df }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\StringTok{"x"} \OtherTok{=}\NormalTok{ x, }
+                  \StringTok{"y\_noise\_sd\_none"}\OtherTok{=}\NormalTok{y\_noise\_sd\_none, }
+                  \StringTok{"y\_noise\_sd\_min"} \OtherTok{=}\NormalTok{ y\_noise\_sd\_min,}
+                  \StringTok{"y\_noise\_sd\_med"} \OtherTok{=}\NormalTok{ y\_noise\_sd\_med,}
+                  \StringTok{"y\_noise\_sd\_max"} \OtherTok{=}\NormalTok{ y\_noise\_sd\_max)}
+\end{Highlighting}
+\end{Shaded}
+
+Order by increasing x value
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo\_df }\OtherTok{\textless{}{-}}\NormalTok{ demo\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+Let's make this a long df so that we can plot multiple standard deviation values together
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo\_df\_long }\OtherTok{\textless{}{-}}\NormalTok{ demo\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{starts\_with}\NormalTok{(}\StringTok{"y\_noise"}\NormalTok{),}
+               \AttributeTok{names\_to =} \StringTok{"y\_col"}\NormalTok{,}
+               \AttributeTok{values\_to =} \StringTok{"y\_val"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo\_df\_long }\OtherTok{\textless{}{-}}\NormalTok{ demo\_df\_long }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{sd\_val =} \FunctionTok{case\_when}\NormalTok{(}\FunctionTok{str\_detect}\NormalTok{(y\_col, }\StringTok{"sd\_none"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \DecValTok{0}\NormalTok{,}
+                            \FunctionTok{str\_detect}\NormalTok{(y\_col, }\StringTok{"sd\_min"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sd\_min,}
+                            \FunctionTok{str\_detect}\NormalTok{(y\_col, }\StringTok{"sd\_med"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sd\_med,}
+                            \FunctionTok{str\_detect}\NormalTok{(y\_col, }\StringTok{"sd\_max"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sd\_max))}
+\end{Highlighting}
+\end{Shaded}
+
+And visualize the data, faceting by different noise
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo\_df\_long }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ y\_val)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{facet\_grid}\NormalTok{(.}\SpecialCharTok{\textasciitilde{}}\NormalTok{y\_col)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/remedy035-1.pdf}
+
+And add in a line with \texttt{geom\_smooth(method\ =\ \textquotesingle{}lm\textquotesingle{})}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo\_df\_long }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ y\_val)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{facet\_grid}\NormalTok{(.}\SpecialCharTok{\textasciitilde{}}\NormalTok{y\_col)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{test_course_notes_files/figure-latex/remedy036-1.pdf}
+
+Create a linear model and look at the summary.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit\_demo\_min }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(y\_noise\_sd\_min }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x)}
+\FunctionTok{summary}\NormalTok{(fit\_demo\_min)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_noise_sd_min ~ x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -7.5887 -1.5825 -0.0405  1.6148  5.8059 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  2.83684    1.08534   2.614  0.00964 ** 
+## x            1.99940    0.01365 146.470  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.256 on 198 degrees of freedom
+## Multiple R-squared:  0.9909, Adjusted R-squared:  0.9908 
+## F-statistic: 2.145e+04 on 1 and 198 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+We can also look at model results with the glance() function from the broom package
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{broom}\SpecialCharTok{::}\FunctionTok{glance}\NormalTok{(fit\_demo\_min)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 12
+##   r.squared adj.r.squared sigma statistic   p.value    df logLik   AIC   BIC
+##       <dbl>         <dbl> <dbl>     <dbl>     <dbl> <dbl>  <dbl> <dbl> <dbl>
+## 1     0.991         0.991  2.26    21454. 8.16e-204     1  -446.  897.  907.
+## # ... with 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
+\end{verbatim}
+
+We can create models for the med and max sd values as well and take a look at those with the summary() function once again.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit\_demo\_med }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(y\_noise\_sd\_med }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x)}
+\FunctionTok{summary}\NormalTok{(fit\_demo\_med)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_noise_sd_med ~ x)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -14.9883  -4.5766   0.1295   4.5445  14.2781 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -1.52696    2.88759  -0.529    0.598    
+## x            2.05545    0.03632  56.596   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 6.003 on 198 degrees of freedom
+## Multiple R-squared:  0.9418, Adjusted R-squared:  0.9415 
+## F-statistic:  3203 on 1 and 198 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit\_demo\_max }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(y\_noise\_sd\_max }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x)}
+\FunctionTok{summary}\NormalTok{(fit\_demo\_max)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_noise_sd_max ~ x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -32.563  -8.642  -0.499   7.510  30.394 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  0.05934    5.63131   0.011    0.992    
+## x            2.05232    0.07083  28.977   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 11.71 on 198 degrees of freedom
+## Multiple R-squared:  0.8092, Adjusted R-squared:  0.8082 
+## F-statistic: 839.7 on 1 and 198 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+Notice the increase in the standard error of the coefficient estimates as the noise in y values went up
+
+From a programming perspective, this was not very efficient because I just copied, pasted, and corrected these values.
+There is a better way to do this using lists (see below)
+
+Let's do some fancy stuff to make multiple models at once rather than having to write new lines for each model
+*Some of these ideas are taken from the R4DS book chapter 25
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test\_nest }\OtherTok{\textless{}{-}}\NormalTok{ demo\_df\_long }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{nest}\NormalTok{(}\AttributeTok{data =} \SpecialCharTok{{-}}\NormalTok{sd\_val)}
+
+
+\NormalTok{linear\_model }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(df) \{}
+  \FunctionTok{lm}\NormalTok{(y\_val }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ df)}
+\NormalTok{\}}
+
+
+\NormalTok{models }\OtherTok{\textless{}{-}} \FunctionTok{map}\NormalTok{(test\_nest}\SpecialCharTok{$}\NormalTok{data, linear\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(models[[}\DecValTok{2}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_val ~ x, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -7.5887 -1.5825 -0.0405  1.6148  5.8059 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  2.83684    1.08534   2.614  0.00964 ** 
+## x            1.99940    0.01365 146.470  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.256 on 198 degrees of freedom
+## Multiple R-squared:  0.9909, Adjusted R-squared:  0.9908 
+## F-statistic: 2.145e+04 on 1 and 198 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(models[[}\DecValTok{3}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_val ~ x, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -14.9883  -4.5766   0.1295   4.5445  14.2781 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -1.52696    2.88759  -0.529    0.598    
+## x            2.05545    0.03632  56.596   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 6.003 on 198 degrees of freedom
+## Multiple R-squared:  0.9418, Adjusted R-squared:  0.9415 
+## F-statistic:  3203 on 1 and 198 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(models[[}\DecValTok{4}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_val ~ x, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -32.563  -8.642  -0.499   7.510  30.394 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  0.05934    5.63131   0.011    0.992    
+## x            2.05232    0.07083  28.977   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 11.71 on 198 degrees of freedom
+## Multiple R-squared:  0.8092, Adjusted R-squared:  0.8082 
+## F-statistic: 839.7 on 1 and 198 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+We can also store the models as new columns in the nested dataframe
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test\_nest }\OtherTok{\textless{}{-}}\NormalTok{ test\_nest }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{model =} \FunctionTok{map}\NormalTok{(data, linear\_model))}
+\end{Highlighting}
+\end{Shaded}
+
+Finally, we can unnest the models to make it easier to compare them with each other in a data frame
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test\_nest }\OtherTok{\textless{}{-}}\NormalTok{ test\_nest }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{glance =} \FunctionTok{map}\NormalTok{(model, broom}\SpecialCharTok{::}\NormalTok{glance)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{unnest}\NormalTok{(glance)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in summary.lm(x): essentially perfect fit: summary may be unreliable
+
+## Warning in summary.lm(x): essentially perfect fit: summary may be unreliable
+\end{verbatim}
+
+\hypertarget{data-generation-with-three-different-sample-sizes}{%
+\section{Data generation with three different sample sizes}\label{data-generation-with-three-different-sample-sizes}}
+
+Let's run the same demo but now have three different sample sizes - 10, 50, and 500
+
+First, store the sample sizes we want to use
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{samp\_sizes }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{50}\NormalTok{, }\DecValTok{500}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Next, create a bookkeping column for ourselves to keep track of which sample size the future values will come from
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{samp\_size\_col }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{,}\DecValTok{50}\NormalTok{, }\DecValTok{500}\NormalTok{), }\AttributeTok{times =}\NormalTok{ samp\_sizes)}
+\end{Highlighting}
+\end{Shaded}
+
+Calculate the total number of values we will need from the three samples combined
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tot\_samp\_size }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(samp\_sizes)}
+\end{Highlighting}
+\end{Shaded}
+
+Sample uniformly from 0 to 20
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\AttributeTok{x =} \FunctionTok{runif}\NormalTok{(}\AttributeTok{n =}\NormalTok{ tot\_samp\_size, }\AttributeTok{min =} \DecValTok{0}\NormalTok{, }\AttributeTok{max =} \DecValTok{20}\NormalTok{), }\AttributeTok{digits =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Store the standard deviations for the min, med, and max models
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sd\_min }\OtherTok{\textless{}{-}} \DecValTok{2}
+\NormalTok{sd\_med }\OtherTok{\textless{}{-}} \DecValTok{6}
+\NormalTok{sd\_max }\OtherTok{\textless{}{-}} \DecValTok{12}
+\end{Highlighting}
+\end{Shaded}
+
+Calculate the y values for the different scenarios where there is no noise up to max noise
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y\_noise\_sd\_none }\OtherTok{\textless{}{-}} \DecValTok{3} \SpecialCharTok{+} \DecValTok{2}\SpecialCharTok{*}\NormalTok{x}
+\NormalTok{y\_noise\_sd\_min }\OtherTok{\textless{}{-}} \DecValTok{3} \SpecialCharTok{+} \DecValTok{2}\SpecialCharTok{*}\NormalTok{x }\SpecialCharTok{+} \FunctionTok{round}\NormalTok{(}\AttributeTok{x =} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ tot\_samp\_size, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =}\NormalTok{ sd\_min), }\AttributeTok{digits =} \DecValTok{1}\NormalTok{)}
+\NormalTok{y\_noise\_sd\_med }\OtherTok{\textless{}{-}} \DecValTok{3} \SpecialCharTok{+} \DecValTok{2}\SpecialCharTok{*}\NormalTok{x }\SpecialCharTok{+} \FunctionTok{round}\NormalTok{(}\AttributeTok{x =} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ tot\_samp\_size, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =}\NormalTok{ sd\_med), }\AttributeTok{digits =} \DecValTok{1}\NormalTok{)}
+\NormalTok{y\_noise\_sd\_max }\OtherTok{\textless{}{-}} \DecValTok{3} \SpecialCharTok{+} \DecValTok{2}\SpecialCharTok{*}\NormalTok{x }\SpecialCharTok{+} \FunctionTok{round}\NormalTok{(}\AttributeTok{x =} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ tot\_samp\_size, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =}\NormalTok{ sd\_max), }\AttributeTok{digits =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Typical step 1: visualize! Let's plot each of these x values vs y
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x, y\_noise\_sd\_none)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-80-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x, y\_noise\_sd\_min)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-80-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x, y\_noise\_sd\_med)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-80-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x, y\_noise\_sd\_max)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-80-4.pdf}
+Can we calculate the correlations between x and these different y values? (pro tip: yes)
+
+Let's put all of these vectors together into a data frame to make it easier to analyze later on
+Note, this is not a vital step for conducting the simple regression
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo\_df }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\StringTok{"n"} \OtherTok{=}\NormalTok{ samp\_size\_col,}
+                  \StringTok{"x"} \OtherTok{=}\NormalTok{ x, }
+                  \StringTok{"y\_noise\_sd\_none"}\OtherTok{=}\NormalTok{y\_noise\_sd\_none, }
+                  \StringTok{"y\_noise\_sd\_min"} \OtherTok{=}\NormalTok{ y\_noise\_sd\_min,}
+                  \StringTok{"y\_noise\_sd\_med"} \OtherTok{=}\NormalTok{ y\_noise\_sd\_med,}
+                  \StringTok{"y\_noise\_sd\_max"} \OtherTok{=}\NormalTok{ y\_noise\_sd\_max)}
+\end{Highlighting}
+\end{Shaded}
+
+Order by increasing x value
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo\_df }\OtherTok{\textless{}{-}}\NormalTok{ demo\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(n, x)}
+\end{Highlighting}
+\end{Shaded}
+
+Let's make this a long df so that we can plot multiple standard deviation values together
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo\_df\_long }\OtherTok{\textless{}{-}}\NormalTok{ demo\_df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{starts\_with}\NormalTok{(}\StringTok{"y\_noise"}\NormalTok{),}
+               \AttributeTok{names\_to =} \StringTok{"y\_col"}\NormalTok{,}
+               \AttributeTok{values\_to =} \StringTok{"y\_val"}
+\NormalTok{  )}
+
+\NormalTok{demo\_df\_long }\OtherTok{\textless{}{-}}\NormalTok{ demo\_df\_long }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{sd\_val =} \FunctionTok{case\_when}\NormalTok{(}\FunctionTok{str\_detect}\NormalTok{(y\_col, }\StringTok{"sd\_none"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \DecValTok{0}\NormalTok{,}
+                            \FunctionTok{str\_detect}\NormalTok{(y\_col, }\StringTok{"sd\_min"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sd\_min,}
+                            \FunctionTok{str\_detect}\NormalTok{(y\_col, }\StringTok{"sd\_med"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sd\_med,}
+                            \FunctionTok{str\_detect}\NormalTok{(y\_col, }\StringTok{"sd\_max"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sd\_max))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo\_df\_long }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ y\_val)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{facet\_grid}\NormalTok{(n}\SpecialCharTok{\textasciitilde{}}\NormalTok{y\_col)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-84-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo\_df\_long }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ y\_val)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{facet\_grid}\NormalTok{(n}\SpecialCharTok{\textasciitilde{}}\NormalTok{y\_col)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{test_course_notes_files/figure-latex/unnamed-chunk-85-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit\_demo\_min }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(y\_noise\_sd\_min }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x)}
+\FunctionTok{summary}\NormalTok{(fit\_demo\_min)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_noise_sd_min ~ x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.9639 -1.2975  0.0287  1.4347  7.9107 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  3.22024    0.17470   18.43   <2e-16 ***
+## x            1.99186    0.01498  132.96   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.07 on 558 degrees of freedom
+## Multiple R-squared:  0.9694, Adjusted R-squared:  0.9693 
+## F-statistic: 1.768e+04 on 1 and 558 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+We can also look at model results with the glance() function from the broom package
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{broom}\SpecialCharTok{::}\FunctionTok{glance}\NormalTok{(fit\_demo\_min)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 12
+##   r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC
+##       <dbl>         <dbl> <dbl>     <dbl>   <dbl> <dbl>  <dbl> <dbl> <dbl>
+## 1     0.969         0.969  2.07    17677.       0     1 -1201. 2408. 2421.
+## # ... with 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
+\end{verbatim}
+
+We can create models for the med and max sd values as well and take a look at those with the summary() function once again
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit\_demo\_med }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(y\_noise\_sd\_med }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x)}
+\FunctionTok{summary}\NormalTok{(fit\_demo\_med)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_noise_sd_med ~ x)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -18.6897  -3.9551  -0.1918   3.9877  18.1683 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  2.89522    0.50178    5.77 1.32e-08 ***
+## x            2.01259    0.04303   46.77  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 5.944 on 558 degrees of freedom
+## Multiple R-squared:  0.7968, Adjusted R-squared:  0.7964 
+## F-statistic:  2188 on 1 and 558 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit\_demo\_max }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(y\_noise\_sd\_max }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x)}
+\FunctionTok{summary}\NormalTok{(fit\_demo\_max)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_noise_sd_max ~ x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -38.020  -7.332   0.498   7.831  32.073 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  2.76569    0.97983   2.823  0.00493 ** 
+## x            1.97494    0.08403  23.504  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 11.61 on 558 degrees of freedom
+## Multiple R-squared:  0.4975, Adjusted R-squared:  0.4966 
+## F-statistic: 552.4 on 1 and 558 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+Notice the increase in the standard error of the coefficient estimates as the noise in y values went up
+
+From a programming perspective, this was not very efficient because I just copied, pasted, and corrected these values.
+There is a better way to do this using lists (see below)
+
+Let's do some fancy stuff to make multiple models at once rather than having to write new lines for each model
+*Some of these ideas are taken from the R4DS book chapter 25
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test\_nest }\OtherTok{\textless{}{-}}\NormalTok{ demo\_df\_long }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{nest}\NormalTok{(}\AttributeTok{data =} \SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(sd\_val, n))}
+
+
+\NormalTok{linear\_model }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(df) \{}
+  \FunctionTok{lm}\NormalTok{(y\_val }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ df)}
+\NormalTok{\}}
+
+
+\NormalTok{models }\OtherTok{\textless{}{-}} \FunctionTok{map}\NormalTok{(test\_nest}\SpecialCharTok{$}\NormalTok{data, linear\_model)}
+
+\FunctionTok{summary}\NormalTok{(models[[}\DecValTok{2}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_val ~ x, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.5796 -1.2451 -0.2774  1.0443  2.6078 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  2.15945    1.19043   1.814    0.107    
+## x            2.20824    0.09463  23.335 1.21e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.539 on 8 degrees of freedom
+## Multiple R-squared:  0.9855, Adjusted R-squared:  0.9837 
+## F-statistic: 544.5 on 1 and 8 DF,  p-value: 1.209e-08
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(models[[}\DecValTok{3}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_val ~ x, data = df)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -7.330 -4.372 -1.572  5.145  9.211 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  -1.5375     4.7641  -0.323 0.755169    
+## x             2.3543     0.3787   6.217 0.000255 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 6.16 on 8 degrees of freedom
+## Multiple R-squared:  0.8285, Adjusted R-squared:  0.8071 
+## F-statistic: 38.65 on 1 and 8 DF,  p-value: 0.0002548
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(models[[}\DecValTok{4}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y_val ~ x, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -17.9100  -6.7924   0.7142   7.0464  16.1344 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)  
+## (Intercept)   1.9137     9.0180   0.212   0.8373  
+## x             1.8838     0.7169   2.628   0.0303 *
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 11.66 on 8 degrees of freedom
+## Multiple R-squared:  0.4633, Adjusted R-squared:  0.3962 
+## F-statistic: 6.905 on 1 and 8 DF,  p-value: 0.03028
+\end{verbatim}
+
+We can also store the models as new columns in the nested dataframe
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test\_nest }\OtherTok{\textless{}{-}}\NormalTok{ test\_nest }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{model =} \FunctionTok{map}\NormalTok{(data, linear\_model))}
+\end{Highlighting}
+\end{Shaded}
+
+Finally, we can unnest the models to make it easier to compare them with each other in a data frame
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test\_nest }\OtherTok{\textless{}{-}}\NormalTok{ test\_nest }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{glance =} \FunctionTok{map}\NormalTok{(model, broom}\SpecialCharTok{::}\NormalTok{glance)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{unnest}\NormalTok{(glance)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in summary.lm(x): essentially perfect fit: summary may be unreliable
+
+## Warning in summary.lm(x): essentially perfect fit: summary may be unreliable
+
+## Warning in summary.lm(x): essentially perfect fit: summary may be unreliable
+
+## Warning in summary.lm(x): essentially perfect fit: summary may be unreliable
+
+## Warning in summary.lm(x): essentially perfect fit: summary may be unreliable
+
+## Warning in summary.lm(x): essentially perfect fit: summary may be unreliable
+\end{verbatim}
+
+And look at the different models by just calling the data frame
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test\_nest}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 12 x 16
+##        n sd_val data  model r.squared adj.r.squared    sigma statistic   p.value
+##    <dbl>  <dbl> <lis> <lis>     <dbl>         <dbl>    <dbl>     <dbl>     <dbl>
+##  1    10      0 <tib~ <lm>      1             1     2.04e-15   2.54e32 2.69e-127
+##  2    10      2 <tib~ <lm>      0.986         0.984 1.54e+ 0   5.45e 2 1.21e-  8
+##  3    10      6 <tib~ <lm>      0.828         0.807 6.16e+ 0   3.86e 1 2.55e-  4
+##  4    10     12 <tib~ <lm>      0.463         0.396 1.17e+ 1   6.91e 0 3.03e-  2
+##  5    50      0 <tib~ <lm>      1             1     4.20e-15   4.56e32 0.       
+##  6    50      2 <tib~ <lm>      0.978         0.977 2.04e+ 0   2.11e 3 2.52e- 41
+##  7    50      6 <tib~ <lm>      0.827         0.823 5.85e+ 0   2.29e 2 6.75e- 20
+##  8    50     12 <tib~ <lm>      0.536         0.526 1.09e+ 1   5.54e 1 1.55e-  9
+##  9   500      0 <tib~ <lm>      1             1     2.55e-14   1.03e32 0.       
+## 10   500      2 <tib~ <lm>      0.969         0.969 2.06e+ 0   1.55e 4 0.       
+## 11   500      6 <tib~ <lm>      0.793         0.793 5.95e+ 0   1.91e 3 1.35e-172
+## 12   500     12 <tib~ <lm>      0.496         0.495 1.17e+ 1   4.91e 2 3.61e- 76
+## # ... with 7 more variables: df <dbl>, logLik <dbl>, AIC <dbl>, BIC <dbl>,
+## #   deviance <dbl>, df.residual <int>, nobs <int>
+\end{verbatim}
+
+\hypertarget{week-6-regression-ii}{%
+\chapter{Week 6: Regression II}\label{week-6-regression-ii}}
+
+This is where the Week 6 magic happens\ldots{}
 
   \bibliography{book.bib,packages.bib}
 

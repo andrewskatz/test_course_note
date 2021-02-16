@@ -24,7 +24,7 @@
 <meta name="author" content="Dr. Katz" />
 
 
-<meta name="date" content="2021-02-15" />
+<meta name="date" content="2021-02-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -182,16 +182,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.3" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#preliminary-analysis"><i class="fa fa-check"></i><b>4.3.3</b> Preliminary analysis</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="week-5-regression-i.html"><a href="week-5-regression-i.html"><i class="fa fa-check"></i><b>5</b> Week 5: Regression I</a></li>
-<li class="chapter" data-level="6" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html"><i class="fa fa-check"></i><b>6</b> Week 5 - Simple Regression</a>
+<li class="chapter" data-level="5" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html"><i class="fa fa-check"></i><b>5</b> Week 5: Simple Regression</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#general-modeling-philosophy"><i class="fa fa-check"></i><b>6.1</b> General Modeling Philosophy</a></li>
-<li class="chapter" data-level="6.2" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#data-generation-demo---one-set-sample-size"><i class="fa fa-check"></i><b>6.2</b> data generation demo - one set sample size</a></li>
-<li class="chapter" data-level="6.3" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#data-generation-demo---one-set-sample-size-1"><i class="fa fa-check"></i><b>6.3</b> Data generation demo - one set sample size;</a></li>
-<li class="chapter" data-level="6.4" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#data-generation-with-three-different-sample-sizes"><i class="fa fa-check"></i><b>6.4</b> Data generation with three different sample sizes</a></li>
+<li class="chapter" data-level="5.1" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#general-modeling-philosophy"><i class="fa fa-check"></i><b>5.1</b> General Modeling Philosophy</a></li>
+<li class="chapter" data-level="5.2" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#data-generation-demo---one-set-sample-size"><i class="fa fa-check"></i><b>5.2</b> Data generation demo - one set sample size</a></li>
+<li class="chapter" data-level="5.3" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#data-generation-demo---one-set-sample-size-1"><i class="fa fa-check"></i><b>5.3</b> Data generation demo - one set sample size;</a></li>
+<li class="chapter" data-level="5.4" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#data-generation-with-three-different-sample-sizes"><i class="fa fa-check"></i><b>5.4</b> Data generation with three different sample sizes</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="can-also-look-at-model-results-with-the-glance-function-from-the-broom-package.html"><a href="can-also-look-at-model-results-with-the-glance-function-from-the-broom-package.html"><i class="fa fa-check"></i><b>7</b> can also look at model results with the glance() function from the broom package</a></li>
-<li class="chapter" data-level="8" data-path="week-6-regression-ii.html"><a href="week-6-regression-ii.html"><i class="fa fa-check"></i><b>8</b> Week 6: Regression II</a></li>
+<li class="chapter" data-level="6" data-path="week-6-regression-ii.html"><a href="week-6-regression-ii.html"><i class="fa fa-check"></i><b>6</b> Week 6: Regression II</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -508,9 +506,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb43-6"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(zoom_min_sample)</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(zoom_min_sample)</span></code></pre></div>
-<pre><code>## [1] 603.6873</code></pre>
+<pre><code>## [1] 606.2123</code></pre>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(zoom_min_sample)</span></code></pre></div>
-<pre><code>## [1] 99.15759</code></pre>
+<pre><code>## [1] 105.5068</code></pre>
 <p>As a brief aside, let’s review the idea of a loop</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb48-1" aria-hidden="true" tabindex="-1"></a>num_reps <span class="ot">&lt;-</span> <span class="dv">100</span></span>
 <span id="cb48-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -523,13 +521,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb48-9"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb48-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Okay, so that’s how we create an empty vector and how we loop through its different entries. For this demo, we will also need to remenber how to generate random numbers from a norm distribution with a specified mean and standard deviation.</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>) <span class="co"># n is the number of random numbers we draw from this normal distribution</span></span></code></pre></div>
-<pre><code>##  [1] 1.700421 2.319011 5.873996 6.286688 4.954710 2.206748 2.939497 7.756411
-##  [9] 6.722216 6.472210</code></pre>
+<pre><code>##  [1] 3.296191 6.293557 8.867672 4.199433 2.115843 6.842616 6.614682 2.864056
+##  [9] 6.020316 5.345781</code></pre>
 <p>Okay, so that’s not bad. Now, that command will produce a vector with 10 random numbers. We can calculate the mean and standard deviation of those 10 numbers (which should be close to the values that we specified in <code>rnorm()</code> with the <code>mean()</code> and <code>sd()</code> functions.</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span></code></pre></div>
-<pre><code>## [1] 5.59691</code></pre>
+<pre><code>## [1] 4.336878</code></pre>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span></code></pre></div>
-<pre><code>## [1] 1.160612</code></pre>
+<pre><code>## [1] 2.922673</code></pre>
 <p>Next, let’s act as if we are drawing a certain sample of size <code>samp_size</code> of data points for <code>num_reps</code> number of times. Keep in mind that, in practice, when we are collecting data ourselves in our own research, num_reps will almost always be 1. We are just demonstrating the underlying assumptions for how we can calculate some of the statistics that we use.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb55-1" aria-hidden="true" tabindex="-1"></a>num_reps <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co"># specify how many times to take a sample</span></span>
 <span id="cb55-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb55-2" aria-hidden="true" tabindex="-1"></a>samp_size <span class="ot">&lt;-</span> <span class="dv">200</span> <span class="co"># specify the size of each sample</span></span>
@@ -542,7 +540,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data_vec)</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(data_vec)</span></code></pre></div>
-<pre><code>## [1] 7.147442</code></pre>
+<pre><code>## [1] 6.994209</code></pre>
 <p>On your own, try copying this code and changing the num_reps and sample_size variables to larger and smaller values. Focus on how the x-axis values in your histogram change when you change the num_reps and samp_size variables.</p>
 <p>Hint: CLT will explain the normal distribution of the sampling mean (the shape you see in the histogram) while the Weak Law of Large Numbers will explain the concentration around the true mean as samp_size increases (i.e., when we draw a larger sample size from the population, our sample mean gets closer to the population mean).</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Quick note on the rep() function: notice what happens when you specify &quot;each&quot; vs &quot;times&quot;.</span></span>
