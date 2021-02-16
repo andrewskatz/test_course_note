@@ -24,7 +24,7 @@
 <meta name="author" content="Dr. Katz" />
 
 
-<meta name="date" content="2021-02-08" />
+<meta name="date" content="2021-02-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -183,7 +183,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="week-5-regression-i.html"><a href="week-5-regression-i.html"><i class="fa fa-check"></i><b>5</b> Week 5: Regression I</a></li>
-<li class="chapter" data-level="6" data-path="week-6-regression-ii.html"><a href="week-6-regression-ii.html"><i class="fa fa-check"></i><b>6</b> Week 6: Regression II</a></li>
+<li class="chapter" data-level="6" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html"><i class="fa fa-check"></i><b>6</b> Week 5 - Simple Regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#general-modeling-philosophy"><i class="fa fa-check"></i><b>6.1</b> General Modeling Philosophy</a></li>
+<li class="chapter" data-level="6.2" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#data-generation-demo---one-set-sample-size"><i class="fa fa-check"></i><b>6.2</b> data generation demo - one set sample size</a></li>
+<li class="chapter" data-level="6.3" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#data-generation-demo---one-set-sample-size-1"><i class="fa fa-check"></i><b>6.3</b> Data generation demo - one set sample size;</a></li>
+<li class="chapter" data-level="6.4" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#data-generation-with-three-different-sample-sizes"><i class="fa fa-check"></i><b>6.4</b> Data generation with three different sample sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="can-also-look-at-model-results-with-the-glance-function-from-the-broom-package.html"><a href="can-also-look-at-model-results-with-the-glance-function-from-the-broom-package.html"><i class="fa fa-check"></i><b>7</b> can also look at model results with the glance() function from the broom package</a></li>
+<li class="chapter" data-level="8" data-path="week-6-regression-ii.html"><a href="week-6-regression-ii.html"><i class="fa fa-check"></i><b>8</b> Week 6: Regression II</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -210,15 +218,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="first-steps-in-r" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> First steps in R</h2>
 <p>We can create a new variable by assigning it a value with the <code>&lt;-</code> operator. Let’s create a vector of numbers 1 to 10 with the <code>seq()</code> function and then a separate vector that takes each of the x values, multiplies it by 2, and adds 3.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb1-1" aria-hidden="true"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</span>
-<span id="cb1-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb1-2" aria-hidden="true"></a>y &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb1-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span> x <span class="sc">+</span> <span class="dv">3</span></span></code></pre></div>
 <p>Just to make sure everything worked as expected, we can then just type <code>x</code> and <code>y</code> and R will print their values. We could also look in the “environment” window to see whether those variables (and their expected values) were actually created.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb2-1" aria-hidden="true"></a>x</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb2-1" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb4-1" aria-hidden="true"></a>y</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb4-1" aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div>
 <pre><code>##  [1]  5  7  9 11 13 15 17 19 21 23</code></pre>
 <p>So far, so good. If we want to quickly visualize this, we could create a simple scatter plot with the <code>plot()</code> command (note: we will come back to plotting data much more in week 3).</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb6-1" aria-hidden="true"></a><span class="kw">plot</span>(x, y)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
 <div id="getting-your-r-environment-set-up" class="section level2" number="2.2">
@@ -227,17 +235,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You can install a library by using the install.packages() function, for example:</p>
 <p><code>install.packages("tidyverse")</code>, <code>install.packages("janitor")</code>, and <code>install.packages("psych")</code></p>
 <p>with this installed, you can then load the package using the library() function</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb7-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb7-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb7-2" aria-hidden="true"></a><span class="kw">library</span>(janitor)</span>
-<span id="cb7-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb7-3" aria-hidden="true"></a><span class="kw">library</span>(psych)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## -- Attaching packages --------------------------------------------------- tidyverse 1.3.0 --</code></pre>
+<pre><code>## v ggplot2 3.3.2     v purrr   0.3.4
+## v tibble  3.0.3     v dplyr   1.0.0
+## v tidyr   1.1.0     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.5.0</code></pre>
+<pre><code>## -- Conflicts ------------------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code></pre></div>
+<pre><code>## Warning: package &#39;janitor&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;janitor&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     chisq.test, fisher.test</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;psych&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:ggplot2&#39;:
+## 
+##     %+%, alpha</code></pre>
 </div>
 <div id="reading-in-data" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> Reading in data</h2>
 <p>A good first step when working in R is to check which directory you are working in with the <code>getwd()</code> function. You should get a directory in response.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb8-1" aria-hidden="true"></a><span class="kw">getwd</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
 <pre><code>## [1] &quot;C:/Users/akatz4/Desktop/test_course_note&quot;</code></pre>
 <p>You can also check which files are in that directory with <code>list.files()</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb10-1" aria-hidden="true"></a><span class="kw">list.files</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>()</span></code></pre></div>
 <pre><code>##  [1] &quot;_book&quot;                                                                 
 ##  [2] &quot;_bookdown.yml&quot;                                                         
 ##  [3] &quot;_bookdown_files&quot;                                                       
@@ -268,7 +295,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>After that, make sure you have switched to the correct working directory
 <code>getwd()</code> and then <code>list.files()</code>.</p>
 <p>Assuming you have directed yourself to the correct place, you can now read in the file(s) that you want to be working with. There are a <em>lot</em> of ways to do this. Since we will be spending a lot of time in class working with .csv files, we will focus on using the <code>read_csv()</code> function from the readr package (part of the tidyverse collection of packages). This function will read in the .csv file and store the data as a tibble (a tidyverse version of a data frame, which we can think of as a collection of observations stored in rows with values for variables for each observation stored in columns).</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb12-1" aria-hidden="true"></a>prior_survey &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;ENGE_5714_2021_pre_survey.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb22-1" aria-hidden="true" tabindex="-1"></a>prior_survey <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;ENGE_5714_2021_pre_survey.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   .default = col_character(),
@@ -279,92 +306,124 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="exploring-the-data" class="section level2" number="2.4">
 <h2><span class="header-section-number">2.4</span> Exploring the data</h2>
 <p>Now that we have loaded in the data, let’s take a look at the csv. If we just run a line with the name of the tibble - i.e., <code>prior_survey</code> then we should receive a printout that shows the first several rows of that tibble and a listing of all the columns, along with the data types (i.e., double for numeric values, character for strings, etc) of each column.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb15-1" aria-hidden="true"></a>prior_survey</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb25-1" aria-hidden="true" tabindex="-1"></a>prior_survey</span></code></pre></div>
 <pre><code>## # A tibble: 24 x 49
-##    student_id `I have taken a~ `I am intereste~ `I know what a ~ `I know what a ~ `I know what a ~ `I know what a ~
-##         &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;           
-##  1          1 Somewhat disagr~ Somewhat agree   Strongly disagr~ Strongly disagr~ Somewhat disagr~ Strongly disagr~
-##  2          2 Strongly disagr~ Neither agree n~ Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree  
-##  3          3 Strongly disagr~ Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree  
-##  4          4 Somewhat disagr~ Strongly agree   Strongly disagr~ Strongly disagr~ Somewhat agree   Neither agree n~
-##  5          5 Somewhat agree   Strongly agree   Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree  
-##  6          6 Somewhat disagr~ Somewhat agree   Somewhat disagr~ Somewhat disagr~ Somewhat agree   Somewhat agree  
-##  7          7 Strongly disagr~ Somewhat agree   Strongly disagr~ Strongly disagr~ Somewhat agree   Somewhat agree  
-##  8          8 Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree  
-##  9          9 Strongly disagr~ Strongly agree   Somewhat agree   Somewhat agree   Strongly agree   Strongly agree  
-## 10         10 Neither agree n~ Strongly agree   Somewhat agree   Neither agree n~ Somewhat agree   Somewhat agree  
-## # ... with 14 more rows, and 42 more variables: `I know what p-hacking means` &lt;chr&gt;, `I know what statistical power
-## #   means` &lt;chr&gt;, `I have heard of frequentist statistics before` &lt;chr&gt;, `I have heard of Bayesian statistics
-## #   before` &lt;chr&gt;, `I have heard the term &quot;parametric statistics&quot; before` &lt;chr&gt;, `I have heard the term
-## #   &quot;non-parametric statistics&quot; before` &lt;chr&gt;, `I know what a histogram is.` &lt;chr&gt;, `I know what a probability
-## #   distribution is.` &lt;chr&gt;, `I know what a random variable is.` &lt;chr&gt;, `I know what a probability distribution
-## #   function is.` &lt;chr&gt;, `I know what a cumulative distribution function is.` &lt;chr&gt;, `I know what the expectation of
-## #   a random variable is.` &lt;chr&gt;, `I know how to calculate the variance of a random variable.` &lt;chr&gt;, `I know what a
-## #   z score is.` &lt;chr&gt;, `I know how to calculate the correlation between two variables.` &lt;chr&gt;, `I know how to
-## #   interpret the correlation coefficient between two variables` &lt;chr&gt;, `I have heard of linear regression` &lt;chr&gt;, `I
-## #   know how to run a linear regression (in some software...or by hand, if I&#39;m feeling wild).` &lt;chr&gt;, `I know how to
-## #   interpret a linear regression.` &lt;chr&gt;, `I have heard of multiple regression` &lt;chr&gt;, `I know how to perform a
-## #   multiple regression` &lt;chr&gt;, `I know how to interpret a multiple regression` &lt;chr&gt;, `I have heard of logistic
-## #   regression.` &lt;chr&gt;, `I understand when to use a logistic regression.` &lt;chr&gt;, `I know how to interpret the results
-## #   of a logistic regression` &lt;chr&gt;, `I have heard of t-tests` &lt;chr&gt;, `I have performed a t-test before` &lt;chr&gt;, `I
-## #   know how to interpret the results of a t-test` &lt;chr&gt;, `I have heard of Analysis of Variance.` &lt;chr&gt;, `I
-## #   understand when to run an Analysis of Variance (ANOVA)` &lt;chr&gt;, `I know how to interpret the results from an
-## #   ANOVA` &lt;chr&gt;, `I have heard of a chi-square test` &lt;chr&gt;, `I have used a chi-square test before` &lt;chr&gt;, `I know
-## #   how to interpret the results of a chi-square test` &lt;chr&gt;, `I have heard of cluster analysis before` &lt;chr&gt;, `I
-## #   have used cluster analysis before` &lt;chr&gt;, `I know how to interpret the results of a cluster analysis` &lt;chr&gt;, `I
-## #   have heard of factor analysis (either exploratory or confirmatory)` &lt;chr&gt;, `I have used factor analysis (either
-## #   exploratory or confirmatory)` &lt;chr&gt;, `I know how to interpret the results of a factor analysis (either
-## #   exploratory or confirmatory)` &lt;chr&gt;, `I already have R and Rstudio downloaded to my computer.` &lt;chr&gt;, `I have
-## #   used R before` &lt;chr&gt;</code></pre>
-<p>When we do this, we see that there are a bunch of columns that have spaces in their names. This is okay (in the sense that R can handle this), but it can be a little frustrating to work with. Let’s try cleaning the column names with <code>clean_names()</code> from the janitor package. This function will replace the spaces in the column names with underscores and make everything lower case. So, a column name like “I have take a statistics course before” will be changed to “i_have_taken_a_statistics_course_before”.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb17-1" aria-hidden="true"></a>prior_survey &lt;-<span class="st"> </span>prior_survey <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">clean_names</span>() <span class="co"># from janitor package</span></span></code></pre></div>
+##    student_id `I have taken a~ `I am intereste~ `I know what a ~
+##         &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;           
+##  1          1 Somewhat disagr~ Somewhat agree   Strongly disagr~
+##  2          2 Strongly disagr~ Neither agree n~ Somewhat agree  
+##  3          3 Strongly disagr~ Somewhat agree   Somewhat agree  
+##  4          4 Somewhat disagr~ Strongly agree   Strongly disagr~
+##  5          5 Somewhat agree   Strongly agree   Somewhat agree  
+##  6          6 Somewhat disagr~ Somewhat agree   Somewhat disagr~
+##  7          7 Strongly disagr~ Somewhat agree   Strongly disagr~
+##  8          8 Somewhat agree   Somewhat agree   Somewhat agree  
+##  9          9 Strongly disagr~ Strongly agree   Somewhat agree  
+## 10         10 Neither agree n~ Strongly agree   Somewhat agree  
+## # ... with 14 more rows, and 45 more variables: `I know what a type II error
+## #   is` &lt;chr&gt;, `I know what a (statistical) confidence level is` &lt;chr&gt;, `I know
+## #   what a p value is` &lt;chr&gt;, `I know what p-hacking means` &lt;chr&gt;, `I know what
+## #   statistical power means` &lt;chr&gt;, `I have heard of frequentist statistics
+## #   before` &lt;chr&gt;, `I have heard of Bayesian statistics before` &lt;chr&gt;, `I have
+## #   heard the term &quot;parametric statistics&quot; before` &lt;chr&gt;, `I have heard the
+## #   term &quot;non-parametric statistics&quot; before` &lt;chr&gt;, `I know what a histogram
+## #   is.` &lt;chr&gt;, `I know what a probability distribution is.` &lt;chr&gt;, `I know
+## #   what a random variable is.` &lt;chr&gt;, `I know what a probability distribution
+## #   function is.` &lt;chr&gt;, `I know what a cumulative distribution function
+## #   is.` &lt;chr&gt;, `I know what the expectation of a random variable is.` &lt;chr&gt;,
+## #   `I know how to calculate the variance of a random variable.` &lt;chr&gt;, `I know
+## #   what a z score is.` &lt;chr&gt;, `I know how to calculate the correlation between
+## #   two variables.` &lt;chr&gt;, `I know how to interpret the correlation coefficient
+## #   between two variables` &lt;chr&gt;, `I have heard of linear regression` &lt;chr&gt;, `I
+## #   know how to run a linear regression (in some software...or by hand, if I&#39;m
+## #   feeling wild).` &lt;chr&gt;, `I know how to interpret a linear
+## #   regression.` &lt;chr&gt;, `I have heard of multiple regression` &lt;chr&gt;, `I know
+## #   how to perform a multiple regression` &lt;chr&gt;, `I know how to interpret a
+## #   multiple regression` &lt;chr&gt;, `I have heard of logistic regression.` &lt;chr&gt;,
+## #   `I understand when to use a logistic regression.` &lt;chr&gt;, `I know how to
+## #   interpret the results of a logistic regression` &lt;chr&gt;, `I have heard of
+## #   t-tests` &lt;chr&gt;, `I have performed a t-test before` &lt;chr&gt;, `I know how to
+## #   interpret the results of a t-test` &lt;chr&gt;, `I have heard of Analysis of
+## #   Variance.` &lt;chr&gt;, `I understand when to run an Analysis of Variance
+## #   (ANOVA)` &lt;chr&gt;, `I know how to interpret the results from an ANOVA` &lt;chr&gt;,
+## #   `I have heard of a chi-square test` &lt;chr&gt;, `I have used a chi-square test
+## #   before` &lt;chr&gt;, `I know how to interpret the results of a chi-square
+## #   test` &lt;chr&gt;, `I have heard of cluster analysis before` &lt;chr&gt;, `I have used
+## #   cluster analysis before` &lt;chr&gt;, `I know how to interpret the results of a
+## #   cluster analysis` &lt;chr&gt;, `I have heard of factor analysis (either
+## #   exploratory or confirmatory)` &lt;chr&gt;, `I have used factor analysis (either
+## #   exploratory or confirmatory)` &lt;chr&gt;, `I know how to interpret the results
+## #   of a factor analysis (either exploratory or confirmatory)` &lt;chr&gt;, `I
+## #   already have R and Rstudio downloaded to my computer.` &lt;chr&gt;, `I have used
+## #   R before` &lt;chr&gt;</code></pre>
+<p>When we do this, we see that there are a bunch of columns that have spaces in their names. This is okay (in the sense that R can handle this), but it can be a little frustrating to work with. Let’s try cleaning the column names with <code>clean_names()</code> from the janitor package. This function will replace the spaces in the column names with underscores and make everything lower case. So, a column name like “I have take a statistics course before” will be changed to “i_have_taken_a_statistics_course_before.”</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb27-1" aria-hidden="true" tabindex="-1"></a>prior_survey <span class="ot">&lt;-</span> prior_survey <span class="sc">%&gt;%</span> <span class="fu">clean_names</span>() <span class="co"># from janitor package</span></span></code></pre></div>
 <p>Look at the data in prior_survey again and see if anything looks different (hint: it should).</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb18-1" aria-hidden="true"></a>prior_survey</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb28-1" aria-hidden="true" tabindex="-1"></a>prior_survey</span></code></pre></div>
 <pre><code>## # A tibble: 24 x 49
-##    student_id i_have_taken_a_~ i_am_interested~ i_know_what_a_t~ i_know_what_a_t~ i_know_what_a_s~ i_know_what_a_p~
-##         &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;           
-##  1          1 Somewhat disagr~ Somewhat agree   Strongly disagr~ Strongly disagr~ Somewhat disagr~ Strongly disagr~
-##  2          2 Strongly disagr~ Neither agree n~ Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree  
-##  3          3 Strongly disagr~ Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree  
-##  4          4 Somewhat disagr~ Strongly agree   Strongly disagr~ Strongly disagr~ Somewhat agree   Neither agree n~
-##  5          5 Somewhat agree   Strongly agree   Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree  
-##  6          6 Somewhat disagr~ Somewhat agree   Somewhat disagr~ Somewhat disagr~ Somewhat agree   Somewhat agree  
-##  7          7 Strongly disagr~ Somewhat agree   Strongly disagr~ Strongly disagr~ Somewhat agree   Somewhat agree  
-##  8          8 Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree   Somewhat agree  
-##  9          9 Strongly disagr~ Strongly agree   Somewhat agree   Somewhat agree   Strongly agree   Strongly agree  
-## 10         10 Neither agree n~ Strongly agree   Somewhat agree   Neither agree n~ Somewhat agree   Somewhat agree  
-## # ... with 14 more rows, and 42 more variables: i_know_what_p_hacking_means &lt;chr&gt;,
-## #   i_know_what_statistical_power_means &lt;chr&gt;, i_have_heard_of_frequentist_statistics_before &lt;chr&gt;,
-## #   i_have_heard_of_bayesian_statistics_before &lt;chr&gt;, i_have_heard_the_term_parametric_statistics_before &lt;chr&gt;,
-## #   i_have_heard_the_term_non_parametric_statistics_before &lt;chr&gt;, i_know_what_a_histogram_is &lt;chr&gt;,
-## #   i_know_what_a_probability_distribution_is &lt;chr&gt;, i_know_what_a_random_variable_is &lt;chr&gt;,
+##    student_id i_have_taken_a_~ i_am_interested~ i_know_what_a_t~
+##         &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;           
+##  1          1 Somewhat disagr~ Somewhat agree   Strongly disagr~
+##  2          2 Strongly disagr~ Neither agree n~ Somewhat agree  
+##  3          3 Strongly disagr~ Somewhat agree   Somewhat agree  
+##  4          4 Somewhat disagr~ Strongly agree   Strongly disagr~
+##  5          5 Somewhat agree   Strongly agree   Somewhat agree  
+##  6          6 Somewhat disagr~ Somewhat agree   Somewhat disagr~
+##  7          7 Strongly disagr~ Somewhat agree   Strongly disagr~
+##  8          8 Somewhat agree   Somewhat agree   Somewhat agree  
+##  9          9 Strongly disagr~ Strongly agree   Somewhat agree  
+## 10         10 Neither agree n~ Strongly agree   Somewhat agree  
+## # ... with 14 more rows, and 45 more variables:
+## #   i_know_what_a_type_ii_error_is &lt;chr&gt;,
+## #   i_know_what_a_statistical_confidence_level_is &lt;chr&gt;,
+## #   i_know_what_a_p_value_is &lt;chr&gt;, i_know_what_p_hacking_means &lt;chr&gt;,
+## #   i_know_what_statistical_power_means &lt;chr&gt;,
+## #   i_have_heard_of_frequentist_statistics_before &lt;chr&gt;,
+## #   i_have_heard_of_bayesian_statistics_before &lt;chr&gt;,
+## #   i_have_heard_the_term_parametric_statistics_before &lt;chr&gt;,
+## #   i_have_heard_the_term_non_parametric_statistics_before &lt;chr&gt;,
+## #   i_know_what_a_histogram_is &lt;chr&gt;,
+## #   i_know_what_a_probability_distribution_is &lt;chr&gt;,
+## #   i_know_what_a_random_variable_is &lt;chr&gt;,
 ## #   i_know_what_a_probability_distribution_function_is &lt;chr&gt;,
 ## #   i_know_what_a_cumulative_distribution_function_is &lt;chr&gt;,
 ## #   i_know_what_the_expectation_of_a_random_variable_is &lt;chr&gt;,
-## #   i_know_how_to_calculate_the_variance_of_a_random_variable &lt;chr&gt;, i_know_what_a_z_score_is &lt;chr&gt;,
+## #   i_know_how_to_calculate_the_variance_of_a_random_variable &lt;chr&gt;,
+## #   i_know_what_a_z_score_is &lt;chr&gt;,
 ## #   i_know_how_to_calculate_the_correlation_between_two_variables &lt;chr&gt;,
 ## #   i_know_how_to_interpret_the_correlation_coefficient_between_two_variables &lt;chr&gt;,
 ## #   i_have_heard_of_linear_regression &lt;chr&gt;,
 ## #   i_know_how_to_run_a_linear_regression_in_some_software_or_by_hand_if_im_feeling_wild &lt;chr&gt;,
-## #   i_know_how_to_interpret_a_linear_regression &lt;chr&gt;, i_have_heard_of_multiple_regression &lt;chr&gt;,
-## #   i_know_how_to_perform_a_multiple_regression &lt;chr&gt;, i_know_how_to_interpret_a_multiple_regression &lt;chr&gt;,
-## #   i_have_heard_of_logistic_regression &lt;chr&gt;, i_understand_when_to_use_a_logistic_regression &lt;chr&gt;,
-## #   i_know_how_to_interpret_the_results_of_a_logistic_regression &lt;chr&gt;, i_have_heard_of_t_tests &lt;chr&gt;,
-## #   i_have_performed_a_t_test_before &lt;chr&gt;, i_know_how_to_interpret_the_results_of_a_t_test &lt;chr&gt;,
-## #   i_have_heard_of_analysis_of_variance &lt;chr&gt;, i_understand_when_to_run_an_analysis_of_variance_anova &lt;chr&gt;,
-## #   i_know_how_to_interpret_the_results_from_an_anova &lt;chr&gt;, i_have_heard_of_a_chi_square_test &lt;chr&gt;,
-## #   i_have_used_a_chi_square_test_before &lt;chr&gt;, i_know_how_to_interpret_the_results_of_a_chi_square_test &lt;chr&gt;,
-## #   i_have_heard_of_cluster_analysis_before &lt;chr&gt;, i_have_used_cluster_analysis_before &lt;chr&gt;,
+## #   i_know_how_to_interpret_a_linear_regression &lt;chr&gt;,
+## #   i_have_heard_of_multiple_regression &lt;chr&gt;,
+## #   i_know_how_to_perform_a_multiple_regression &lt;chr&gt;,
+## #   i_know_how_to_interpret_a_multiple_regression &lt;chr&gt;,
+## #   i_have_heard_of_logistic_regression &lt;chr&gt;,
+## #   i_understand_when_to_use_a_logistic_regression &lt;chr&gt;,
+## #   i_know_how_to_interpret_the_results_of_a_logistic_regression &lt;chr&gt;,
+## #   i_have_heard_of_t_tests &lt;chr&gt;, i_have_performed_a_t_test_before &lt;chr&gt;,
+## #   i_know_how_to_interpret_the_results_of_a_t_test &lt;chr&gt;,
+## #   i_have_heard_of_analysis_of_variance &lt;chr&gt;,
+## #   i_understand_when_to_run_an_analysis_of_variance_anova &lt;chr&gt;,
+## #   i_know_how_to_interpret_the_results_from_an_anova &lt;chr&gt;,
+## #   i_have_heard_of_a_chi_square_test &lt;chr&gt;,
+## #   i_have_used_a_chi_square_test_before &lt;chr&gt;,
+## #   i_know_how_to_interpret_the_results_of_a_chi_square_test &lt;chr&gt;,
+## #   i_have_heard_of_cluster_analysis_before &lt;chr&gt;,
+## #   i_have_used_cluster_analysis_before &lt;chr&gt;,
 ## #   i_know_how_to_interpret_the_results_of_a_cluster_analysis &lt;chr&gt;,
 ## #   i_have_heard_of_factor_analysis_either_exploratory_or_confirmatory &lt;chr&gt;,
 ## #   i_have_used_factor_analysis_either_exploratory_or_confirmatory &lt;chr&gt;,
 ## #   i_know_how_to_interpret_the_results_of_a_factor_analysis_either_exploratory_or_confirmatory &lt;chr&gt;,
-## #   i_already_have_r_and_rstudio_downloaded_to_my_computer &lt;chr&gt;, i_have_used_r_before &lt;chr&gt;</code></pre>
+## #   i_already_have_r_and_rstudio_downloaded_to_my_computer &lt;chr&gt;,
+## #   i_have_used_r_before &lt;chr&gt;</code></pre>
 <p>One other function that will we see more in the future is the <code>table()</code> function, which will create a table with the counts of the values for a variable. For example, if we wanted to quickly know how students answered the “I have taken a quantitative research methods course before” question, we can run the following:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb20-1" aria-hidden="true"></a><span class="kw">table</span>(prior_survey<span class="op">$</span>i_have_taken_a_quantitative_research_methods_course_before)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(prior_survey<span class="sc">$</span>i_have_taken_a_quantitative_research_methods_course_before)</span></code></pre></div>
 <pre><code>## 
-## Neither agree nor disagree             Somewhat agree          Somewhat disagree             Strongly agree 
-##                          2                          5                          5                          2 
+## Neither agree nor disagree             Somewhat agree 
+##                          2                          5 
+##          Somewhat disagree             Strongly agree 
+##                          5                          2 
 ##          Strongly disagree 
 ##                         10</code></pre>
 </div>
@@ -373,20 +432,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We will discuss plotting more next week, but here is a brief preview of what’s to come…</p>
 <p>There are multiple ways to plot data. Focusing on using ggplot, here are two.</p>
 <p>The first way passes the prior_survey dataframe explicitly to ggplot</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb22-1" aria-hidden="true"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> prior_survey, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> i_know_what_a_type_i_error_is)) <span class="op">+</span></span>
-<span id="cb22-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb22-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></span>
-<span id="cb22-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb22-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> prior_survey, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> i_know_what_a_type_i_error_is)) <span class="sc">+</span></span>
+<span id="cb32-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb32-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>The second way does this implicitly, using the pipe operator. Note that the results should be the same.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb23-1" aria-hidden="true"></a>prior_survey <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb23-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb23-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> i_know_what_a_type_i_error_is)) <span class="op">+</span></span>
-<span id="cb23-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb23-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></span>
-<span id="cb23-4"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb23-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb33-1" aria-hidden="true" tabindex="-1"></a>prior_survey <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> i_know_what_a_type_i_error_is)) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb33-4"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>If we wanted to get extra fancy, we could first convert the data from a wide format to a long format and then start plotting all the items together.</p>
 <p>Converting to long format would produce something like this:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb24-1" aria-hidden="true"></a>prior_survey <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb24-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb24-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;survey_item&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;survey_response&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb34-1" aria-hidden="true" tabindex="-1"></a>prior_survey <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key =</span> <span class="st">&quot;survey_item&quot;</span>, <span class="at">value =</span> <span class="st">&quot;survey_response&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1,176 x 2
 ##    survey_item survey_response
 ##    &lt;chr&gt;       &lt;chr&gt;          
@@ -402,30 +461,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 student_id  10             
 ## # ... with 1,166 more rows</code></pre>
 <p>Then we can combine that with the <code>group_by()</code> and <code>summarize()</code> functions and plot the results.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb26-1" aria-hidden="true"></a>prior_survey <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb26-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;survey_item&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;survey_response&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb26-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(survey_item, survey_response) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-4"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb26-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb26-5"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb26-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> survey_response, <span class="dt">y =</span> survey_item, <span class="dt">fill =</span> n)) <span class="op">+</span></span>
-<span id="cb26-6"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb26-6" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_tile</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb36-1" aria-hidden="true" tabindex="-1"></a>prior_survey <span class="sc">%&gt;%</span> </span>
+<span id="cb36-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key =</span> <span class="st">&quot;survey_item&quot;</span>, <span class="at">value =</span> <span class="st">&quot;survey_response&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(survey_item, survey_response) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-4"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-5"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> survey_response, <span class="at">y =</span> survey_item, <span class="at">fill =</span> n)) <span class="sc">+</span></span>
+<span id="cb36-6"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>()</span></code></pre></div>
 <pre><code>## `summarise()` regrouping output by &#39;survey_item&#39; (override with `.groups` argument)</code></pre>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>This plot is okay for giving a general sense of what is going on in these plots but there are a bunch of other ways to go about doing this.</p>
 <p>First, maybe we want to rename the response categories to a numerical scale. We can accomplish this with a <code>mutate()</code> and <code>case_when()</code>.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb28-1" aria-hidden="true"></a>prior_survey &lt;-<span class="st"> </span>prior_survey <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb28-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;survey_item&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;survey_response&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb28-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">survey_response_num =</span> <span class="kw">case_when</span>(survey_response <span class="op">==</span><span class="st"> &quot;Strongly disagree&quot;</span> <span class="op">~</span><span class="st"> </span><span class="dv">0</span>,</span>
-<span id="cb28-4"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb28-4" aria-hidden="true"></a>                                         survey_response <span class="op">==</span><span class="st"> &quot;Somewhat disagree&quot;</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>,</span>
-<span id="cb28-5"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb28-5" aria-hidden="true"></a>                                         survey_response <span class="op">==</span><span class="st"> &quot;Neither agree nor disagree&quot;</span> <span class="op">~</span><span class="st"> </span><span class="dv">2</span>,</span>
-<span id="cb28-6"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb28-6" aria-hidden="true"></a>                                         survey_response <span class="op">==</span><span class="st"> &quot;Somewhat agree&quot;</span> <span class="op">~</span><span class="st"> </span><span class="dv">3</span>,</span>
-<span id="cb28-7"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb28-7" aria-hidden="true"></a>                                         survey_response <span class="op">==</span><span class="st"> &quot;Strongly agree&quot;</span> <span class="op">~</span><span class="st"> </span><span class="dv">4</span>,</span>
-<span id="cb28-8"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb28-8" aria-hidden="true"></a>                                         )) </span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb38-1" aria-hidden="true" tabindex="-1"></a>prior_survey <span class="ot">&lt;-</span> prior_survey <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key =</span> <span class="st">&quot;survey_item&quot;</span>, <span class="at">value =</span> <span class="st">&quot;survey_response&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">survey_response_num =</span> <span class="fu">case_when</span>(survey_response <span class="sc">==</span> <span class="st">&quot;Strongly disagree&quot;</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb38-4"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb38-4" aria-hidden="true" tabindex="-1"></a>                                         survey_response <span class="sc">==</span> <span class="st">&quot;Somewhat disagree&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb38-5"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb38-5" aria-hidden="true" tabindex="-1"></a>                                         survey_response <span class="sc">==</span> <span class="st">&quot;Neither agree nor disagree&quot;</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb38-6"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb38-6" aria-hidden="true" tabindex="-1"></a>                                         survey_response <span class="sc">==</span> <span class="st">&quot;Somewhat agree&quot;</span> <span class="sc">~</span> <span class="dv">3</span>,</span>
+<span id="cb38-7"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb38-7" aria-hidden="true" tabindex="-1"></a>                                         survey_response <span class="sc">==</span> <span class="st">&quot;Strongly agree&quot;</span> <span class="sc">~</span> <span class="dv">4</span>,</span>
+<span id="cb38-8"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb38-8" aria-hidden="true" tabindex="-1"></a>                                         )) </span></code></pre></div>
 <p>Then we plot the same data but with the numerical scale along the x-axis.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb29-1" aria-hidden="true"></a>prior_survey <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb29-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb29-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">group_by</span>(survey_item, survey_response_num) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb29-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb29-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb29-4"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb29-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> survey_response_num, <span class="dt">y =</span> survey_item, <span class="dt">fill =</span> n)) <span class="op">+</span></span>
-<span id="cb29-5"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb29-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_tile</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb39-1" aria-hidden="true" tabindex="-1"></a>prior_survey <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(survey_item, survey_response_num) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-4"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> survey_response_num, <span class="at">y =</span> survey_item, <span class="at">fill =</span> n)) <span class="sc">+</span></span>
+<span id="cb39-5"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>()</span></code></pre></div>
 <pre><code>## `summarise()` regrouping output by &#39;survey_item&#39; (override with `.groups` argument)</code></pre>
 <pre><code>## Warning: Removed 3 rows containing missing values (geom_tile).</code></pre>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
@@ -435,60 +494,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this week’s reading, there was also discussion about standard errors and the central limit theorem. These are fairly important theoretical concepts to grasp. To some extent they deal with the scenario where you go out and repeatedly sample from a population and calculate a statistic from each of those samples. The distributions <em>of that statistic</em> is what we will call the sampling distribution (as opposed to the sample distribution, which would more accurately describe the distribution of the data that we get in any one sample that we draw from the population).</p>
 <div id="central-limit-theorem-and-standard-error-demo--" class="section level3" number="2.6.1">
 <h3><span class="header-section-number">2.6.1</span> Central Limit Theorem and Standard Error Demo —-</h3>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb32-1" aria-hidden="true"></a>pop_students &lt;-<span class="st"> </span><span class="dv">10000</span></span>
-<span id="cb32-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb32-2" aria-hidden="true"></a></span>
-<span id="cb32-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb32-3" aria-hidden="true"></a>zoom_min_pop &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> pop_students, <span class="dt">mean =</span> <span class="dv">600</span>, <span class="dt">sd =</span> <span class="dv">100</span>)</span>
-<span id="cb32-4"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb32-4" aria-hidden="true"></a></span>
-<span id="cb32-5"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb32-5" aria-hidden="true"></a><span class="kw">hist</span>(zoom_min_pop)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb42-1" aria-hidden="true" tabindex="-1"></a>pop_students <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb42-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb42-3" aria-hidden="true" tabindex="-1"></a>zoom_min_pop <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> pop_students, <span class="at">mean =</span> <span class="dv">600</span>, <span class="at">sd =</span> <span class="dv">100</span>)</span>
+<span id="cb42-4"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(zoom_min_pop)</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb33-1" aria-hidden="true"></a>zoom_min_sample &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dt">x =</span> zoom_min_pop,</span>
-<span id="cb33-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb33-2" aria-hidden="true"></a>                          <span class="dt">size =</span> <span class="dv">200</span>,</span>
-<span id="cb33-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb33-3" aria-hidden="true"></a>                          <span class="dt">replace =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb33-4"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb33-4" aria-hidden="true"></a></span>
-<span id="cb33-5"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb33-5" aria-hidden="true"></a></span>
-<span id="cb33-6"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb33-6" aria-hidden="true"></a><span class="kw">hist</span>(zoom_min_sample)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb43-1" aria-hidden="true" tabindex="-1"></a>zoom_min_sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> zoom_min_pop,</span>
+<span id="cb43-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb43-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">size =</span> <span class="dv">200</span>,</span>
+<span id="cb43-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb43-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb43-4"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb43-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-6"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(zoom_min_sample)</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb34-1" aria-hidden="true"></a><span class="kw">mean</span>(zoom_min_sample)</span></code></pre></div>
-<pre><code>## [1] 602.8275</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb36-1" aria-hidden="true"></a><span class="kw">sd</span>(zoom_min_sample)</span></code></pre></div>
-<pre><code>## [1] 97.91744</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(zoom_min_sample)</span></code></pre></div>
+<pre><code>## [1] 603.6873</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(zoom_min_sample)</span></code></pre></div>
+<pre><code>## [1] 99.15759</code></pre>
 <p>As a brief aside, let’s review the idea of a loop</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb38-1" aria-hidden="true"></a>num_reps &lt;-<span class="st"> </span><span class="dv">100</span></span>
-<span id="cb38-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb38-2" aria-hidden="true"></a></span>
-<span id="cb38-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb38-3" aria-hidden="true"></a>data_vec &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, num_reps) <span class="co"># this creates an empty vector of size num_reps with NA in each entry</span></span>
-<span id="cb38-4"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb38-4" aria-hidden="true"></a></span>
-<span id="cb38-5"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb38-5" aria-hidden="true"></a><span class="co"># this loops through the vector starting at position 1 and ending at the final position (num_reps). For demonstration purposes, we replacing the NA in each entry with the number of that entry (i.e., the NA in the 20th entry is replaced with the number 20)</span></span>
-<span id="cb38-6"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb38-6" aria-hidden="true"></a></span>
-<span id="cb38-7"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb38-7" aria-hidden="true"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>num_reps){</span>
-<span id="cb38-8"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb38-8" aria-hidden="true"></a>  data_vec[i] &lt;-<span class="st"> </span>i</span>
-<span id="cb38-9"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb38-9" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb48-1" aria-hidden="true" tabindex="-1"></a>num_reps <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb48-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb48-3" aria-hidden="true" tabindex="-1"></a>data_vec <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, num_reps) <span class="co"># this creates an empty vector of size num_reps with NA in each entry</span></span>
+<span id="cb48-4"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="co"># this loops through the vector starting at position 1 and ending at the final position (num_reps). For demonstration purposes, we replacing the NA in each entry with the number of that entry (i.e., the NA in the 20th entry is replaced with the number 20)</span></span>
+<span id="cb48-6"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>num_reps){</span>
+<span id="cb48-8"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb48-8" aria-hidden="true" tabindex="-1"></a>  data_vec[i] <span class="ot">&lt;-</span> i</span>
+<span id="cb48-9"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb48-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Okay, so that’s how we create an empty vector and how we loop through its different entries. For this demo, we will also need to remenber how to generate random numbers from a norm distribution with a specified mean and standard deviation.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb39-1" aria-hidden="true"></a><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">mean =</span> <span class="dv">5</span>, <span class="dt">sd =</span> <span class="dv">2</span>) <span class="co"># n is the number of random numbers we draw from this normal distribution</span></span></code></pre></div>
-<pre><code>##  [1]  4.2247009  5.3210274  5.7669266  7.0033358  6.1321445  6.2682146  4.4224854  3.4958685  3.1813817 -0.1611869</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>) <span class="co"># n is the number of random numbers we draw from this normal distribution</span></span></code></pre></div>
+<pre><code>##  [1] 1.700421 2.319011 5.873996 6.286688 4.954710 2.206748 2.939497 7.756411
+##  [9] 6.722216 6.472210</code></pre>
 <p>Okay, so that’s not bad. Now, that command will produce a vector with 10 random numbers. We can calculate the mean and standard deviation of those 10 numbers (which should be close to the values that we specified in <code>rnorm()</code> with the <code>mean()</code> and <code>sd()</code> functions.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb41-1" aria-hidden="true"></a><span class="kw">mean</span>(<span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">mean =</span> <span class="dv">5</span>, <span class="dt">sd =</span> <span class="dv">2</span>))</span></code></pre></div>
-<pre><code>## [1] 6.088133</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb43-1" aria-hidden="true"></a><span class="kw">sd</span>(<span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">mean =</span> <span class="dv">5</span>, <span class="dt">sd =</span> <span class="dv">2</span>))</span></code></pre></div>
-<pre><code>## [1] 1.235859</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] 5.59691</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] 1.160612</code></pre>
 <p>Next, let’s act as if we are drawing a certain sample of size <code>samp_size</code> of data points for <code>num_reps</code> number of times. Keep in mind that, in practice, when we are collecting data ourselves in our own research, num_reps will almost always be 1. We are just demonstrating the underlying assumptions for how we can calculate some of the statistics that we use.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb45-1" aria-hidden="true"></a>num_reps &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># specify how many times to take a sample</span></span>
-<span id="cb45-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb45-2" aria-hidden="true"></a>samp_size &lt;-<span class="st"> </span><span class="dv">200</span> <span class="co"># specify the size of each sample</span></span>
-<span id="cb45-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb45-3" aria-hidden="true"></a>data_vec &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, num_reps) <span class="co"># create an empty vector of size num_reps with NA in each entry.</span></span>
-<span id="cb45-4"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb45-4" aria-hidden="true"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>num_reps){</span>
-<span id="cb45-5"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb45-5" aria-hidden="true"></a>  data_vec[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">rnorm</span>(<span class="dt">n =</span> samp_size, <span class="dt">mean =</span> <span class="dv">600</span>, <span class="dt">sd =</span> <span class="dv">100</span>)) <span class="co"># store the mean of each of the num_rep samples</span></span>
-<span id="cb45-6"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb45-6" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb55-1" aria-hidden="true" tabindex="-1"></a>num_reps <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co"># specify how many times to take a sample</span></span>
+<span id="cb55-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb55-2" aria-hidden="true" tabindex="-1"></a>samp_size <span class="ot">&lt;-</span> <span class="dv">200</span> <span class="co"># specify the size of each sample</span></span>
+<span id="cb55-3"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb55-3" aria-hidden="true" tabindex="-1"></a>data_vec <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, num_reps) <span class="co"># create an empty vector of size num_reps with NA in each entry.</span></span>
+<span id="cb55-4"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>num_reps){</span>
+<span id="cb55-5"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb55-5" aria-hidden="true" tabindex="-1"></a>  data_vec[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> samp_size, <span class="at">mean =</span> <span class="dv">600</span>, <span class="at">sd =</span> <span class="dv">100</span>)) <span class="co"># store the mean of each of the num_rep samples</span></span>
+<span id="cb55-6"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb55-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>With this, we have a vector <code>data_vec</code> of size <code>num_reps</code> with the mean of each of our samples that we drew. This vector contains our sampling distribution of our sample means. <strong>NOTE</strong>: The standard deviation of this sampling mean is what we are calling our <em>standard error</em>.</p>
 <p>We can plot a histogram of this sampling distribution and calculate the standard deviation of the sampling mean.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb46-1" aria-hidden="true"></a><span class="kw">hist</span>(data_vec)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data_vec)</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb47-1" aria-hidden="true"></a><span class="kw">sd</span>(data_vec)</span></code></pre></div>
-<pre><code>## [1] 7.359846</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(data_vec)</span></code></pre></div>
+<pre><code>## [1] 7.147442</code></pre>
 <p>On your own, try copying this code and changing the num_reps and sample_size variables to larger and smaller values. Focus on how the x-axis values in your histogram change when you change the num_reps and samp_size variables.</p>
 <p>Hint: CLT will explain the normal distribution of the sampling mean (the shape you see in the histogram) while the Weak Law of Large Numbers will explain the concentration around the true mean as samp_size increases (i.e., when we draw a larger sample size from the population, our sample mean gets closer to the population mean).</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb49-1" aria-hidden="true"></a><span class="co">## Quick note on the rep() function: notice what happens when you specify &quot;each&quot; vs &quot;times&quot;.</span></span>
-<span id="cb49-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb49-2" aria-hidden="true"></a><span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">times =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Quick note on the rep() function: notice what happens when you specify &quot;each&quot; vs &quot;times&quot;.</span></span>
+<span id="cb59-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">times =</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>##  [1] 1 2 1 2 1 2 1 2 1 2</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb51-1" aria-hidden="true"></a><span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">each =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">each =</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>##  [1] 1 1 1 1 1 2 2 2 2 2</code></pre>
 
 </div>

@@ -24,7 +24,7 @@
 <meta name="author" content="Dr. Katz" />
 
 
-<meta name="date" content="2021-02-08" />
+<meta name="date" content="2021-02-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -183,7 +183,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="week-5-regression-i.html"><a href="week-5-regression-i.html"><i class="fa fa-check"></i><b>5</b> Week 5: Regression I</a></li>
-<li class="chapter" data-level="6" data-path="week-6-regression-ii.html"><a href="week-6-regression-ii.html"><i class="fa fa-check"></i><b>6</b> Week 6: Regression II</a></li>
+<li class="chapter" data-level="6" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html"><i class="fa fa-check"></i><b>6</b> Week 5 - Simple Regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#general-modeling-philosophy"><i class="fa fa-check"></i><b>6.1</b> General Modeling Philosophy</a></li>
+<li class="chapter" data-level="6.2" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#data-generation-demo---one-set-sample-size"><i class="fa fa-check"></i><b>6.2</b> data generation demo - one set sample size</a></li>
+<li class="chapter" data-level="6.3" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#data-generation-demo---one-set-sample-size-1"><i class="fa fa-check"></i><b>6.3</b> Data generation demo - one set sample size;</a></li>
+<li class="chapter" data-level="6.4" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#data-generation-with-three-different-sample-sizes"><i class="fa fa-check"></i><b>6.4</b> Data generation with three different sample sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="can-also-look-at-model-results-with-the-glance-function-from-the-broom-package.html"><a href="can-also-look-at-model-results-with-the-glance-function-from-the-broom-package.html"><i class="fa fa-check"></i><b>7</b> can also look at model results with the glance() function from the broom package</a></li>
+<li class="chapter" data-level="8" data-path="week-6-regression-ii.html"><a href="week-6-regression-ii.html"><i class="fa fa-check"></i><b>8</b> Week 6: Regression II</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -217,16 +225,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>There are several tests for normality that we will discuss, which include either (a) calculations or (b) visual examination. We will discuss both.</p>
 <div id="visual-check-of-normality" class="section level4" number="4.1.1.1">
 <h4><span class="header-section-number">4.1.1.1</span> Visual check of normality</h4>
+<p>You can accomplish this with a histogram (e.g., <code>hist()</code> or <code>geom_histogram()</code> or a q-q plot <code>qplot()</code> (which stands for quantile-quantile).</p>
 </div>
 </div>
 <div id="homogeneity-of-variance" class="section level3" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> Homogeneity of variance</h3>
+<p>Here, you want to know whether the variance of a variable is the same across different groups. For example, if you are looking at test scores in chemistry and chemical engineering students, you want to know if the variances (spread) of the test scores in the chemistry group and the chemical engineering group are close to each other.</p>
 </div>
 <div id="interval-data" class="section level3" number="4.1.3">
 <h3><span class="header-section-number">4.1.3</span> Interval data</h3>
+<p>This might be a little redundant given that we want normally distributed data, but you want at least interval data (ratio data are also fine, but in practice very few things we work with actually qualify as ratio variables). If you have ordinal or nominal variables, you might be in trouble with this assumption…</p>
 </div>
 <div id="independence" class="section level3" number="4.1.4">
 <h3><span class="header-section-number">4.1.4</span> Independence</h3>
+<p>This assumption is about the observations not being related to each other or affecting each other in some way. In practice, this can also be a little tricky. For example, if you are sampling students from different classrooms, depending on the variables you are measuring, you might actually have reason to believe that students in one classroom are more related to each other than students in a different classroom. In practice, you can handle this with a multi-level model (aka hierarchical model), but that is beyond the scope of this class.</p>
 </div>
 </div>
 <div id="correlation" class="section level2" number="4.2">
@@ -259,7 +271,7 @@ computes factor scores, and prepares it for analysis.</p>
 <p><code>file_path &lt;- "YOUR PATH HERE"</code>
 <code>setwd(file_path)</code> use this command to change the working directory to the folder where you have your file
 <code>list.files()</code> run this to make sure that your file is in your current working directory</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="week-4-assumptions-and-correlations.html#cb118-1" aria-hidden="true"></a>seniorSurvey_df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;seniorsurvey.csv&quot;</span>) <span class="co"># replace text in the parentheses with your file name</span></span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="week-4-assumptions-and-correlations.html#cb128-1" aria-hidden="true" tabindex="-1"></a>seniorSurvey_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;seniorsurvey.csv&quot;</span>) <span class="co"># replace text in the parentheses with your file name</span></span></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   .default = col_double()
@@ -269,77 +281,103 @@ computes factor scores, and prepares it for analysis.</p>
 <div id="data-prep-and-cleaning" class="section level3" number="4.3.2">
 <h3><span class="header-section-number">4.3.2</span> Data prep and cleaning</h3>
 <p>After loading, it is always nice to just see how things loaded in. Functions like str() and describe() from the psych package are nice for this. For example, if we use describe(), we can see the following (we deleted some variables):</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="week-4-assumptions-and-correlations.html#cb121-1" aria-hidden="true"></a>psych<span class="op">::</span><span class="kw">describe</span>(seniorSurvey_df)</span></code></pre></div>
-<pre><code>##                                                   vars    n  mean    sd median trimmed   mad min max range  skew
-## What is your PRIMARY MAJOR?                          1 1849 31.79 20.43     29   31.25 28.17   1  70    69  0.18
-## Internship, field experience, co-op, or practicum    2 1121  1.00  0.00      1    1.00  0.00   1   1     0   NaN
-## ParticipateServiceL                                  3  489  1.00  0.00      1    1.00  0.00   1   1     0   NaN
-## ParticipateCService                                  4 1296  1.00  0.00      1    1.00  0.00   1   1     0   NaN
-## ParticipateStudyAbroadSemester                       5  142  1.00  0.00      1    1.00  0.00   1   1     0   NaN
-## SJ1                                                  6 1733  2.32  1.03      2    2.25  1.48   1   5     4  0.46
-## SJ2                                                  7 1732  2.08  0.96      2    1.98  1.48   1   5     4  0.64
-## SJ3                                                  8 1731  2.77  0.88      3    2.79  1.48   1   5     4 -0.03
-## SJ4                                                  9 1726  2.27  1.01      2    2.20  1.48   1   5     4  0.52
-## SJ5                                                 10 1728  3.27  0.92      3    3.27  1.48   1   5     4 -0.19
-## SJ6                                                 11 1719  3.50  0.83      4    3.54  1.48   1   5     4 -0.40
-## SJ7                                                 12 1719  4.01  0.79      4    4.07  0.00   1   5     4 -0.75
-## SJ8                                                 13 1719  4.15  0.83      4    4.23  1.48   1   5     4 -0.86
-## DA1                                                 14 1719  2.23  0.93      2    2.15  1.48   1   5     4  0.57
-## DA2                                                 15 1719  2.86  0.95      3    2.89  1.48   1   5     4 -0.09
-## DA3                                                 16 1720  1.97  0.81      2    1.90  0.00   1   5     4  0.70
-## DA4                                                 17 1721  4.20  0.72      4    4.27  1.48   1   5     4 -0.66
-## DA5                                                 18 1721  4.06  0.81      4    4.11  1.48   1   5     4 -0.59
-## LocalRole                                           19 1453  3.49  0.94      4    3.51  1.48   1   5     4 -0.44
-## LocalFinance                                        20 1453  3.22  0.90      3    3.23  1.48   1   5     4 -0.19
-## LocalTime                                           21 1453  3.58  0.89      4    3.63  1.48   1   5     4 -0.59
-## GlobalRole                                          22 1446  3.57  0.99      4    3.62  1.48   1   5     4 -0.47
-## GlobalFinance                                       23 1449  3.19  1.00      3    3.18  1.48   1   5     4 -0.11
-## GlobalTime                                          24 1449  3.42  0.98      3    3.44  1.48   1   5     4 -0.35
-## Your gender?                                        25 1678  1.49  0.50      1    1.49  0.00   1   2     1  0.03
-##                                                   kurtosis   se
-## What is your PRIMARY MAJOR?                          -1.33 0.48
-## Internship, field experience, co-op, or practicum      NaN 0.00
-## ParticipateServiceL                                    NaN 0.00
-## ParticipateCService                                    NaN 0.00
-## ParticipateStudyAbroadSemester                         NaN 0.00
-## SJ1                                                  -0.51 0.02
-## SJ2                                                  -0.16 0.02
-## SJ3                                                  -0.14 0.02
-## SJ4                                                  -0.40 0.02
-## SJ5                                                  -0.03 0.02
-## SJ6                                                   0.15 0.02
-## SJ7                                                   1.05 0.02
-## SJ8                                                   0.69 0.02
-## DA1                                                  -0.11 0.02
-## DA2                                                  -0.41 0.02
-## DA3                                                   0.31 0.02
-## DA4                                                   0.54 0.02
-## DA5                                                   0.16 0.02
-## LocalRole                                            -0.33 0.02
-## LocalFinance                                         -0.27 0.02
-## LocalTime                                             0.22 0.02
-## GlobalRole                                           -0.30 0.03
-## GlobalFinance                                        -0.33 0.03
-## GlobalTime                                           -0.17 0.03
-## Your gender?                                         -2.00 0.01</code></pre>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="week-4-assumptions-and-correlations.html#cb131-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">describe</span>(seniorSurvey_df)</span></code></pre></div>
+<pre><code>##                                                   vars    n  mean    sd median
+## What is your PRIMARY MAJOR?                          1 1849 31.79 20.43     29
+## Internship, field experience, co-op, or practicum    2 1121  1.00  0.00      1
+## ParticipateServiceL                                  3  489  1.00  0.00      1
+## ParticipateCService                                  4 1296  1.00  0.00      1
+## ParticipateStudyAbroadSemester                       5  142  1.00  0.00      1
+## SJ1                                                  6 1733  2.32  1.03      2
+## SJ2                                                  7 1732  2.08  0.96      2
+## SJ3                                                  8 1731  2.77  0.88      3
+## SJ4                                                  9 1726  2.27  1.01      2
+## SJ5                                                 10 1728  3.27  0.92      3
+## SJ6                                                 11 1719  3.50  0.83      4
+## SJ7                                                 12 1719  4.01  0.79      4
+## SJ8                                                 13 1719  4.15  0.83      4
+## DA1                                                 14 1719  2.23  0.93      2
+## DA2                                                 15 1719  2.86  0.95      3
+## DA3                                                 16 1720  1.97  0.81      2
+## DA4                                                 17 1721  4.20  0.72      4
+## DA5                                                 18 1721  4.06  0.81      4
+## LocalRole                                           19 1453  3.49  0.94      4
+## LocalFinance                                        20 1453  3.22  0.90      3
+## LocalTime                                           21 1453  3.58  0.89      4
+## GlobalRole                                          22 1446  3.57  0.99      4
+## GlobalFinance                                       23 1449  3.19  1.00      3
+## GlobalTime                                          24 1449  3.42  0.98      3
+## Your gender?                                        25 1678  1.49  0.50      1
+##                                                   trimmed   mad min max range
+## What is your PRIMARY MAJOR?                         31.25 28.17   1  70    69
+## Internship, field experience, co-op, or practicum    1.00  0.00   1   1     0
+## ParticipateServiceL                                  1.00  0.00   1   1     0
+## ParticipateCService                                  1.00  0.00   1   1     0
+## ParticipateStudyAbroadSemester                       1.00  0.00   1   1     0
+## SJ1                                                  2.25  1.48   1   5     4
+## SJ2                                                  1.98  1.48   1   5     4
+## SJ3                                                  2.79  1.48   1   5     4
+## SJ4                                                  2.20  1.48   1   5     4
+## SJ5                                                  3.27  1.48   1   5     4
+## SJ6                                                  3.54  1.48   1   5     4
+## SJ7                                                  4.07  0.00   1   5     4
+## SJ8                                                  4.23  1.48   1   5     4
+## DA1                                                  2.15  1.48   1   5     4
+## DA2                                                  2.89  1.48   1   5     4
+## DA3                                                  1.90  0.00   1   5     4
+## DA4                                                  4.27  1.48   1   5     4
+## DA5                                                  4.11  1.48   1   5     4
+## LocalRole                                            3.51  1.48   1   5     4
+## LocalFinance                                         3.23  1.48   1   5     4
+## LocalTime                                            3.63  1.48   1   5     4
+## GlobalRole                                           3.62  1.48   1   5     4
+## GlobalFinance                                        3.18  1.48   1   5     4
+## GlobalTime                                           3.44  1.48   1   5     4
+## Your gender?                                         1.49  0.00   1   2     1
+##                                                    skew kurtosis   se
+## What is your PRIMARY MAJOR?                        0.18    -1.33 0.48
+## Internship, field experience, co-op, or practicum   NaN      NaN 0.00
+## ParticipateServiceL                                 NaN      NaN 0.00
+## ParticipateCService                                 NaN      NaN 0.00
+## ParticipateStudyAbroadSemester                      NaN      NaN 0.00
+## SJ1                                                0.46    -0.51 0.02
+## SJ2                                                0.64    -0.16 0.02
+## SJ3                                               -0.03    -0.14 0.02
+## SJ4                                                0.52    -0.40 0.02
+## SJ5                                               -0.19    -0.03 0.02
+## SJ6                                               -0.40     0.15 0.02
+## SJ7                                               -0.75     1.05 0.02
+## SJ8                                               -0.86     0.69 0.02
+## DA1                                                0.57    -0.11 0.02
+## DA2                                               -0.09    -0.41 0.02
+## DA3                                                0.70     0.31 0.02
+## DA4                                               -0.66     0.54 0.02
+## DA5                                               -0.59     0.16 0.02
+## LocalRole                                         -0.44    -0.33 0.02
+## LocalFinance                                      -0.19    -0.27 0.02
+## LocalTime                                         -0.59     0.22 0.02
+## GlobalRole                                        -0.47    -0.30 0.03
+## GlobalFinance                                     -0.11    -0.33 0.03
+## GlobalTime                                        -0.35    -0.17 0.03
+## Your gender?                                       0.03    -2.00 0.01</code></pre>
 <p>Upon examining this, we can notice a few things:
 Primary Major variable is all messed up. We won’t fix it here, but basically there is a numeric code needed (e.g., 13 = underwater basket weaving)</p>
 <p>Columns 3 and 5 have lots of missing values (note the small N’s) – this means that this was asked via checkbox so (1) is true and missing is not missing but False</p>
 <p>SJ1-8 and DA1-5 all look essentially ok – about the same N (some survey fatigue or skips) but all values in range (1-5)</p>
 <p>Now, we know that SJ and DA are scales from the literature and we want to compute scale scores for those. Typically for attitude scales like these we just report means across the items. So, we will use the “psych” package to use a built in function to help us with this. If you have not used psych yet, be sure it is installed using the command install.packages(“psych”) – you need only do this once and then in subsequent uses you only need <code>library(psych)</code> to tell R to look in that package for the functions you will be using.</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="week-4-assumptions-and-correlations.html#cb123-1" aria-hidden="true"></a><span class="kw">library</span>(psych)</span></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="week-4-assumptions-and-correlations.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code></pre></div>
 <p>Subset out only the SJ and DA items in their own dataframe and then use tools in the psych package to compute scale means</p>
 <p>The first method to do this - use numbering of the columns:</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="week-4-assumptions-and-correlations.html#cb124-1" aria-hidden="true"></a>seniorSurveyScales_df &lt;-<span class="st"> </span>seniorSurvey_df[<span class="dv">6</span><span class="op">:</span><span class="dv">18</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="week-4-assumptions-and-correlations.html#cb134-1" aria-hidden="true" tabindex="-1"></a>seniorSurveyScales_df <span class="ot">&lt;-</span> seniorSurvey_df[<span class="dv">6</span><span class="sc">:</span><span class="dv">18</span>]</span></code></pre></div>
 <p>A second method to do this - use select() from dplyr</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="week-4-assumptions-and-correlations.html#cb125-1" aria-hidden="true"></a>seniorSurveyScales_df &lt;-<span class="st"> </span>seniorSurvey_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(SJ1<span class="op">:</span>DA5)</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="week-4-assumptions-and-correlations.html#cb135-1" aria-hidden="true" tabindex="-1"></a>seniorSurveyScales_df <span class="ot">&lt;-</span> seniorSurvey_df <span class="sc">%&gt;%</span> <span class="fu">select</span>(SJ1<span class="sc">:</span>DA5)</span></code></pre></div>
 <p>Use the make.keys() function from psych package to key-in how the scales are built (mapping items to scales, use - for reverse scored items)</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="week-4-assumptions-and-correlations.html#cb126-1" aria-hidden="true"></a>my_keys &lt;-<span class="st"> </span><span class="kw">make.keys</span>(seniorSurveyScales_df, <span class="kw">list</span>(<span class="dt">SJCa=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">2</span>,<span class="op">-</span><span class="dv">3</span>,<span class="op">-</span><span class="dv">4</span>),<span class="dt">SJCh=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>),<span class="dt">DA=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">9</span>,<span class="op">-</span><span class="dv">10</span>,<span class="op">-</span><span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">13</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="week-4-assumptions-and-correlations.html#cb136-1" aria-hidden="true" tabindex="-1"></a>my_keys <span class="ot">&lt;-</span> <span class="fu">make.keys</span>(seniorSurveyScales_df, <span class="fu">list</span>(<span class="at">SJCa=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="sc">-</span><span class="dv">2</span>,<span class="sc">-</span><span class="dv">3</span>,<span class="sc">-</span><span class="dv">4</span>),<span class="at">SJCh=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>),<span class="at">DA=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">9</span>,<span class="sc">-</span><span class="dv">10</span>,<span class="sc">-</span><span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">13</span>)))</span></code></pre></div>
 <p>Use scoreItems function to score each respondent on the three scales of interest SJCa, SJCh, and DA – the default here in scoreItems is to takes the mean of the items (not additive though that is sometimes used) and also, it imputes missing values instead of dropping cases the scoreItems function calculates many things. At this stage, all we really want are the scores, so we include a line to only extract that info.</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="week-4-assumptions-and-correlations.html#cb127-1" aria-hidden="true"></a>my_scales &lt;-<span class="st"> </span><span class="kw">scoreItems</span>(my_keys, seniorSurveyScales_df) </span>
-<span id="cb127-2"><a href="week-4-assumptions-and-correlations.html#cb127-2" aria-hidden="true"></a>my_scores &lt;-<span class="st"> </span>my_scales<span class="op">$</span>scores</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="week-4-assumptions-and-correlations.html#cb137-1" aria-hidden="true" tabindex="-1"></a>my_scales <span class="ot">&lt;-</span> <span class="fu">scoreItems</span>(my_keys, seniorSurveyScales_df) </span>
+<span id="cb137-2"><a href="week-4-assumptions-and-correlations.html#cb137-2" aria-hidden="true" tabindex="-1"></a>my_scores <span class="ot">&lt;-</span> my_scales<span class="sc">$</span>scores</span></code></pre></div>
 <p>Now, if you view the first few rows of the my.scores vector using the header – head() command – it looks like we expect:</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="week-4-assumptions-and-correlations.html#cb128-1" aria-hidden="true"></a><span class="kw">head</span>(my_scores)</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="week-4-assumptions-and-correlations.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(my_scores)</span></code></pre></div>
 <pre><code>##      SJCa     SJCh  DA
 ## [1,] 2.75 3.000000 3.2
 ## [2,] 3.75 3.333333 4.2
@@ -348,37 +386,37 @@ Primary Major variable is all messed up. We won’t fix it here, but basically t
 ## [5,] 3.00 3.333333 3.4
 ## [6,] 4.50 4.333333 3.4</code></pre>
 <p>Now, let’s build a clean dataframe to prep for analysis - by clean in this case I mean that we have replaced item scores from the scales with their means and also that we have fixed the NAs that don’t belong (for participation variables, in this dataset, the NAs should be 0s)</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="week-4-assumptions-and-correlations.html#cb130-1" aria-hidden="true"></a>my_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(seniorSurvey_df[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>],my_scores, seniorSurvey_df[<span class="dv">19</span><span class="op">:</span><span class="dv">25</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="week-4-assumptions-and-correlations.html#cb140-1" aria-hidden="true" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(seniorSurvey_df[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>],my_scores, seniorSurvey_df[<span class="dv">19</span><span class="sc">:</span><span class="dv">25</span>])</span></code></pre></div>
 <p>This is an old school method to replace NAs in specific columns</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="week-4-assumptions-and-correlations.html#cb131-1" aria-hidden="true"></a>my_df<span class="op">$</span>ParticipateServiceL[<span class="kw">is.na</span>(my_df<span class="op">$</span>ParticipateServiceL)] &lt;-<span class="st"> </span><span class="dv">0</span> </span>
-<span id="cb131-2"><a href="week-4-assumptions-and-correlations.html#cb131-2" aria-hidden="true"></a>my_df<span class="op">$</span>ParticipateCService[<span class="kw">is.na</span>(my_df<span class="op">$</span>ParticipateCService)] &lt;-<span class="st"> </span><span class="dv">0</span> </span>
-<span id="cb131-3"><a href="week-4-assumptions-and-correlations.html#cb131-3" aria-hidden="true"></a>my_df<span class="op">$</span>ParticipateStudyAbroadSemester[<span class="kw">is.na</span>(my_df<span class="op">$</span>ParticipateStudyAbroadSemester)] &lt;-<span class="st"> </span><span class="dv">0</span> </span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="week-4-assumptions-and-correlations.html#cb141-1" aria-hidden="true" tabindex="-1"></a>my_df<span class="sc">$</span>ParticipateServiceL[<span class="fu">is.na</span>(my_df<span class="sc">$</span>ParticipateServiceL)] <span class="ot">&lt;-</span> <span class="dv">0</span> </span>
+<span id="cb141-2"><a href="week-4-assumptions-and-correlations.html#cb141-2" aria-hidden="true" tabindex="-1"></a>my_df<span class="sc">$</span>ParticipateCService[<span class="fu">is.na</span>(my_df<span class="sc">$</span>ParticipateCService)] <span class="ot">&lt;-</span> <span class="dv">0</span> </span>
+<span id="cb141-3"><a href="week-4-assumptions-and-correlations.html#cb141-3" aria-hidden="true" tabindex="-1"></a>my_df<span class="sc">$</span>ParticipateStudyAbroadSemester[<span class="fu">is.na</span>(my_df<span class="sc">$</span>ParticipateStudyAbroadSemester)] <span class="ot">&lt;-</span> <span class="dv">0</span> </span></code></pre></div>
 <p>my_df<span class="math inline">\(ParticipateInternCoop...[is.na(mydf\)</span>ParticipateInternCoop…)] &lt;- 0 ——- this variable read in cumbersomely named and I don’t care about it right now so I’ll skip</p>
 <p>Here is An alternative method to replace NAs in specific columns:</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="week-4-assumptions-and-correlations.html#cb132-1" aria-hidden="true"></a>my_df &lt;-<span class="st"> </span>my_df <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb132-2"><a href="week-4-assumptions-and-correlations.html#cb132-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">replace_na</span>(<span class="kw">list</span>(<span class="dt">ParticipateCService =</span> <span class="dv">0</span>, <span class="dt">ParticipateStudyAbroadSemester =</span> <span class="dv">0</span>, <span class="dt">ParticipateServiceL =</span> <span class="dv">0</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="week-4-assumptions-and-correlations.html#cb142-1" aria-hidden="true" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> my_df <span class="sc">%&gt;%</span> </span>
+<span id="cb142-2"><a href="week-4-assumptions-and-correlations.html#cb142-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">ParticipateCService =</span> <span class="dv">0</span>, <span class="at">ParticipateStudyAbroadSemester =</span> <span class="dv">0</span>, <span class="at">ParticipateServiceL =</span> <span class="dv">0</span>))</span></code></pre></div>
 </div>
 <div id="preliminary-analysis" class="section level3" number="4.3.3">
 <h3><span class="header-section-number">4.3.3</span> Preliminary analysis</h3>
 <p>At this point, we are ready for some analysis</p>
 <p>Let’s investigate correlations. What seems most obvious would just be to run cor() but, as we found out in class, this can cause us to run full speed ahead without considering assumptions</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="week-4-assumptions-and-correlations.html#cb133-1" aria-hidden="true"></a>my_correlations &lt;-<span class="st"> </span>my_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(SJCa,SJCh,DA) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">cor</span>()</span>
-<span id="cb133-2"><a href="week-4-assumptions-and-correlations.html#cb133-2" aria-hidden="true"></a><span class="kw">print</span>(my_correlations)</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="week-4-assumptions-and-correlations.html#cb143-1" aria-hidden="true" tabindex="-1"></a>my_correlations <span class="ot">&lt;-</span> my_df <span class="sc">%&gt;%</span> <span class="fu">select</span>(SJCa,SJCh,DA) <span class="sc">%&gt;%</span> <span class="fu">cor</span>()</span>
+<span id="cb143-2"><a href="week-4-assumptions-and-correlations.html#cb143-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(my_correlations)</span></code></pre></div>
 <pre><code>##           SJCa      SJCh        DA
 ## SJCa 1.0000000 0.2590211 0.3342276
 ## SJCh 0.2590211 1.0000000 0.2310703
 ## DA   0.3342276 0.2310703 1.0000000</code></pre>
 <p>Ok, so, it is important that we note that this ran correlations but R doesn’t know that this was sample data and therefore that we are interested instatistical significance (or not) of these results AND that our data may need another method (e.g., non-parametric). cor() does have a way to run spearman instead.</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="week-4-assumptions-and-correlations.html#cb135-1" aria-hidden="true"></a>my_spearman_correlations &lt;-<span class="st"> </span>my_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(SJCa,SJCh,DA) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">cor</span>(<span class="dt">method=</span><span class="st">&quot;spearman&quot;</span>)</span>
-<span id="cb135-2"><a href="week-4-assumptions-and-correlations.html#cb135-2" aria-hidden="true"></a><span class="kw">print</span>(my_spearman_correlations)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="week-4-assumptions-and-correlations.html#cb145-1" aria-hidden="true" tabindex="-1"></a>my_spearman_correlations <span class="ot">&lt;-</span> my_df <span class="sc">%&gt;%</span> <span class="fu">select</span>(SJCa,SJCh,DA) <span class="sc">%&gt;%</span> <span class="fu">cor</span>(<span class="at">method=</span><span class="st">&quot;spearman&quot;</span>)</span>
+<span id="cb145-2"><a href="week-4-assumptions-and-correlations.html#cb145-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(my_spearman_correlations)</span></code></pre></div>
 <pre><code>##           SJCa      SJCh        DA
 ## SJCa 1.0000000 0.2727828 0.3148168
 ## SJCh 0.2727828 1.0000000 0.2340174
 ## DA   0.3148168 0.2340174 1.0000000</code></pre>
 <p>If we need p values though, we need to change to something else – corr.test</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="week-4-assumptions-and-correlations.html#cb137-1" aria-hidden="true"></a>my_results &lt;-<span class="st"> </span><span class="kw">corr.test</span>(my_df<span class="op">$</span>SJCa,my_df<span class="op">$</span>DA)</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="week-4-assumptions-and-correlations.html#cb147-1" aria-hidden="true" tabindex="-1"></a>my_results <span class="ot">&lt;-</span> <span class="fu">corr.test</span>(my_df<span class="sc">$</span>SJCa,my_df<span class="sc">$</span>DA)</span></code></pre></div>
 <p>Then we can pull out results from this list or print it. Let’s do both.</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="week-4-assumptions-and-correlations.html#cb138-1" aria-hidden="true"></a><span class="kw">print</span>(my_results,<span class="dt">short=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="week-4-assumptions-and-correlations.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(my_results,<span class="at">short=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## Call:corr.test(x = my_df$SJCa, y = my_df$DA)
 ## Correlation matrix 
 ## [1] 0.33
@@ -390,18 +428,18 @@ Primary Major variable is all messed up. We won’t fix it here, but basically t
 ##  Confidence intervals based upon normal theory.  To get bootstrapped values, try cor.ci
 ##       raw.lower raw.r raw.upper raw.p lower.adj upper.adj
 ## NA-NA      0.29  0.33      0.37     0      0.29      0.37</code></pre>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="week-4-assumptions-and-correlations.html#cb140-1" aria-hidden="true"></a>my_results<span class="op">$</span>r <span class="co"># correlation coefficient</span></span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="week-4-assumptions-and-correlations.html#cb150-1" aria-hidden="true" tabindex="-1"></a>my_results<span class="sc">$</span>r <span class="co"># correlation coefficient</span></span></code></pre></div>
 <pre><code>## [1] 0.3342276</code></pre>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="week-4-assumptions-and-correlations.html#cb142-1" aria-hidden="true"></a>my_results<span class="op">$</span>p <span class="co"># p-value</span></span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="week-4-assumptions-and-correlations.html#cb152-1" aria-hidden="true" tabindex="-1"></a>my_results<span class="sc">$</span>p <span class="co"># p-value</span></span></code></pre></div>
 <pre><code>## [1] 1.433637e-49</code></pre>
 <p>Visually, we should be able to see this on a scatterplot. We are going to use qplot which stands for quickplot from within ggplot. It is useful and quicker for simple plotting than building up ggplot (though from the same package) we need to jitter my points (take geom=“jitter” out if you want to see why)</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="week-4-assumptions-and-correlations.html#cb144-1" aria-hidden="true"></a><span class="kw">qplot</span>(SJCa,DA,<span class="dt">data=</span>my_df,<span class="dt">geom=</span><span class="st">&quot;jitter&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="week-4-assumptions-and-correlations.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(SJCa,DA,<span class="at">data=</span>my_df,<span class="at">geom=</span><span class="st">&quot;jitter&quot;</span>)</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="week-4-assumptions-and-correlations.html#cb145-1" aria-hidden="true"></a><span class="kw">qqnorm</span>(my_df<span class="op">$</span>SJCa, <span class="dt">frame =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb145-2"><a href="week-4-assumptions-and-correlations.html#cb145-2" aria-hidden="true"></a><span class="kw">qqline</span>(my_df<span class="op">$</span>SJCa, <span class="dt">col =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="dt">lwd =</span> <span class="fl">1.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="week-4-assumptions-and-correlations.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(my_df<span class="sc">$</span>SJCa, <span class="at">frame =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb155-2"><a href="week-4-assumptions-and-correlations.html#cb155-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(my_df<span class="sc">$</span>SJCa, <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-72-2.png" width="672" /></p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="week-4-assumptions-and-correlations.html#cb146-1" aria-hidden="true"></a>my_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> SJCa)) <span class="op">+</span></span>
-<span id="cb146-2"><a href="week-4-assumptions-and-correlations.html#cb146-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_histogram</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="week-4-assumptions-and-correlations.html#cb156-1" aria-hidden="true" tabindex="-1"></a>my_df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> SJCa)) <span class="sc">+</span></span>
+<span id="cb156-2"><a href="week-4-assumptions-and-correlations.html#cb156-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-72-3.png" width="672" /></p>
 <p>Other functions we used today in class were describe() and also the q-q plot creation to investigate normality assumption copying syntax from the Field, Miles, &amp; Field book</p>

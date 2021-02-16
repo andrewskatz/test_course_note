@@ -1,0 +1,1953 @@
+--- 
+title: "ENGE 5714 Course Notes 2021"
+author: "Dr. Katz"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "This is a test for organizing course notes in bookdown. The output format for this example is bookdown::gitbook."
+---
+
+# Preamble {-}
+
+This book will be a living document of notes for ENGE 5714 - Quantitative Research Methods in Engineering Education. I will try to keep it updated and post alerts about updates in our course Slack workspace.
+
+<!--chapter:end:index.Rmd-->
+
+# Week 1: Introductions
+
+In week one we just reviewed some of the materials from the fall semester. By the end we discussed R and RStudio, but this first week was primarily about getting to know each other and the outline of the course.
+
+<!--chapter:end:01-Week_01.Rmd-->
+
+# Week 2: Intro stats, Data & Distributions, Intro R & RStudio
+
+This week, we discuss some very basic ideas related to statistics, data, and working in R. 
+
+
+
+## First steps in R
+
+
+We can create a new variable by assigning it a value with the `<-` operator. Let's create a vector of numbers 1 to 10 with the `seq()` function and then a separate vector that takes each of the x values, multiplies it by 2, and adds 3.
+```{r}
+x <- seq(1:10)
+y <- 2* x + 3
+```
+
+Just to make sure everything worked as expected, we can then just type `x` and `y` and R will print their values. We could also look in the "environment" window to see whether those variables (and their expected values) were actually created.
+
+```{r}
+x
+y
+
+```
+
+So far, so good. If we want to quickly visualize this, we could create a simple scatter plot with the `plot()` command (note: we will come back to plotting data much more in week 3). 
+
+```{r}
+plot(x, y)
+```
+
+
+## Getting your R environment set up
+
+One of the first things you will have in any script or .rmd file is a section to load all the libraries that you use in that script.
+
+You can install a library by using the install.packages() function, for example:
+
+`install.packages("tidyverse")`, `install.packages("janitor")`, and `install.packages("psych")`
+
+
+with this installed, you can then load the package using the library() function
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(psych)
+```
+
+
+
+
+## Reading in data
+
+A good first step when working in R is to check which directory you are working in with the `getwd()` function. You should get a directory in response.
+
+```{r}
+getwd()
+
+```
+
+
+You can also check which files are in that directory with `list.files()`.
+
+```{r}
+
+list.files()
+```
+
+If you notice that the file you are looking for is not there, then you can use setwd() to change your working directory
+
+`setwd("./Week 2/")`
+
+
+
+After that, make sure you have switched to the correct working directory
+`getwd()` and then `list.files()`.
+
+Assuming you have directed yourself to the correct place, you can now read in the file(s) that you want to be working with. There are a _lot_ of ways to do this. Since we will be spending a lot of time in class working with .csv files, we will focus on using the `read_csv()` function from the readr package (part of the tidyverse collection of packages). This function will read in the .csv file and store the data as a tibble (a tidyverse version of a data frame, which we can think of as a collection of observations stored in rows with values for variables for each observation stored in columns).
+
+```{r}
+prior_survey <- read_csv("ENGE_5714_2021_pre_survey.csv")
+
+
+```
+
+
+## Exploring the data
+
+Now that we have loaded in the data, let's take a look at the csv. If we just run a line with the name of the tibble - i.e., `prior_survey` then we should receive a printout that shows the first several rows of that tibble and a listing of all the columns, along with the data types (i.e., double for numeric values, character for strings, etc) of each column.
+
+```{r}
+prior_survey
+
+```
+
+
+When we do this, we see that there are a bunch of columns that have spaces in their names. This is okay (in the sense that R can handle this), but it can be a little frustrating to work with. Let's try cleaning the column names with `clean_names()` from the janitor package. This function will replace the spaces in the column names with underscores and make everything lower case. So, a column name like "I have take a statistics course before" will be changed to "i_have_taken_a_statistics_course_before".
+
+```{r}
+prior_survey <- prior_survey %>% clean_names() # from janitor package
+
+```
+
+Look at the data in prior_survey again and see if anything looks different (hint: it should).
+```{r}
+prior_survey
+```
+
+
+One other function that will we see more in the future is the `table()` function, which will create a table with the counts of the values for a variable. For example, if we wanted to quickly know how students answered the "I have taken a quantitative research methods course before" question, we can run the following:
+
+```{r}
+table(prior_survey$i_have_taken_a_quantitative_research_methods_course_before)
+```
+
+
+
+
+
+## Plotting data
+
+We will discuss plotting more next week, but here is a brief preview of what's to come...
+
+
+There are multiple ways to plot data. Focusing on using ggplot, here are two.
+
+The first way passes the prior_survey dataframe explicitly to ggplot
+```{r}
+ggplot(data = prior_survey, mapping = aes(x = i_know_what_a_type_i_error_is)) +
+  geom_bar() +
+  coord_flip()
+```
+
+The second way does this implicitly, using the pipe operator. Note that the results should be the same.
+
+```{r}
+
+prior_survey %>% 
+  ggplot(mapping = aes(x = i_know_what_a_type_i_error_is)) +
+  geom_bar() +
+  coord_flip()
+```
+
+
+If we wanted to get extra fancy, we could first convert the data from a wide format to a long format and then start plotting all the items together.
+
+
+Converting to long format would produce something like this:
+```{r}
+prior_survey %>% 
+  gather(key = "survey_item", value = "survey_response")
+```  
+  
+
+Then we can combine that with the `group_by()` and `summarize()` functions and plot the results.
+```{r}
+prior_survey %>% 
+  gather(key = "survey_item", value = "survey_response") %>% 
+  group_by(survey_item, survey_response) %>% 
+  summarize(n = n()) %>% 
+  ggplot(mapping = aes(x = survey_response, y = survey_item, fill = n)) +
+  geom_tile()
+```
+
+
+This plot is okay for giving a general sense of what is going on in these plots but there are a bunch of other ways to go about doing this.
+
+First, maybe we want to rename the response categories to a numerical scale. We can accomplish this with a `mutate()` and `case_when()`.
+```{r}
+prior_survey <- prior_survey %>% 
+  gather(key = "survey_item", value = "survey_response") %>% 
+  mutate(survey_response_num = case_when(survey_response == "Strongly disagree" ~ 0,
+                                         survey_response == "Somewhat disagree" ~ 1,
+                                         survey_response == "Neither agree nor disagree" ~ 2,
+                                         survey_response == "Somewhat agree" ~ 3,
+                                         survey_response == "Strongly agree" ~ 4,
+                                         )) 
+```
+
+
+
+Then we plot the same data but with the numerical scale along the x-axis.
+
+```{r}
+prior_survey %>% 
+  group_by(survey_item, survey_response_num) %>% 
+  summarize(n = n()) %>% 
+  ggplot(mapping = aes(x = survey_response_num, y = survey_item, fill = n)) +
+  geom_tile()
+```
+  
+
+
+
+## Some brief stats
+
+In this week's reading, there was also discussion about standard errors and the central limit theorem. These are fairly important theoretical concepts to grasp. To some extent they deal with the scenario where you go out and repeatedly sample from a population and calculate a statistic from each of those samples. The distributions _of that statistic_ is what we will call the sampling distribution (as opposed to the sample distribution, which would more accurately describe the distribution of the data that we get in any one sample that we draw from the population).
+
+
+
+
+### Central Limit Theorem and Standard Error Demo ----
+
+```{r}
+pop_students <- 10000
+
+zoom_min_pop <- rnorm(n = pop_students, mean = 600, sd = 100)
+
+hist(zoom_min_pop)
+
+
+zoom_min_sample <- sample(x = zoom_min_pop,
+                          size = 200,
+                          replace = FALSE)
+
+
+hist(zoom_min_sample)
+mean(zoom_min_sample)
+sd(zoom_min_sample)
+```
+
+As a brief aside, let's review the idea of a loop
+```{r}
+num_reps <- 100
+
+data_vec <- rep(NA, num_reps) # this creates an empty vector of size num_reps with NA in each entry
+
+# this loops through the vector starting at position 1 and ending at the final position (num_reps). For demonstration purposes, we replacing the NA in each entry with the number of that entry (i.e., the NA in the 20th entry is replaced with the number 20)
+
+for (i in 1:num_reps){
+  data_vec[i] <- i
+}
+```
+
+Okay, so that's how we create an empty vector and how we loop through its different entries. For this demo, we will also need to remenber how to generate random numbers from a norm distribution with a specified mean and standard deviation.
+
+```{r}
+rnorm(n = 10, mean = 5, sd = 2) # n is the number of random numbers we draw from this normal distribution
+```
+
+
+Okay, so that's not bad. Now, that command will produce a vector with 10 random numbers. We can calculate the mean and standard deviation of those 10 numbers (which should be close to the values that we specified in `rnorm()` with the `mean()` and `sd()` functions.
+```{r}
+mean(rnorm(n = 10, mean = 5, sd = 2))
+sd(rnorm(n = 10, mean = 5, sd = 2))
+```
+
+
+
+Next, let's act as if we are drawing a certain sample of size `samp_size` of data points for `num_reps` number of times. Keep in mind that, in practice, when we are collecting data ourselves in our own research, num_reps will almost always be 1. We are just demonstrating the underlying assumptions for how we can calculate some of the statistics that we use.
+
+```{r}
+num_reps <- 1000 # specify how many times to take a sample
+samp_size <- 200 # specify the size of each sample
+data_vec <- rep(NA, num_reps) # create an empty vector of size num_reps with NA in each entry.
+for (i in 1:num_reps){
+  data_vec[i] <- mean(rnorm(n = samp_size, mean = 600, sd = 100)) # store the mean of each of the num_rep samples
+}
+```
+
+With this, we have a vector `data_vec` of size `num_reps` with the mean of each of our samples that we drew. This vector contains our sampling distribution of our sample means. **NOTE**: The standard deviation of this sampling mean is what we are calling our _standard error_. 
+
+We can plot a histogram of this sampling distribution and calculate the standard deviation of the sampling mean.
+
+```{r}
+hist(data_vec)
+sd(data_vec)
+```
+
+On your own, try copying this code and changing the num_reps and sample_size variables to larger and smaller values. Focus on how the x-axis values in your histogram change when you change the num_reps and samp_size variables.
+
+Hint: CLT will explain the normal distribution of the sampling mean (the shape you see in the histogram) while the Weak Law of Large Numbers will explain the concentration around the true mean as samp_size increases (i.e., when we draw a larger sample size from the population, our sample mean gets closer to the population mean).
+
+
+```{r}
+## Quick note on the rep() function: notice what happens when you specify "each" vs "times".
+rep(c(1, 2), times = 5)
+
+rep(c(1, 2), each = 5)
+
+
+```
+
+
+<!--chapter:end:02-Week_02.Rmd-->
+
+# Week 3: Data Cleaning, Organizing, Describing, and Communicating
+
+This week we focus on different steps you will often take when you first start working with your data. These tend to fall under the umbrella of "data processing" and often need to happen before you can start doing any kind of analysis. 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(janitor)
+```
+
+## Visualizing your data
+
+Once your data have been clearned, you are ready to start visualizing what you are working with. There is a huge range of what you can do with these plots. That's great! On the other hand, it can quickly start to feel overwhelming. To help get this under control and make it more manageable, it is convenient to think about the _types_ of data that you have. In particular, are your variables nominal, ordinal, interval, or ratio variables?
+
+
+
+### One continuous variable (either predictor or outcome variable)
+
+When you have one continuous variable, a standard option is to plot a histogram. These are plots that show the frequency of each of the values that the variable takes. Oftentimes it is helpful to create bins of values so that any number that falls in the 0-4 range counts in one bin, numbers from 5-9 are in a second bin, and so on.
+
+For this example, we will start by generating some data using `rnorm()`, which generates a random number (or in our case, `num` numbers) from a normal distribution with mean `mu` and standard deviation `stdev`. 
+
+```{r example-hist, fig.show='hide', echo = TRUE}
+num <- 50
+mu <- 5
+stdev <- 2
+
+x <- rnorm(n = num, mean = mu, sd = stdev)
+
+
+```
+
+With these data generated, we can then quickly plot the histogram with `hist()`. This will use base R graphics.
+
+```{r}
+
+hist(x)
+
+
+```
+
+
+You can also do this using ggplot rather than base R graphics.
+
+```{r ggplot-hist}
+
+x_df <- tibble(x_col = x)
+
+ggplot(data = x_df, mapping = aes(x = x_col)) +
+  geom_histogram()
+
+```
+
+
+The histogram is a very standard plot, and you should consider it a go-to option in your toolkit. Alternatively, you can use geom_density() instead of geom_histogram() to get a smooth graph rather than one with discrete bins. We will use the same data that we generated before.
+
+We will write this two ways to demnostrate how the pipe ` %>% ` operator works.
+
+First way:
+```{r}
+
+ggplot(data = x_df, mapping = aes(x = x_col)) +
+  geom_density()
+```
+
+Second way:
+```{r}
+
+x_df %>%
+  ggplot(mapping = aes(x = x_col)) +
+  geom_density()
+
+
+```
+
+
+
+Just for fun, look at what happens to the the plot if you increase the sample size
+
+First, we will generate the data with a sample size of 5,000 rather than 50.
+```{r}
+
+num <- 5000
+mu <- 5
+stdev <- 2
+
+x <- rnorm(n = num, mean = mu, sd = stdev)
+x_df <- tibble(x_col = x)
+```
+
+Then we will plot the histogram
+```{r}
+x_df %>% 
+  ggplot(aes(x = x_col)) +
+  geom_histogram() +
+  labs(x = "x value",
+       y = "Count",
+       title = "Histogram of normal distribution with n = 5000, mu = 5, sd = 2")
+
+```
+
+
+And, finally, we can make the density plot instead of the histogram, if that's our jam.
+```{r}
+ggplot(data = x_df, mapping = aes(x = x_col)) +
+  geom_density()
+
+
+```
+
+
+
+### One Discrete Variable (either predictor or outcome)
+
+What if instead of a continuous (i.e., interval or ratio) variable we have a discrete variable such as a nominal (e.g., major, university) or ordinal (e.g., Likert scale item, level of education) variable? For that we can use something like `geom_bar()` or `geom_col()` to plot the counts of observations within each of those categories.
+
+To demonstrate this, we first need some data to work with. We will use the pre-semester, prior knowledge survey that everyone took. I have combined this year's results with last year's results in order to increase the sample size. After reading in the data, I will also use the `clean_names()` function from the `janitor` package. 
+
+```{r pre-survey}
+
+## load in the data
+survey_df <- read_csv("ENGE_5714_2021_pre_survey.csv")
+survey_df <- survey_df %>% clean_names()
+
+```
+
+Next, we can go ahead and make a bar plot with the following code:
+
+```{r geom-bar}
+survey_df %>% 
+  ggplot(aes(x = i_have_taken_a_quantitative_research_methods_course_before)) +
+  geom_bar()
+
+
+```
+
+
+Notice that the ordering is not quite what we would want. It is alphabetical. Let's try to fix this.
+
+
+Here is one way: we first specify the levels of that variable (i.e., the different values that it could take) and store that in the variable `q_levels`. Then, we pass that to the `factor()` function, which will tell R that we want whichever variable is passed to `factor()` two things. First, it will say that we want to make that variable a factor variable with `levels = ...`.  Second, we set `ordered = TRUE` to tell R that there is a specific ordering to that variable. This way, whenever there is something like a plot that we make, the ordering will persist in the labeling and R will not show the labels in alphabetical order.
+
+Here is an example of that in action:
+
+
+
+```{r}
+
+q_levels <- c("Strongly disagree", "Somewhat disagree", "Neither agree nor disagree",
+              "Somewhat agree", "Strongly agree")
+
+
+
+survey_df$i_have_taken_a_quantitative_research_methods_course_before <- factor(survey_df$i_have_taken_a_quantitative_research_methods_course_before, 
+                                                                               levels = q_levels,
+                                                                               ordered = TRUE)
+
+```
+
+
+Now try plotting these data. We will also add in a `coord_flip()` to plot the categories along the y-axis. This is a common move to avoid text from the different levels overlapping with each other. Finally, we will also change the x, y, and title labels with `labs()`.
+
+
+```{r}
+survey_df %>% 
+  ggplot(aes(x = i_have_taken_a_quantitative_research_methods_course_before)) +
+  geom_bar() +
+  coord_flip() +
+  labs(x = "I have taken a quantitative research methods course before",
+       y = "Count",
+       title = "Reordered Example")
+
+
+
+```
+
+
+## Joining two datasets
+
+Let's imagine that we have a separate dataset that has information about the students who completed the pre-course prior knowledge survey. 
+
+First, we will load in that dataset
+
+```{r}
+
+survey_info_df <- read_csv("survey_student_info.csv")
+
+```
+
+
+Next, let's join the two datasets based on the student id column, which is in each of the two dataframes.
+
+```{r}
+
+survey_df <- survey_df %>% inner_join(survey_info_df, by = "student_id")
+
+```
+
+Now we should have both datasets joined into one and saved as survey_df.
+
+With this, we can make some nicer plots and do something like use facet_grid() to look at students who are masters and doctoral students, for example.
+
+```{r}
+
+survey_df %>% 
+  ggplot(aes(x = i_have_taken_a_quantitative_research_methods_course_before)) +
+  geom_bar() +
+  facet_grid(standing ~.) +
+  labs(x = "I have taken a quantitative research methods course before",
+       y = "Count",
+       title = "Reordered Example")
+
+```
+
+
+The x axis looks a little crowded. What if we try `coord_flip()`?
+
+```{r}
+
+survey_df %>% 
+  filter(standing == "doctoral") %>%
+  ggplot(aes(x = i_have_taken_a_quantitative_research_methods_course_before)) +
+  geom_bar() +
+  coord_flip() +
+  facet_grid(standing ~.) +
+  labs(x = "I have taken a quantitative research methods course before",
+       y = "Count",
+       title = "Reordered Example")
+
+
+```
+
+That looks much better.
+
+
+#### A quick note on filters {-}
+
+If you want to look at only a subset of your data, you will want to use the `filter()` function. The general idea is that you can look at observations (rows) that match a certain criteria. For example, you may want to only look at students from a certain region or year or major. In our case, with the prior knowledge survey, let's say we only want to look at student who have to take the course (i.e., there is a "yes" for them for the `required` variable). We can do that with the first line. The second line just stores the result as a new dataframe called `filtered_df`.
+
+```{r}
+
+survey_df %>% filter(required == "yes")
+
+filtered_df <- survey_df %>% filter(required == "yes")
+
+```
+
+
+
+
+#### A little more about plotting {-}
+We are going to shift gears again and look at a few different kinds of plots. The main thing to remember here is that you want to think about whether the variables you have are nominal, ordinal, or continuous (that includes interval and ratio).
+
+
+## Discrete Predictor, Continuous Outcome
+
+So far we have looked at plots for one variable, but of course we want to have ways to plot multiple variables simultaneously. We will start with the scneario where where we want to plot a continuous variable against a discrete variable. This can arise when you want to plot something like an assessment score and you think it may differ across groups in some way (maybe you intentionally introduced a difference by exposing the two groups to different interventions, for example). 
+
+In these scenarios, a boxplot is a very standard way to go. 
+
+To demonstrate this, we will simulate a situation in which we want to look at differences on an assessment. We are specificially interested in differences between chemistry and chemical engineering students. Let's go ahead and create the data by creating two groups of 20 students each. The chemical engineering students will have scores generated from a normal distribution with $\mu = 85$ and  $\sigma = 4$ (i.e., a mean of 85 and a standard deviation of 4). We will say the chemistry students have scores from a normal distribution with $\mu = 78$ anad $\sigma = 6$. This about what these distributions might look like in your head. 
+
+```{r boxplot-example}
+group_size <- 20
+chem_e_scores <- rnorm(n = group_size, mean = 85, sd = 4)
+chem_scores <- rnorm(n = group_size, mean = 78, sd = 6)
+
+
+data_df <- tibble(
+  discipline = rep(c("ChemE", "Chemistry"), each = group_size),
+  score = c(chem_e_scores, chem_scores)
+)
+
+```
+
+With these data, we can then create a boxplot using `geom_boxplot()`
+
+```{r}
+data_df %>% 
+  ggplot(aes(x = discipline, y = score)) +
+  geom_boxplot()
+
+```
+
+
+You can make a few modifications to possibly make this plot easier to read. 
+
+The first is to put the discrete category on the y axis instead of the x axis.
+
+The second is to use geom_jitter() in addition to geom_boxplot() to show the individual points in each group. 
+
+
+```{r box-and-dot-plot}
+
+data_df %>% 
+  ggplot(aes(y = score, x = discipline)) +
+  geom_boxplot() +
+  geom_jitter()
+
+```
+
+
+
+
+
+
+## Continuous predictor and continuous outcome
+
+
+First, let's re-do a lot of the steps in this week's script for reading in data and transforming it a little
+
+
+
+```{r}
+mydata <- read_csv("Free Reduced Lunch by Schools and Grade Structures 2008-2017_final.csv")
+
+
+```
+
+
+
+Check the structure of the data (this output is a bit long).
+
+```{r}
+
+str(mydata)
+```
+
+Or just check the structure of one specific variable.
+```{r}
+
+str(mydata$total_2017)
+```
+
+
+
+**NOTE:** When you have a lot of variables, running this str() function is not a great idea - the output is a little too cumbersome
+
+
+
+## Mutating Variables
+
+Note that almost all of the data reads in as a "character" data type which are just strings, 
+This can create issues.  
+
+We know that many of the columns are actually storing  numbers or "numeric" values as R refers to them.
+We need to fix this.
+
+Let's tell R that these columns (at least the two we are going to use) are numeric.
+
+We are going to see two interchangeable ways to do this.
+
+First, we use the $ operator which lets me specify a specific column within my data frame in combination with the as.numeric() function
+
+
+
+
+
+```{r warning = FALSE}
+
+mydata$total_2017<-as.numeric(mydata$total_2017)
+mydata$totalFRL_1718<-as.numeric(mydata$totalFRL_1718)
+```
+
+Some columns have a percent symbol, which you will need to remove before coercing to numeric data type
+```{r}
+mydata <- mydata %>%
+  mutate(totalper_0809 = str_remove(totalper_0809, "%"))
+
+```
+
+Then we can change the column from character to numeric
+```{r}
+mydata$totalper_0809 <- as.numeric(mydata$totalper_0809)
+
+```
+
+Check to make sure it converted the column type correctly using `str()`.
+```{r}
+str(mydata$totalper_0809)
+```
+
+
+Second, alternatively, we can do this for a whole set of variables at once. We just need to specify a matching criteria.
+
+```{r}
+newdf <- mydata %>% 
+  mutate_at(vars(starts_with("total")), as.numeric)
+
+newdf <- newdf %>% 
+  mutate_at(vars(starts_with("totalFRL")), as.numeric)
+```
+
+Check whether the old and new variables are stored differently (old as a character, new as a numeric variable)
+
+```{r}
+str(mydata$total_2008)
+str(newdf$total_2008)
+```
+
+
+
+## Filtering and Selecting
+
+
+A basic operation we do a lot is to filter the data so that we are working with a subset of all that we have.
+
+
+We can do this with the filter() function, part of the dplyr package (in the tidyverse collection of packages).
+
+
+Let's say we want to look at the schools with div_num values less than 50.
+```{r}
+
+newdf %>% filter(div_num < 50)
+
+```
+
+Or, if we want to look at schools where the highest grade in 2008 was grade five, we can try:
+
+```{r}
+
+newdf %>% filter(higrade_2008 == "5") # this returns a subsetted dataframe with 878 rows
+```
+
+Note that we had to set it equal to the character value "5" rather than the numeric value 5. Why?
+
+If we wanted to filter on numeric values instead, we would want to do something like this:
+```{r}
+newdf %>% 
+  mutate(higrade_2008 = as.numeric(higrade_2008)) %>% 
+  filter(higrade_2008 == 5) # again, this returns a subsetted dataframe with 878 rows
+```
+
+
+## Grouping and Summarizing
+
+Let's shift gears to a different combination of operations...
+
+Let's go ahead and try using tidyverse to narrow to what we want.
+Imagine we want to see the county level aggregate numbers for FRL in the 2017-2018 school year.
+
+We will start out with our entire data frame and then use pipes (the %>% operator) to work from there.
+The final result will be stored in our new data frame that we are creating, called county_level_aggregate.
+ 
+First, select will pick columns
+Next, group_by and summarize work together to get us our aggregate totals.
+
+
+
+```{r}
+
+
+county_level_aggregate <- newdf %>% 
+  select(div_name, total_2017, totalFRL_1718) %>%
+  group_by(div_name) %>%
+  summarize(totalstudents = sum(total_2017), 
+            totalFRL = sum(totalFRL_1718))
+```
+
+Now, we can compute percentages if we like and we can specify a new column by referring to. One that doesn't exist yet but will after we run this code. We will do this two interchangeable ways.
+
+First, the old school way:
+
+```{r}
+county_level_aggregate$percent_FRL <- county_level_aggregate$totalFRL/county_level_aggregate$totalstudents*100
+```
+
+Second, the tidyverse way:
+
+```{r}
+county_level_aggregate <- county_level_aggregate %>% 
+  mutate(percent_frl = totalFRL / totalstudents * 100)
+```
+
+
+Just for fun, let's see how this could have been incorporated into our summarize call
+
+```{r}
+county_level_percents <- newdf %>% 
+  select(div_name, total_2017, totalFRL_1718) %>%
+  group_by(div_name) %>%
+  summarize(percentFRL=sum(totalFRL_1718)/sum(total_2017) * 100)
+
+```
+
+
+
+Something is going to look weird with this plot
+
+```{r}
+
+newdf %>% 
+  ggplot(aes(totalFRL_0809, totalFT_2008)) +
+  geom_point() +
+  labs(title = "FRL 2008", x = "totalFRL_0809")
+```
+
+
+Let's see if we can fix it
+
+```{r}
+
+newdf %>% 
+  filter(!is.na(totalFRL_0809)) %>%
+  ggplot(aes(totalFRL_0809, totalFT_2008)) +
+  geom_point() +
+  labs(title = "FRL 2008", 
+       x = "totalFRL_0809") +
+  xlim(0, 1000) +
+  ylim(0, 1000)
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+<!--chapter:end:03-Week_03.Rmd-->
+
+# Week 4: Assumptions and Correlations
+
+This week we will be discussing Chapters 5 and 6 from DSUR. These notes will pull out some of the important pieces from each chapter.
+
+
+## Assumptions
+
+These assumptions that we are making are helpful when determining whether we should be using parametric vs non-parametric statistical tests. What does "parametric" mean here? It means that the data are from a parameterized distribution (i.e., parameters characterize the distribution that the data come from). An example of a parameterized distribution that we have already seen is the normal distribution. The two parameters for the normal distribution are $\mu$ for the mean and $\sigma$ for the standard deviation. We have seen this altogether with this kind of notation to denote that $x_i$ is from a normal distribution:
+
+$x_i \sim \mathcal{N} (\mu, \,\sigma^{2})$ 
+
+
+### Normally distributed data
+
+This assumption is about the normality of the sampling distribution. The big idea here is that we tend to operate under the belief that if our _sampled_ data are normally distributed then the underlying _sampling distribution_ is also normally distributed. Also, keep in mind that this becomes less of a concern as our sample size increases (thank, Central Limit Theorem!). 
+
+There are several tests for normality that we will discuss, which include either (a) calculations or (b) visual examination. We will discuss both.
+
+#### Visual check of normality
+
+You can accomplish this with a histogram (e.g., `hist()` or `geom_histogram()` or a q-q plot `qplot()` (which stands for quantile-quantile). 
+
+
+### Homogeneity of variance
+
+Here, you want to know whether the variance of a variable is the same across different groups. For example, if you are looking at test scores in chemistry and chemical engineering students, you want to know if the variances (spread) of the test scores in the chemistry group and the chemical engineering group are close to each other. 
+
+### Interval data
+
+This might be a little redundant given that we want normally distributed data, but you want at least interval data (ratio data are also fine, but in practice very few things we work with actually qualify as ratio variables). If you have ordinal or nominal variables, you might be in trouble with this assumption...
+
+### Independence
+
+This assumption is about the observations not being related to each other or affecting each other in some way. In practice, this can also be a little tricky. For example, if you are sampling students from different classrooms, depending on the variables you are measuring, you might actually have reason to believe that students in one classroom are more related to each other than students in a different classroom. In practice, you can handle this with a multi-level model (aka hierarchical model), but that is beyond the scope of this class.
+
+
+
+## Correlation
+
+
+
+### Covariance
+
+First, start with the observation that variance is calculated with:
+$Variance(s^2) = \frac{\sum(x_i - \overline{x})^2}{N - 1} = \frac{\sum(x_i - \overline{x})(x_i - \overline{x})}{N - 1}$
+
+But now let's say that we want to know how, for each observation we have, how does the value of $x$ vary with the value of $y$ on average. For example, when the value of $x$ increases, does the value of $y$ also increase? This could happen when $x$ represents the number of hours of sleep you get each night and $y$ is your average grade on an exam you take the next day. The opposite could arise when $x$ increases but we expect $y$ to go down. An example of this might be when $x$ is the number of hilarious jokes that a teacher tells in class and $y$ is the number of students who fall asleep in class. As the number of jokes increases, we might expect/hope that it keeps students' attention and keeps them from dozing. This generally process of considering how one variable changes when another variable changes is where the notion of covariance comes in. 
+
+In practice, what we really want to know is: when $x_i$ is above its average value in a sample ($\overline{x}$), how does $y_i$ change? Does it also tend to be above the sample average for $y$ ($\overline{y}$)? This is expressed in the general formular for covariance:
+
+
+$cov(x,y) = \frac{\sum(x_i - \overline{x})(y_i - \overline{y})}{N - 1}$
+
+While covariance can be a helpful value to work with in many settings, for most of what we do in this class, we will be using correlation coefficients instead of covariance. This is because covariance is an unnormalized value, which can make comparisons across different ranges of values difficult.
+
+
+
+### Correlation coefficient
+
+In order to standardize the covariance to a value the is easier to work with across ranges of values, we use the correlatoin coefficient. There are several version of this, depending on the type of data you are working with. The most basic version is the Pearson correlation coefficient. It is calculated by dividing the covariance by the standard deviations of your two variables of interest:
+
+$r = \frac{cov_{xy}}{s_xs_y} = \frac{\sum(x_i - \overline{x})(y_i - \overline{y})}{(N-1)s_xs_y}$
+
+This is a _bivariate_ correlation coefficient because it is looking at the correlation between _two variables_. There are also partial correlation coefficients, which look at the correlation between two variables whil controlling for other variables. 
+
+We can calculate the correlatoin between two variables using the `cor()` or `cor.test()` functions, which are part of base R. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Another worked example for cleaning and prelim analysis
+
+
+This script takes an incomplete subset of senior data from a .csv file, cleans it, 
+computes factor scores, and prepares it for analysis.
+
+If you have not already done so, make sure that you have run `library(tidyverse)` and `library(psych)` since we will be using functions from both of those packages.
+
+### Loading in data
+
+First, as usual, load in your data. We will use the file `seniorsurvey.csv` for this demo.
+
+`file_path <- "YOUR PATH HERE"`
+`setwd(file_path)` use this command to change the working directory to the folder where you have your file
+`list.files()` run this to make sure that your file is in your current working directory
+
+
+```{r}
+seniorSurvey_df <- read_csv("seniorsurvey.csv") # replace text in the parentheses with your file name
+```
+
+### Data prep and cleaning
+
+After loading, it is always nice to just see how things loaded in. Functions like str() and describe() from the psych package are nice for this. For example, if we use describe(), we can see the following (we deleted some variables):
+
+```{r}
+psych::describe(seniorSurvey_df)
+```
+
+
+Upon examining this, we can notice a few things:
+Primary Major variable is all messed up.  We won't fix it here, but basically there is a numeric code needed (e.g., 13 = underwater basket weaving)
+
+Columns 3 and 5 have lots of missing values (note the small N's) -- this means that this was asked via checkbox so (1) is true and missing is not missing but False
+
+SJ1-8 and DA1-5 all look essentially ok -- about the same N (some survey fatigue or skips) but all values in range (1-5)
+
+
+Now, we know that SJ and DA are scales from the literature and we want to compute scale scores for those. Typically for attitude scales like these we just report means across the items.  So, we will use the "psych" package to use a built in function to help us with this.  If you have not used psych yet, be sure it is installed using the command install.packages("psych") -- you need only do this once and then in subsequent uses you only need `library(psych)` to tell R to look in that package for the functions you will be using.
+
+```{r}
+library(psych)
+```
+
+Subset out only the SJ and DA items in their own dataframe and then use tools in the psych package to compute scale means
+
+The first method to do this - use numbering of the columns:
+
+```{r}
+seniorSurveyScales_df <- seniorSurvey_df[6:18]
+
+```
+
+A second method to do this - use select() from dplyr
+```{r}
+
+seniorSurveyScales_df <- seniorSurvey_df %>% select(SJ1:DA5)
+```
+
+Use the make.keys() function from psych package to key-in how the scales are built (mapping items to scales, use - for reverse scored items)
+```{r}
+my_keys <- make.keys(seniorSurveyScales_df, list(SJCa=c(-1,-2,-3,-4),SJCh=c(5,6,7),DA=c(-9,-10,-11,12,13)))
+```
+
+
+Use scoreItems function to score each respondent on the three scales of interest SJCa, SJCh, and DA -- the default here in scoreItems is to takes the mean of the items (not additive though that is sometimes used) and also, it imputes missing values instead of dropping cases the scoreItems function calculates many things.  At this stage, all we really want are the scores, so we include a line to only extract that info.
+
+```{r}
+my_scales <- scoreItems(my_keys, seniorSurveyScales_df)	
+my_scores <- my_scales$scores
+```
+
+
+Now, if you view the first few rows of the my.scores vector using the header -- head() command -- it looks like we expect:
+```{r}
+head(my_scores)
+```
+
+
+Now, let's build a clean dataframe to prep for analysis - by clean in this case I mean that we have replaced item scores from the scales with their means and also that we have fixed the NAs that don't belong (for participation variables, in this dataset, the NAs should be 0s)
+
+```{r}
+my_df <- data.frame(seniorSurvey_df[1:5],my_scores, seniorSurvey_df[19:25])
+```
+
+This is an old school method to replace NAs in specific columns
+
+```{r}
+my_df$ParticipateServiceL[is.na(my_df$ParticipateServiceL)] <- 0 
+my_df$ParticipateCService[is.na(my_df$ParticipateCService)] <- 0 
+my_df$ParticipateStudyAbroadSemester[is.na(my_df$ParticipateStudyAbroadSemester)] <- 0 
+```
+
+my_df$ParticipateInternCoop...[is.na(mydf$ParticipateInternCoop...)] <- 0 ------- this variable read in cumbersomely named and I don't care about it right now so I'll skip
+
+
+Here is An alternative method to replace NAs in specific columns:
+```{r}
+my_df <- my_df %>% 
+  replace_na(list(ParticipateCService = 0, ParticipateStudyAbroadSemester = 0, ParticipateServiceL = 0))
+```
+
+
+### Preliminary analysis
+
+At this point, we are ready for some analysis
+
+Let's investigate correlations. What seems most obvious would just be to run cor() but, as we found out in class, this can cause us to run full speed ahead without considering assumptions
+
+```{r}
+my_correlations <- my_df %>% select(SJCa,SJCh,DA) %>% cor()
+print(my_correlations)
+```
+
+Ok, so, it is important that we note that this ran correlations but R doesn't know that this was sample data and therefore that we are interested instatistical significance (or not) of these results AND that our data may need another method (e.g., non-parametric).  cor() does have a way to run spearman instead.
+
+```{r}
+my_spearman_correlations <- my_df %>% select(SJCa,SJCh,DA) %>% cor(method="spearman")
+print(my_spearman_correlations)
+
+```
+
+If we need p values though, we need to change to something else -- corr.test
+
+```{r}
+my_results <- corr.test(my_df$SJCa,my_df$DA)
+
+```
+
+Then we can pull out results from this list or print it.  Let's do both.
+```{r}
+print(my_results,short=FALSE)
+my_results$r # correlation coefficient
+my_results$p # p-value
+```
+
+
+Visually, we should be able to see this on a scatterplot.  We are going to use qplot which stands for quickplot from within ggplot.  It is useful and quicker for simple plotting than building up ggplot (though from the same package) we need to jitter my points (take geom="jitter" out if you want to see why)
+
+```{r}
+qplot(SJCa,DA,data=my_df,geom="jitter")
+
+qqnorm(my_df$SJCa, frame = FALSE)
+qqline(my_df$SJCa, col = "steelblue", lwd = 1.5)
+
+my_df %>% ggplot(aes(x = SJCa)) +
+  geom_histogram()
+```
+
+Other functions we used today in class were describe() and also the q-q plot creation to investigate normality assumption copying syntax from the Field, Miles, & Field book
+
+
+<!--chapter:end:04-Week_04.Rmd-->
+
+# Week 5: Regression I
+
+Week 5 notes coming soon to an online book near you...
+
+
+
+```{r remedy001}
+
+require(tidyverse)
+require(psych)
+require(kableExtra)
+library(broom)
+
+```
+
+
+# Week 5 - Simple Regression
+
+
+This week we will start learning about linear regression. In particular, we focus on simple regression. These kinds of models involve one predictor variable and one continuous outcome variable. Next week we will move to models with multiple regression, which involves - you guessed it - multiple predictor variables. 
+
+
+
+## General Modeling Philosophy
+
+The general approach is to model the outcome variable as a function of some predictor(s) plus an error term. Mathematically, this looks like:
+
+$outcome_i = model + error_i$
+
+where the $i$ subscript refers to the $i^{th}$ person in the sample. 
+
+
+
+
+
+
+
+
+
+
+#### Review of the normal distribution and standardizing variables
+
+Just to review, let's think about normally distributed variables and the notion of centering and standardizing.
+
+First, we will generate some data by drawing `n` random numbers from a normal distribution with a mean and standard deviation that we will specify. 
+
+```{r}
+
+mean <- 5
+sd <- 3
+n <- 1000
+
+random_x <- rnorm(n = n, mean = mean, sd = sd)
+```
+
+We can then visualize those numbers 
+
+```{r}
+
+
+hist(random_x)
+
+
+```
+
+
+Now if we subtract the mean and plot the histogram, notice how the values have all basically shifted to the left along the x-axis.
+```{r}
+sample_mean <- mean(random_x)
+
+centered_x <- random_x - sample_mean
+
+hist(centered_x)
+
+```
+
+
+Finally, we can divide by the sample standard deviation, which should have the effect of either stretching or squishing the values along the x-axis (without changing their mean). Pay attention again to the values along the x-axis.
+
+```{r}
+sample_sd <- sd(random_x)
+
+standardized_x <- centered_x / sample_sd
+
+hist(standardized_x)
+
+```
+
+This final plot should remind you have the standard normal plot (with mean 0 and standard deviation 1). This is noted as $x \sim \mathcal{N}(0, 1)$ and is read as "x is distributed according to a normal distribution with a mean of 0 and variance of 1".
+
+
+
+
+
+
+
+
+## data generation demo - one set sample size ##########
+The following is a demo from class, found in the week_5_demo.R file
+
+
+
+```{r remedy002}
+#store the sample size that we want to use
+samp_size <- 100
+
+
+```
+
+```{r remedy003}
+# uniformly sample X values (values for our predictor variable) from 0 to 20 
+x <- round(runif(n = samp_size, min = 0, max = 30), digits = 1) # this gives samp_size number of random numbers
+
+```
+
+
+Store the noise values for our different test models
+
+
+```{r remedy004}
+sd_min <- 2 # low noise
+sd_med <- 6 # medium noise
+sd_max <- 12 # high noise
+
+
+```
+
+Generate the outcome variable values under different amounts of noise (the rnorm() function is what is generating noise here)
+
+```{r remedy005}
+
+y_noise_sd_none <- 3 + 2*x # this is the true relationship without any noise
+y_noise_sd_min <- 3 + 2*x + round(x = rnorm(n = samp_size, mean = 0, sd = sd_min), digits = 1)
+y_noise_sd_med <- 3 + 2*x + round(x = rnorm(n = samp_size, mean = 0, sd = sd_med), digits = 1)
+y_noise_sd_max <- 3 + 2*x + round(x = rnorm(n = samp_size, mean = 0, sd = sd_max), digits = 1)
+
+
+```
+
+
+Typical step 1: visualize! Let's plot each of these x values vs y
+```{r remedy006}
+
+plot(x, y_noise_sd_none)
+plot(x, y_noise_sd_min)
+plot(x, y_noise_sd_med)
+plot(x, y_noise_sd_max)
+
+
+```
+
+Let's put all of these vectors together into a data frame to make it easier to analyze later on
+Note, this is not a vital step for conducting the simple regression
+
+
+```{r remedy007}
+
+demo_df <- tibble("x" = x, 
+                  "y_noise_sd_none"=y_noise_sd_none, 
+                  "y_noise_sd_min" = y_noise_sd_min,
+                  "y_noise_sd_med" = y_noise_sd_med,
+                  "y_noise_sd_max" = y_noise_sd_max)
+
+
+```
+
+
+Check out what demo_df looks like
+
+```{r remedy008}
+
+
+head(demo_df)
+
+
+```
+
+Order by increasing x value
+
+```{r remedy009}
+
+demo_df <- demo_df %>% 
+  arrange(x)
+
+
+```
+
+Check out what the arrange() function did
+
+
+```{r remedy010}
+
+head(demo_df)
+
+
+```
+
+
+Let's make this a long df so that we can plot multiple standard deviation values together
+
+
+```{r remedy011}
+
+demo_df_long <- demo_df %>% 
+  pivot_longer(cols = starts_with("y_noise"),
+               names_to = "y_col",
+               values_to = "y_val"
+  )
+
+
+```
+
+
+Again, check on what this did
+
+
+```{r remedy012}
+
+head(demo_df_long)
+
+
+```
+
+Let's add in a column to note whether the value is from the min, med, max, or zero sd (noise) model
+
+
+```{r remedy013}
+
+demo_df_long <- demo_df_long %>% 
+  mutate(sd_val = case_when(str_detect(y_col, "sd_none") ~ 0,
+                            str_detect(y_col, "sd_min") ~ sd_min,
+                            str_detect(y_col, "sd_med") ~ sd_med,
+                            str_detect(y_col, "sd_max") ~ sd_max))
+
+
+```
+
+Use facet_grid to separate the plots out by 
+
+
+```{r remedy014}
+
+demo_df_long %>% 
+  ggplot(aes(x = x, y = y_val)) +
+  geom_point() +
+  facet_grid(.~y_col)
+
+
+```
+
+
+You can also automatically add in a line with the geom_smooth() function
+
+
+```{r remedy015}
+
+demo_df_long %>% 
+  ggplot(aes(x = x, y = y_val)) +
+  geom_point() +
+  geom_smooth(method = "lm") + 
+  facet_grid(.~y_col)
+
+
+
+```
+
+Now we can create a linear model for the data with minimum noise with the following command:
+
+
+```{r remedy016}
+
+fit_demo_min <- lm(y_noise_sd_min ~ x)
+
+
+```
+
+
+...and we can look at the summary of the model with:
+
+
+```{r remedy017}
+
+summary(fit_demo_min)
+
+
+```
+
+We can also look at model results with the glance() function from the broom package
+
+
+```{r remedy018}
+
+broom::glance(fit_demo_min)
+
+
+```
+
+We can create models for the med and max sd values as well and take a look at those with the summary() function once again
+
+```{r remedy019}
+
+fit_demo_med <- lm(y_noise_sd_med ~ x)
+summary(fit_demo_med)
+
+
+```
+
+```{r remedy020}
+
+fit_demo_max <- lm(y_noise_sd_max ~ x)
+summary(fit_demo_max)
+
+
+```
+
+
+Notice the increase in the standard error of the coefficient estimates as the noise in y values went up
+
+
+
+From a programming perspective, this was not very efficient because I just copied, pasted, and corrected these values.
+There is a better way to do this using lists (see below)
+
+
+
+Let's do some fancy stuff to make multiple models at once rather than having to write new lines for each model
+*Some of these ideas are taken from the R4DS book chapter 25
+
+
+```{r remedy021}
+
+test_nest <- demo_df_long %>% nest(data = -sd_val)
+
+
+linear_model <- function(df) {
+  lm(y_val ~ x, data = df)
+}
+
+
+models <- map(test_nest$data, linear_model)
+
+
+```
+
+
+```{r remedy022}
+
+summary(models[[2]])
+
+
+```
+
+```{r remedy023}
+
+summary(models[[3]])
+
+
+```
+
+```{r remedy024}
+
+summary(models[[4]])
+
+
+```
+
+We can also store the models as new columns in the nested dataframe
+
+
+```{r remedy025}
+
+test_nest <- test_nest %>% 
+  mutate(model = map(data, linear_model))
+
+
+```
+
+Finally, we can unnest the models to make it easier to compare them with each other in a data frame
+
+```{r remedy026}
+
+test_nest <- test_nest %>% 
+  mutate(glance = map(model, broom::glance)) %>% 
+  unnest(glance)
+
+
+```
+
+
+
+
+
+
+
+
+## Data generation demo - one set sample size; 
+The change from the past demo is that we are now sampling from integer values rather than continuous for the predictor 
+
+
+
+Store the sample size that we want to use
+
+```{r remedy027}
+
+samp_size <- 200
+
+
+```
+
+Instead of sampling uniformly from 0 to 20, this is to sample integers from 40 to 100 uniformly.
+We take "samp_size" number of samples. Replace = TRUE means we can get the same x value multiple times
+
+```{r remedy028}
+
+x <- sample(x = c(60:100), size = samp_size, replace = TRUE)
+
+
+```
+
+As before, store the noise values for our different test models
+
+```{r remedy029}
+
+sd_min <- 2
+sd_med <- 6
+sd_max <- 12
+
+y_noise_sd_none <- 3 + 2*x
+y_noise_sd_min <- 3 + 2*x + round(x = rnorm(n = samp_size, mean = 0, sd = sd_min), digits = 1)
+y_noise_sd_med <- 3 + 2*x + round(x = rnorm(n = samp_size, mean = 0, sd = sd_med), digits = 1)
+y_noise_sd_max <- 3 + 2*x + round(x = rnorm(n = samp_size, mean = 0, sd = sd_max), digits = 1)
+
+
+
+```
+
+Typical step 1: visualize! Let's plot each of these x values vs y
+
+```{r remedy030}
+
+plot(x, y_noise_sd_none)
+plot(x, y_noise_sd_min)
+plot(x, y_noise_sd_med)
+plot(x, y_noise_sd_max)
+
+
+```
+
+Let's put all of these vectors together into a data frame to make it easier to analyze later on.
+Note, this is not a vital step for conducting the simple regression
+
+```{r remedy031}
+
+demo_df <- tibble("x" = x, 
+                  "y_noise_sd_none"=y_noise_sd_none, 
+                  "y_noise_sd_min" = y_noise_sd_min,
+                  "y_noise_sd_med" = y_noise_sd_med,
+                  "y_noise_sd_max" = y_noise_sd_max)
+
+
+```
+Order by increasing x value
+
+
+```{r remedy032}
+
+demo_df <- demo_df %>% 
+  arrange(x)
+
+
+```
+
+Let's make this a long df so that we can plot multiple standard deviation values together
+
+```{r remedy033}
+
+demo_df_long <- demo_df %>% 
+  pivot_longer(cols = starts_with("y_noise"),
+               names_to = "y_col",
+               values_to = "y_val"
+  )
+
+
+```
+
+
+```{r remedy034}
+
+demo_df_long <- demo_df_long %>% 
+  mutate(sd_val = case_when(str_detect(y_col, "sd_none") ~ 0,
+                            str_detect(y_col, "sd_min") ~ sd_min,
+                            str_detect(y_col, "sd_med") ~ sd_med,
+                            str_detect(y_col, "sd_max") ~ sd_max))
+
+
+```
+
+
+And visualize the data, faceting by different noise
+```{r remedy035}
+
+demo_df_long %>% 
+  ggplot(aes(x = x, y = y_val)) +
+  geom_point() +
+  facet_grid(.~y_col)
+
+
+```
+
+And add in a line with `geom_smooth(method = 'lm')`
+```{r remedy036}
+
+demo_df_long %>% 
+  ggplot(aes(x = x, y = y_val)) +
+  geom_point() +
+  geom_smooth(method = "lm") + 
+  facet_grid(.~y_col)
+
+
+```
+
+Create a linear model and look at the summary.
+```{r remedy037}
+
+fit_demo_min <- lm(y_noise_sd_min ~ x)
+summary(fit_demo_min)
+
+
+```
+
+We can also look at model results with the glance() function from the broom package
+
+```{r remedy038}
+
+broom::glance(fit_demo_min)
+
+
+```
+
+We can create models for the med and max sd values as well and take a look at those with the summary() function once again.
+
+```{r remedy039}
+
+fit_demo_med <- lm(y_noise_sd_med ~ x)
+summary(fit_demo_med)
+
+
+```
+
+```{r remedy040}
+
+fit_demo_max <- lm(y_noise_sd_max ~ x)
+summary(fit_demo_max)
+
+
+```
+
+Notice the increase in the standard error of the coefficient estimates as the noise in y values went up
+
+
+
+From a programming perspective, this was not very efficient because I just copied, pasted, and corrected these values.
+There is a better way to do this using lists (see below)
+
+
+
+Let's do some fancy stuff to make multiple models at once rather than having to write new lines for each model
+*Some of these ideas are taken from the R4DS book chapter 25
+
+
+```{r remedy041}
+
+test_nest <- demo_df_long %>% nest(data = -sd_val)
+
+
+linear_model <- function(df) {
+  lm(y_val ~ x, data = df)
+}
+
+
+models <- map(test_nest$data, linear_model)
+
+
+```
+
+
+```{r remedy042}
+
+summary(models[[2]])
+summary(models[[3]])
+summary(models[[4]])
+
+
+```
+
+
+We can also store the models as new columns in the nested dataframe
+```{r remedy043}
+
+test_nest <- test_nest %>% 
+  mutate(model = map(data, linear_model))
+
+```
+
+
+Finally, we can unnest the models to make it easier to compare them with each other in a data frame
+
+
+```{r remedy044}
+
+test_nest <- test_nest %>% 
+  mutate(glance = map(model, broom::glance)) %>% 
+  unnest(glance)
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Data generation with three different sample sizes
+
+
+Let's run the same demo but now have three different sample sizes - 10, 50, and 500
+
+First, store the sample sizes we want to use
+
+
+```{r remedy045}
+
+samp_sizes <- c(10, 50, 500)
+
+
+```
+Next, create a bookkeping column for ourselves to keep track of which sample size the future values will come from
+
+
+```{r}
+
+samp_size_col <- rep(x = c(10,50, 500), times = samp_sizes)
+
+
+```
+
+Calculate the total number of values we will need from the three samples combined
+
+```{r remedy046}
+
+tot_samp_size <- sum(samp_sizes)
+
+
+```
+
+Sample uniformly from 0 to 20
+
+
+```{r remedy047}
+
+x <- round(x = runif(n = tot_samp_size, min = 0, max = 20), digits = 1)
+
+
+```
+
+
+Store the standard deviations for the min, med, and max models
+
+```{r}
+
+sd_min <- 2
+sd_med <- 6
+sd_max <- 12
+
+
+```
+
+Calculate the y values for the different scenarios where there is no noise up to max noise
+
+
+```{r}
+
+y_noise_sd_none <- 3 + 2*x
+y_noise_sd_min <- 3 + 2*x + round(x = rnorm(n = tot_samp_size, mean = 0, sd = sd_min), digits = 1)
+y_noise_sd_med <- 3 + 2*x + round(x = rnorm(n = tot_samp_size, mean = 0, sd = sd_med), digits = 1)
+y_noise_sd_max <- 3 + 2*x + round(x = rnorm(n = tot_samp_size, mean = 0, sd = sd_max), digits = 1)
+
+
+```
+
+
+Typical step 1: visualize! Let's plot each of these x values vs y
+
+```{r}
+
+plot(x, y_noise_sd_none)
+plot(x, y_noise_sd_min)
+plot(x, y_noise_sd_med)
+plot(x, y_noise_sd_max)
+
+
+```
+Can we calculate the correlations between x and these different y values? (pro tip: yes)
+
+
+Let's put all of these vectors together into a data frame to make it easier to analyze later on
+Note, this is not a vital step for conducting the simple regression
+
+
+```{r}
+
+demo_df <- tibble("n" = samp_size_col,
+                  "x" = x, 
+                  "y_noise_sd_none"=y_noise_sd_none, 
+                  "y_noise_sd_min" = y_noise_sd_min,
+                  "y_noise_sd_med" = y_noise_sd_med,
+                  "y_noise_sd_max" = y_noise_sd_max)
+
+
+```
+
+Order by increasing x value
+
+```{r}
+
+demo_df <- demo_df %>% 
+  arrange(n, x)
+
+
+```
+Let's make this a long df so that we can plot multiple standard deviation values together
+
+```{r}
+
+demo_df_long <- demo_df %>% 
+  pivot_longer(cols = starts_with("y_noise"),
+               names_to = "y_col",
+               values_to = "y_val"
+  )
+
+demo_df_long <- demo_df_long %>% 
+  mutate(sd_val = case_when(str_detect(y_col, "sd_none") ~ 0,
+                            str_detect(y_col, "sd_min") ~ sd_min,
+                            str_detect(y_col, "sd_med") ~ sd_med,
+                            str_detect(y_col, "sd_max") ~ sd_max))
+
+
+
+```
+
+
+```{r}
+
+demo_df_long %>% 
+  ggplot(aes(x = x, y = y_val)) +
+  geom_point() +
+  facet_grid(n~y_col)
+
+
+```
+
+
+```{r}
+
+demo_df_long %>% 
+  ggplot(aes(x = x, y = y_val)) +
+  geom_point() +
+  geom_smooth(method = "lm") + 
+  facet_grid(n~y_col)
+
+```
+
+
+```{r}
+
+fit_demo_min <- lm(y_noise_sd_min ~ x)
+summary(fit_demo_min)
+
+```
+
+# can also look at model results with the glance() function from the broom package
+
+```{r}
+
+broom::glance(fit_demo_min)
+
+
+```
+
+We can create models for the med and max sd values as well and take a look at those with the summary() function once again
+
+```{r}
+
+fit_demo_med <- lm(y_noise_sd_med ~ x)
+summary(fit_demo_med)
+
+
+```
+
+```{r}
+
+fit_demo_max <- lm(y_noise_sd_max ~ x)
+summary(fit_demo_max)
+
+
+```
+Notice the increase in the standard error of the coefficient estimates as the noise in y values went up
+
+
+
+From a programming perspective, this was not very efficient because I just copied, pasted, and corrected these values.
+There is a better way to do this using lists (see below)
+
+
+
+Let's do some fancy stuff to make multiple models at once rather than having to write new lines for each model
+*Some of these ideas are taken from the R4DS book chapter 25
+
+
+```{r}
+
+test_nest <- demo_df_long %>% nest(data = -c(sd_val, n))
+
+
+linear_model <- function(df) {
+  lm(y_val ~ x, data = df)
+}
+
+
+models <- map(test_nest$data, linear_model)
+
+summary(models[[2]])
+summary(models[[3]])
+summary(models[[4]])
+
+
+```
+
+We can also store the models as new columns in the nested dataframe
+
+
+```{r}
+
+test_nest <- test_nest %>% 
+  mutate(model = map(data, linear_model))
+
+
+```
+
+Finally, we can unnest the models to make it easier to compare them with each other in a data frame
+```{r}
+test_nest <- test_nest %>% 
+  mutate(glance = map(model, broom::glance)) %>% 
+  unnest(glance)
+```
+
+And look at the different models by just calling the data frame
+```{r}
+test_nest
+```
+
+
+
+<!--chapter:end:05-Week_05.Rmd-->
+
+# Week 6: Regression II
+
+This is where the Week 6 magic happens...
+
+<!--chapter:end:06-Week_06.Rmd-->
+

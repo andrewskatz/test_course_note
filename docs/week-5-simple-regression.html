@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter6 Week 5 - Simple Regression | ENGE 5714 Course Notes 2021</title>
+  <meta name="description" content="This is a test for organizing course notes in bookdown. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter6 Week 5 - Simple Regression | ENGE 5714 Course Notes 2021" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a test for organizing course notes in bookdown. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter6 Week 5 - Simple Regression | ENGE 5714 Course Notes 2021" />
+  
+  <meta name="twitter:description" content="This is a test for organizing course notes in bookdown. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Dr. Katz" />
+
+
+<meta name="date" content="2021-02-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="week-5-regression-i.html"/>
+<link rel="next" href="can-also-look-at-model-results-with-the-glance-function-from-the-broom-package.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ENGE 5714 - Quantitative Research Methods</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preamble</a></li>
+<li class="chapter" data-level="1" data-path="week-1-introductions.html"><a href="week-1-introductions.html"><i class="fa fa-check"></i><b>1</b> Week 1: Introductions</a></li>
+<li class="chapter" data-level="2" data-path="week-2-intro-stats-data-distributions-intro-r-rstudio.html"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html"><i class="fa fa-check"></i><b>2</b> Week 2: Intro stats, Data &amp; Distributions, Intro R &amp; RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="week-2-intro-stats-data-distributions-intro-r-rstudio.html"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#first-steps-in-r"><i class="fa fa-check"></i><b>2.1</b> First steps in R</a></li>
+<li class="chapter" data-level="2.2" data-path="week-2-intro-stats-data-distributions-intro-r-rstudio.html"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#getting-your-r-environment-set-up"><i class="fa fa-check"></i><b>2.2</b> Getting your R environment set up</a></li>
+<li class="chapter" data-level="2.3" data-path="week-2-intro-stats-data-distributions-intro-r-rstudio.html"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#reading-in-data"><i class="fa fa-check"></i><b>2.3</b> Reading in data</a></li>
+<li class="chapter" data-level="2.4" data-path="week-2-intro-stats-data-distributions-intro-r-rstudio.html"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#exploring-the-data"><i class="fa fa-check"></i><b>2.4</b> Exploring the data</a></li>
+<li class="chapter" data-level="2.5" data-path="week-2-intro-stats-data-distributions-intro-r-rstudio.html"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#plotting-data"><i class="fa fa-check"></i><b>2.5</b> Plotting data</a></li>
+<li class="chapter" data-level="2.6" data-path="week-2-intro-stats-data-distributions-intro-r-rstudio.html"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#some-brief-stats"><i class="fa fa-check"></i><b>2.6</b> Some brief stats</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="week-2-intro-stats-data-distributions-intro-r-rstudio.html"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#central-limit-theorem-and-standard-error-demo--"><i class="fa fa-check"></i><b>2.6.1</b> Central Limit Theorem and Standard Error Demo —-</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="week-3-data-cleaning-organizing-describing-and-communicating.html"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html"><i class="fa fa-check"></i><b>3</b> Week 3: Data Cleaning, Organizing, Describing, and Communicating</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="week-3-data-cleaning-organizing-describing-and-communicating.html"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#visualizing-your-data"><i class="fa fa-check"></i><b>3.1</b> Visualizing your data</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="week-3-data-cleaning-organizing-describing-and-communicating.html"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#one-continuous-variable-either-predictor-or-outcome-variable"><i class="fa fa-check"></i><b>3.1.1</b> One continuous variable (either predictor or outcome variable)</a></li>
+<li class="chapter" data-level="3.1.2" data-path="week-3-data-cleaning-organizing-describing-and-communicating.html"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#one-discrete-variable-either-predictor-or-outcome"><i class="fa fa-check"></i><b>3.1.2</b> One Discrete Variable (either predictor or outcome)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="week-3-data-cleaning-organizing-describing-and-communicating.html"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#joining-two-datasets"><i class="fa fa-check"></i><b>3.2</b> Joining two datasets</a></li>
+<li class="chapter" data-level="3.3" data-path="week-3-data-cleaning-organizing-describing-and-communicating.html"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#discrete-predictor-continuous-outcome"><i class="fa fa-check"></i><b>3.3</b> Discrete Predictor, Continuous Outcome</a></li>
+<li class="chapter" data-level="3.4" data-path="week-3-data-cleaning-organizing-describing-and-communicating.html"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#continuous-predictor-and-continuous-outcome"><i class="fa fa-check"></i><b>3.4</b> Continuous predictor and continuous outcome</a></li>
+<li class="chapter" data-level="3.5" data-path="week-3-data-cleaning-organizing-describing-and-communicating.html"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#mutating-variables"><i class="fa fa-check"></i><b>3.5</b> Mutating Variables</a></li>
+<li class="chapter" data-level="3.6" data-path="week-3-data-cleaning-organizing-describing-and-communicating.html"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#filtering-and-selecting"><i class="fa fa-check"></i><b>3.6</b> Filtering and Selecting</a></li>
+<li class="chapter" data-level="3.7" data-path="week-3-data-cleaning-organizing-describing-and-communicating.html"><a href="week-3-data-cleaning-organizing-describing-and-communicating.html#grouping-and-summarizing"><i class="fa fa-check"></i><b>3.7</b> Grouping and Summarizing</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html"><i class="fa fa-check"></i><b>4</b> Week 4: Assumptions and Correlations</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#assumptions"><i class="fa fa-check"></i><b>4.1</b> Assumptions</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#normally-distributed-data"><i class="fa fa-check"></i><b>4.1.1</b> Normally distributed data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#homogeneity-of-variance"><i class="fa fa-check"></i><b>4.1.2</b> Homogeneity of variance</a></li>
+<li class="chapter" data-level="4.1.3" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#interval-data"><i class="fa fa-check"></i><b>4.1.3</b> Interval data</a></li>
+<li class="chapter" data-level="4.1.4" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#independence"><i class="fa fa-check"></i><b>4.1.4</b> Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#correlation"><i class="fa fa-check"></i><b>4.2</b> Correlation</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#covariance"><i class="fa fa-check"></i><b>4.2.1</b> Covariance</a></li>
+<li class="chapter" data-level="4.2.2" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#correlation-coefficient"><i class="fa fa-check"></i><b>4.2.2</b> Correlation coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#another-worked-example-for-cleaning-and-prelim-analysis"><i class="fa fa-check"></i><b>4.3</b> Another worked example for cleaning and prelim analysis</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#loading-in-data"><i class="fa fa-check"></i><b>4.3.1</b> Loading in data</a></li>
+<li class="chapter" data-level="4.3.2" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#data-prep-and-cleaning"><i class="fa fa-check"></i><b>4.3.2</b> Data prep and cleaning</a></li>
+<li class="chapter" data-level="4.3.3" data-path="week-4-assumptions-and-correlations.html"><a href="week-4-assumptions-and-correlations.html#preliminary-analysis"><i class="fa fa-check"></i><b>4.3.3</b> Preliminary analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="week-5-regression-i.html"><a href="week-5-regression-i.html"><i class="fa fa-check"></i><b>5</b> Week 5: Regression I</a></li>
+<li class="chapter" data-level="6" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html"><i class="fa fa-check"></i><b>6</b> Week 5 - Simple Regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#general-modeling-philosophy"><i class="fa fa-check"></i><b>6.1</b> General Modeling Philosophy</a></li>
+<li class="chapter" data-level="6.2" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#data-generation-demo---one-set-sample-size"><i class="fa fa-check"></i><b>6.2</b> data generation demo - one set sample size</a></li>
+<li class="chapter" data-level="6.3" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#data-generation-demo---one-set-sample-size-1"><i class="fa fa-check"></i><b>6.3</b> Data generation demo - one set sample size;</a></li>
+<li class="chapter" data-level="6.4" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#data-generation-with-three-different-sample-sizes"><i class="fa fa-check"></i><b>6.4</b> Data generation with three different sample sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="can-also-look-at-model-results-with-the-glance-function-from-the-broom-package.html"><a href="can-also-look-at-model-results-with-the-glance-function-from-the-broom-package.html"><i class="fa fa-check"></i><b>7</b> can also look at model results with the glance() function from the broom package</a></li>
+<li class="chapter" data-level="8" data-path="week-6-regression-ii.html"><a href="week-6-regression-ii.html"><i class="fa fa-check"></i><b>8</b> Week 6: Regression II</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ENGE 5714 Course Notes 2021</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="week-5---simple-regression" class="section level1" number="6">
+<h1><span class="header-section-number">Chapter6</span> Week 5 - Simple Regression</h1>
+<p>This week we will start learning about linear regression. In particular, we focus on simple regression. These kinds of models involve one predictor variable and one continuous outcome variable. Next week we will move to models with multiple regression, which involves - you guessed it - multiple predictor variables.</p>
+<div id="general-modeling-philosophy" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> General Modeling Philosophy</h2>
+<p>The general approach is to model the outcome variable as a function of some predictor(s) plus an error term. Mathematically, this looks like:</p>
+<p><span class="math inline">\(outcome_i = model + error_i\)</span></p>
+<p>where the <span class="math inline">\(i\)</span> subscript refers to the <span class="math inline">\(i^{th}\)</span> person in the sample.</p>
+<div id="review-of-the-normal-distribution-and-standardizing-variables" class="section level4" number="6.1.0.1">
+<h4><span class="header-section-number">6.1.0.1</span> Review of the normal distribution and standardizing variables</h4>
+<p>Just to review, let’s think about normally distributed variables and the notion of centering and standardizing.</p>
+<p>First, we will generate some data by drawing <code>n</code> random numbers from a normal distribution with a mean and standard deviation that we will specify.</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="week-5-simple-regression.html#cb163-1" aria-hidden="true" tabindex="-1"></a>mean <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb163-2"><a href="week-5-simple-regression.html#cb163-2" aria-hidden="true" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb163-3"><a href="week-5-simple-regression.html#cb163-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb163-4"><a href="week-5-simple-regression.html#cb163-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb163-5"><a href="week-5-simple-regression.html#cb163-5" aria-hidden="true" tabindex="-1"></a>random_x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> n, <span class="at">mean =</span> mean, <span class="at">sd =</span> sd)</span></code></pre></div>
+<p>We can then visualize those numbers</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="week-5-simple-regression.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(random_x)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+<p>Now if we subtract the mean and plot the histogram, notice how the values have all basically shifted to the left along the x-axis.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="week-5-simple-regression.html#cb165-1" aria-hidden="true" tabindex="-1"></a>sample_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(random_x)</span>
+<span id="cb165-2"><a href="week-5-simple-regression.html#cb165-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-3"><a href="week-5-simple-regression.html#cb165-3" aria-hidden="true" tabindex="-1"></a>centered_x <span class="ot">&lt;-</span> random_x <span class="sc">-</span> sample_mean</span>
+<span id="cb165-4"><a href="week-5-simple-regression.html#cb165-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-5"><a href="week-5-simple-regression.html#cb165-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(centered_x)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
+<p>Finally, we can divide by the sample standard deviation, which should have the effect of either stretching or squishing the values along the x-axis (without changing their mean). Pay attention again to the values along the x-axis.</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="week-5-simple-regression.html#cb166-1" aria-hidden="true" tabindex="-1"></a>sample_sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(random_x)</span>
+<span id="cb166-2"><a href="week-5-simple-regression.html#cb166-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-3"><a href="week-5-simple-regression.html#cb166-3" aria-hidden="true" tabindex="-1"></a>standardized_x <span class="ot">&lt;-</span> centered_x <span class="sc">/</span> sample_sd</span>
+<span id="cb166-4"><a href="week-5-simple-regression.html#cb166-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-5"><a href="week-5-simple-regression.html#cb166-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(standardized_x)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<p>This final plot should remind you have the standard normal plot (with mean 0 and standard deviation 1). This is noted as <span class="math inline">\(x \sim \mathcal{N}(0, 1)\)</span> and is read as “x is distributed according to a normal distribution with a mean of 0 and variance of 1.”</p>
+</div>
+</div>
+<div id="data-generation-demo---one-set-sample-size" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> data generation demo - one set sample size</h2>
+<p>The following is a demo from class, found in the week_5_demo.R file</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="week-5-simple-regression.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="co">#store the sample size that we want to use</span></span>
+<span id="cb167-2"><a href="week-5-simple-regression.html#cb167-2" aria-hidden="true" tabindex="-1"></a>samp_size <span class="ot">&lt;-</span> <span class="dv">100</span></span></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="week-5-simple-regression.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uniformly sample X values (values for our predictor variable) from 0 to 20 </span></span>
+<span id="cb168-2"><a href="week-5-simple-regression.html#cb168-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">runif</span>(<span class="at">n =</span> samp_size, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">30</span>), <span class="at">digits =</span> <span class="dv">1</span>) <span class="co"># this gives samp_size number of random numbers</span></span></code></pre></div>
+<p>Store the noise values for our different test models</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="week-5-simple-regression.html#cb169-1" aria-hidden="true" tabindex="-1"></a>sd_min <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co"># low noise</span></span>
+<span id="cb169-2"><a href="week-5-simple-regression.html#cb169-2" aria-hidden="true" tabindex="-1"></a>sd_med <span class="ot">&lt;-</span> <span class="dv">6</span> <span class="co"># medium noise</span></span>
+<span id="cb169-3"><a href="week-5-simple-regression.html#cb169-3" aria-hidden="true" tabindex="-1"></a>sd_max <span class="ot">&lt;-</span> <span class="dv">12</span> <span class="co"># high noise</span></span></code></pre></div>
+<p>Generate the outcome variable values under different amounts of noise (the rnorm() function is what is generating noise here)</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="week-5-simple-regression.html#cb170-1" aria-hidden="true" tabindex="-1"></a>y_noise_sd_none <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x <span class="co"># this is the true relationship without any noise</span></span>
+<span id="cb170-2"><a href="week-5-simple-regression.html#cb170-2" aria-hidden="true" tabindex="-1"></a>y_noise_sd_min <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> <span class="fu">round</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> samp_size, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sd_min), <span class="at">digits =</span> <span class="dv">1</span>)</span>
+<span id="cb170-3"><a href="week-5-simple-regression.html#cb170-3" aria-hidden="true" tabindex="-1"></a>y_noise_sd_med <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> <span class="fu">round</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> samp_size, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sd_med), <span class="at">digits =</span> <span class="dv">1</span>)</span>
+<span id="cb170-4"><a href="week-5-simple-regression.html#cb170-4" aria-hidden="true" tabindex="-1"></a>y_noise_sd_max <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> <span class="fu">round</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> samp_size, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sd_max), <span class="at">digits =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Typical step 1: visualize! Let’s plot each of these x values vs y</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="week-5-simple-regression.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y_noise_sd_none)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/remedy006-1.png" width="672" /></p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="week-5-simple-regression.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y_noise_sd_min)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/remedy006-2.png" width="672" /></p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="week-5-simple-regression.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y_noise_sd_med)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/remedy006-3.png" width="672" /></p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="week-5-simple-regression.html#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y_noise_sd_max)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/remedy006-4.png" width="672" /></p>
+<p>Let’s put all of these vectors together into a data frame to make it easier to analyze later on
+Note, this is not a vital step for conducting the simple regression</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="week-5-simple-regression.html#cb175-1" aria-hidden="true" tabindex="-1"></a>demo_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="st">&quot;x&quot;</span> <span class="ot">=</span> x, </span>
+<span id="cb175-2"><a href="week-5-simple-regression.html#cb175-2" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;y_noise_sd_none&quot;</span><span class="ot">=</span>y_noise_sd_none, </span>
+<span id="cb175-3"><a href="week-5-simple-regression.html#cb175-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;y_noise_sd_min&quot;</span> <span class="ot">=</span> y_noise_sd_min,</span>
+<span id="cb175-4"><a href="week-5-simple-regression.html#cb175-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;y_noise_sd_med&quot;</span> <span class="ot">=</span> y_noise_sd_med,</span>
+<span id="cb175-5"><a href="week-5-simple-regression.html#cb175-5" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;y_noise_sd_max&quot;</span> <span class="ot">=</span> y_noise_sd_max)</span></code></pre></div>
+<p>Check out what demo_df looks like</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="week-5-simple-regression.html#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(demo_df)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 5
+##       x y_noise_sd_none y_noise_sd_min y_noise_sd_med y_noise_sd_max
+##   &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
+## 1  29.6            62.2           62.9           61            59.7 
+## 2  21.7            46.4           48.9           42.5          48.3 
+## 3   6.2            15.4           16.9           21.9          11.2 
+## 4   5.6            14.2           14.5           12.8           8.90
+## 5   7.4            17.8           13.4           13.5          16.5 
+## 6  19.6            42.2           45.6           54.5          33.6</code></pre>
+<p>Order by increasing x value</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="week-5-simple-regression.html#cb178-1" aria-hidden="true" tabindex="-1"></a>demo_df <span class="ot">&lt;-</span> demo_df <span class="sc">%&gt;%</span> </span>
+<span id="cb178-2"><a href="week-5-simple-regression.html#cb178-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(x)</span></code></pre></div>
+<p>Check out what the arrange() function did</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="week-5-simple-regression.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(demo_df)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 5
+##       x y_noise_sd_none y_noise_sd_min y_noise_sd_med y_noise_sd_max
+##   &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
+## 1   0.5             4              4.2           -5.5           5.6 
+## 2   0.8             4.6            7.3           -7.9           6.40
+## 3   1.1             5.2            4.2            9.9          11.4 
+## 4   1.4             5.8            3.8           13.5         -14.2 
+## 5   1.7             6.4           10.8            8.5           9.9 
+## 6   2.2             7.4            9.8            7.6         -12.9</code></pre>
+<p>Let’s make this a long df so that we can plot multiple standard deviation values together</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="week-5-simple-regression.html#cb181-1" aria-hidden="true" tabindex="-1"></a>demo_df_long <span class="ot">&lt;-</span> demo_df <span class="sc">%&gt;%</span> </span>
+<span id="cb181-2"><a href="week-5-simple-regression.html#cb181-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;y_noise&quot;</span>),</span>
+<span id="cb181-3"><a href="week-5-simple-regression.html#cb181-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;y_col&quot;</span>,</span>
+<span id="cb181-4"><a href="week-5-simple-regression.html#cb181-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;y_val&quot;</span></span>
+<span id="cb181-5"><a href="week-5-simple-regression.html#cb181-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>Again, check on what this did</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="week-5-simple-regression.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(demo_df_long)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##       x y_col           y_val
+##   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+## 1   0.5 y_noise_sd_none   4  
+## 2   0.5 y_noise_sd_min    4.2
+## 3   0.5 y_noise_sd_med   -5.5
+## 4   0.5 y_noise_sd_max    5.6
+## 5   0.8 y_noise_sd_none   4.6
+## 6   0.8 y_noise_sd_min    7.3</code></pre>
+<p>Let’s add in a column to note whether the value is from the min, med, max, or zero sd (noise) model</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="week-5-simple-regression.html#cb184-1" aria-hidden="true" tabindex="-1"></a>demo_df_long <span class="ot">&lt;-</span> demo_df_long <span class="sc">%&gt;%</span> </span>
+<span id="cb184-2"><a href="week-5-simple-regression.html#cb184-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sd_val =</span> <span class="fu">case_when</span>(<span class="fu">str_detect</span>(y_col, <span class="st">&quot;sd_none&quot;</span>) <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb184-3"><a href="week-5-simple-regression.html#cb184-3" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">str_detect</span>(y_col, <span class="st">&quot;sd_min&quot;</span>) <span class="sc">~</span> sd_min,</span>
+<span id="cb184-4"><a href="week-5-simple-regression.html#cb184-4" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">str_detect</span>(y_col, <span class="st">&quot;sd_med&quot;</span>) <span class="sc">~</span> sd_med,</span>
+<span id="cb184-5"><a href="week-5-simple-regression.html#cb184-5" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">str_detect</span>(y_col, <span class="st">&quot;sd_max&quot;</span>) <span class="sc">~</span> sd_max))</span></code></pre></div>
+<p>Use facet_grid to separate the plots out by</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="week-5-simple-regression.html#cb185-1" aria-hidden="true" tabindex="-1"></a>demo_df_long <span class="sc">%&gt;%</span> </span>
+<span id="cb185-2"><a href="week-5-simple-regression.html#cb185-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y_val)) <span class="sc">+</span></span>
+<span id="cb185-3"><a href="week-5-simple-regression.html#cb185-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb185-4"><a href="week-5-simple-regression.html#cb185-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(.<span class="sc">~</span>y_col)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/remedy014-1.png" width="672" /></p>
+<p>You can also automatically add in a line with the geom_smooth() function</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="week-5-simple-regression.html#cb186-1" aria-hidden="true" tabindex="-1"></a>demo_df_long <span class="sc">%&gt;%</span> </span>
+<span id="cb186-2"><a href="week-5-simple-regression.html#cb186-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y_val)) <span class="sc">+</span></span>
+<span id="cb186-3"><a href="week-5-simple-regression.html#cb186-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb186-4"><a href="week-5-simple-regression.html#cb186-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb186-5"><a href="week-5-simple-regression.html#cb186-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(.<span class="sc">~</span>y_col)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="test_course_notes_files/figure-html/remedy015-1.png" width="672" /></p>
+<p>Now we can create a linear model for the data with minimum noise with the following command:</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="week-5-simple-regression.html#cb188-1" aria-hidden="true" tabindex="-1"></a>fit_demo_min <span class="ot">&lt;-</span> <span class="fu">lm</span>(y_noise_sd_min <span class="sc">~</span> x)</span></code></pre></div>
+<p>…and we can look at the summary of the model with:</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="week-5-simple-regression.html#cb189-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_demo_min)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y_noise_sd_min ~ x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.3409 -1.3277 -0.1644  1.5237  4.2585 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  3.16219    0.41912   7.545 2.34e-11 ***
+## x            1.98784    0.02336  85.114  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.055 on 98 degrees of freedom
+## Multiple R-squared:  0.9867, Adjusted R-squared:  0.9865 
+## F-statistic:  7244 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We can also look at model results with the glance() function from the broom package</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="week-5-simple-regression.html#cb191-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">glance</span>(fit_demo_min)</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 12
+##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     0.987         0.987  2.06     7244. 1.13e-93     1  -213.  432.  440.
+## # ... with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+<p>We can create models for the med and max sd values as well and take a look at those with the summary() function once again</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="week-5-simple-regression.html#cb193-1" aria-hidden="true" tabindex="-1"></a>fit_demo_med <span class="ot">&lt;-</span> <span class="fu">lm</span>(y_noise_sd_med <span class="sc">~</span> x)</span>
+<span id="cb193-2"><a href="week-5-simple-regression.html#cb193-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_demo_med)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y_noise_sd_med ~ x)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -14.3549  -4.5115   0.3437   4.4465  15.7176 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   4.8989     1.2240   4.003 0.000122 ***
+## x             1.9449     0.0682  28.517  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.002 on 98 degrees of freedom
+## Multiple R-squared:  0.8925, Adjusted R-squared:  0.8914 
+## F-statistic: 813.2 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="week-5-simple-regression.html#cb195-1" aria-hidden="true" tabindex="-1"></a>fit_demo_max <span class="ot">&lt;-</span> <span class="fu">lm</span>(y_noise_sd_max <span class="sc">~</span> x)</span>
+<span id="cb195-2"><a href="week-5-simple-regression.html#cb195-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_demo_max)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y_noise_sd_max ~ x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -25.946  -6.334   0.379   6.877  31.795 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   2.2537     2.3782   0.948    0.346    
+## x             2.0643     0.1325  15.577   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 11.66 on 98 degrees of freedom
+## Multiple R-squared:  0.7123, Adjusted R-squared:  0.7094 
+## F-statistic: 242.7 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Notice the increase in the standard error of the coefficient estimates as the noise in y values went up</p>
+<p>From a programming perspective, this was not very efficient because I just copied, pasted, and corrected these values.
+There is a better way to do this using lists (see below)</p>
+<p>Let’s do some fancy stuff to make multiple models at once rather than having to write new lines for each model
+*Some of these ideas are taken from the R4DS book chapter 25</p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="week-5-simple-regression.html#cb197-1" aria-hidden="true" tabindex="-1"></a>test_nest <span class="ot">&lt;-</span> demo_df_long <span class="sc">%&gt;%</span> <span class="fu">nest</span>(<span class="at">data =</span> <span class="sc">-</span>sd_val)</span>
+<span id="cb197-2"><a href="week-5-simple-regression.html#cb197-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-3"><a href="week-5-simple-regression.html#cb197-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-4"><a href="week-5-simple-regression.html#cb197-4" aria-hidden="true" tabindex="-1"></a>linear_model <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
+<span id="cb197-5"><a href="week-5-simple-regression.html#cb197-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(y_val <span class="sc">~</span> x, <span class="at">data =</span> df)</span>
+<span id="cb197-6"><a href="week-5-simple-regression.html#cb197-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb197-7"><a href="week-5-simple-regression.html#cb197-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-8"><a href="week-5-simple-regression.html#cb197-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-9"><a href="week-5-simple-regression.html#cb197-9" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">map</span>(test_nest<span class="sc">$</span>data, linear_model)</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="week-5-simple-regression.html#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(models[[<span class="dv">2</span>]])</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y_val ~ x, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.3409 -1.3277 -0.1644  1.5237  4.2585 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  3.16219    0.41912   7.545 2.34e-11 ***
+## x            1.98784    0.02336  85.114  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.055 on 98 degrees of freedom
+## Multiple R-squared:  0.9867, Adjusted R-squared:  0.9865 
+## F-statistic:  7244 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="week-5-simple-regression.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(models[[<span class="dv">3</span>]])</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y_val ~ x, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -14.3549  -4.5115   0.3437   4.4465  15.7176 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   4.8989     1.2240   4.003 0.000122 ***
+## x             1.9449     0.0682  28.517  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.002 on 98 degrees of freedom
+## Multiple R-squared:  0.8925, Adjusted R-squared:  0.8914 
+## F-statistic: 813.2 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="week-5-simple-regression.html#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(models[[<span class="dv">4</span>]])</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y_val ~ x, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -25.946  -6.334   0.379   6.877  31.795 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   2.2537     2.3782   0.948    0.346    
+## x             2.0643     0.1325  15.577   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 11.66 on 98 degrees of freedom
+## Multiple R-squared:  0.7123, Adjusted R-squared:  0.7094 
+## F-statistic: 242.7 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We can also store the models as new columns in the nested dataframe</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="week-5-simple-regression.html#cb204-1" aria-hidden="true" tabindex="-1"></a>test_nest <span class="ot">&lt;-</span> test_nest <span class="sc">%&gt;%</span> </span>
+<span id="cb204-2"><a href="week-5-simple-regression.html#cb204-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="fu">map</span>(data, linear_model))</span></code></pre></div>
+<p>Finally, we can unnest the models to make it easier to compare them with each other in a data frame</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="week-5-simple-regression.html#cb205-1" aria-hidden="true" tabindex="-1"></a>test_nest <span class="ot">&lt;-</span> test_nest <span class="sc">%&gt;%</span> </span>
+<span id="cb205-2"><a href="week-5-simple-regression.html#cb205-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">glance =</span> <span class="fu">map</span>(model, broom<span class="sc">::</span>glance)) <span class="sc">%&gt;%</span> </span>
+<span id="cb205-3"><a href="week-5-simple-regression.html#cb205-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(glance)</span></code></pre></div>
+<pre><code>## Warning in summary.lm(x): essentially perfect fit: summary may be unreliable
+
+## Warning in summary.lm(x): essentially perfect fit: summary may be unreliable</code></pre>
+</div>
+<div id="data-generation-demo---one-set-sample-size-1" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Data generation demo - one set sample size;</h2>
+<p>The change from the past demo is that we are now sampling from integer values rather than continuous for the predictor</p>
+<p>Store the sample size that we want to use</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="week-5-simple-regression.html#cb207-1" aria-hidden="true" tabindex="-1"></a>samp_size <span class="ot">&lt;-</span> <span class="dv">200</span></span></code></pre></div>
+<p>Instead of sampling uniformly from 0 to 20, this is to sample integers from 40 to 100 uniformly.
+We take “samp_size” number of samples. Replace = TRUE means we can get the same x value multiple times</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="week-5-simple-regression.html#cb208-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">60</span><span class="sc">:</span><span class="dv">100</span>), <span class="at">size =</span> samp_size, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>As before, store the noise values for our different test models</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="week-5-simple-regression.html#cb209-1" aria-hidden="true" tabindex="-1"></a>sd_min <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb209-2"><a href="week-5-simple-regression.html#cb209-2" aria-hidden="true" tabindex="-1"></a>sd_med <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb209-3"><a href="week-5-simple-regression.html#cb209-3" aria-hidden="true" tabindex="-1"></a>sd_max <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb209-4"><a href="week-5-simple-regression.html#cb209-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-5"><a href="week-5-simple-regression.html#cb209-5" aria-hidden="true" tabindex="-1"></a>y_noise_sd_none <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x</span>
+<span id="cb209-6"><a href="week-5-simple-regression.html#cb209-6" aria-hidden="true" tabindex="-1"></a>y_noise_sd_min <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> <span class="fu">round</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> samp_size, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sd_min), <span class="at">digits =</span> <span class="dv">1</span>)</span>
+<span id="cb209-7"><a href="week-5-simple-regression.html#cb209-7" aria-hidden="true" tabindex="-1"></a>y_noise_sd_med <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> <span class="fu">round</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> samp_size, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sd_med), <span class="at">digits =</span> <span class="dv">1</span>)</span>
+<span id="cb209-8"><a href="week-5-simple-regression.html#cb209-8" aria-hidden="true" tabindex="-1"></a>y_noise_sd_max <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> <span class="fu">round</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> samp_size, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sd_max), <span class="at">digits =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Typical step 1: visualize! Let’s plot each of these x values vs y</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="week-5-simple-regression.html#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y_noise_sd_none)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/remedy030-1.png" width="672" /></p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="week-5-simple-regression.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y_noise_sd_min)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/remedy030-2.png" width="672" /></p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="week-5-simple-regression.html#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y_noise_sd_med)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/remedy030-3.png" width="672" /></p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="week-5-simple-regression.html#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y_noise_sd_max)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/remedy030-4.png" width="672" /></p>
+<p>Let’s put all of these vectors together into a data frame to make it easier to analyze later on.
+Note, this is not a vital step for conducting the simple regression</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="week-5-simple-regression.html#cb214-1" aria-hidden="true" tabindex="-1"></a>demo_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="st">&quot;x&quot;</span> <span class="ot">=</span> x, </span>
+<span id="cb214-2"><a href="week-5-simple-regression.html#cb214-2" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;y_noise_sd_none&quot;</span><span class="ot">=</span>y_noise_sd_none, </span>
+<span id="cb214-3"><a href="week-5-simple-regression.html#cb214-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;y_noise_sd_min&quot;</span> <span class="ot">=</span> y_noise_sd_min,</span>
+<span id="cb214-4"><a href="week-5-simple-regression.html#cb214-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;y_noise_sd_med&quot;</span> <span class="ot">=</span> y_noise_sd_med,</span>
+<span id="cb214-5"><a href="week-5-simple-regression.html#cb214-5" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;y_noise_sd_max&quot;</span> <span class="ot">=</span> y_noise_sd_max)</span></code></pre></div>
+<p>Order by increasing x value</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="week-5-simple-regression.html#cb215-1" aria-hidden="true" tabindex="-1"></a>demo_df <span class="ot">&lt;-</span> demo_df <span class="sc">%&gt;%</span> </span>
+<span id="cb215-2"><a href="week-5-simple-regression.html#cb215-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(x)</span></code></pre></div>
+<p>Let’s make this a long df so that we can plot multiple standard deviation values together</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="week-5-simple-regression.html#cb216-1" aria-hidden="true" tabindex="-1"></a>demo_df_long <span class="ot">&lt;-</span> demo_df <span class="sc">%&gt;%</span> </span>
+<span id="cb216-2"><a href="week-5-simple-regression.html#cb216-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;y_noise&quot;</span>),</span>
+<span id="cb216-3"><a href="week-5-simple-regression.html#cb216-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;y_col&quot;</span>,</span>
+<span id="cb216-4"><a href="week-5-simple-regression.html#cb216-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;y_val&quot;</span></span>
+<span id="cb216-5"><a href="week-5-simple-regression.html#cb216-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="week-5-simple-regression.html#cb217-1" aria-hidden="true" tabindex="-1"></a>demo_df_long <span class="ot">&lt;-</span> demo_df_long <span class="sc">%&gt;%</span> </span>
+<span id="cb217-2"><a href="week-5-simple-regression.html#cb217-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sd_val =</span> <span class="fu">case_when</span>(<span class="fu">str_detect</span>(y_col, <span class="st">&quot;sd_none&quot;</span>) <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb217-3"><a href="week-5-simple-regression.html#cb217-3" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">str_detect</span>(y_col, <span class="st">&quot;sd_min&quot;</span>) <span class="sc">~</span> sd_min,</span>
+<span id="cb217-4"><a href="week-5-simple-regression.html#cb217-4" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">str_detect</span>(y_col, <span class="st">&quot;sd_med&quot;</span>) <span class="sc">~</span> sd_med,</span>
+<span id="cb217-5"><a href="week-5-simple-regression.html#cb217-5" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">str_detect</span>(y_col, <span class="st">&quot;sd_max&quot;</span>) <span class="sc">~</span> sd_max))</span></code></pre></div>
+<p>And visualize the data, faceting by different noise</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="week-5-simple-regression.html#cb218-1" aria-hidden="true" tabindex="-1"></a>demo_df_long <span class="sc">%&gt;%</span> </span>
+<span id="cb218-2"><a href="week-5-simple-regression.html#cb218-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y_val)) <span class="sc">+</span></span>
+<span id="cb218-3"><a href="week-5-simple-regression.html#cb218-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb218-4"><a href="week-5-simple-regression.html#cb218-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(.<span class="sc">~</span>y_col)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/remedy035-1.png" width="672" /></p>
+<p>And add in a line with <code>geom_smooth(method = 'lm')</code></p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="week-5-simple-regression.html#cb219-1" aria-hidden="true" tabindex="-1"></a>demo_df_long <span class="sc">%&gt;%</span> </span>
+<span id="cb219-2"><a href="week-5-simple-regression.html#cb219-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y_val)) <span class="sc">+</span></span>
+<span id="cb219-3"><a href="week-5-simple-regression.html#cb219-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb219-4"><a href="week-5-simple-regression.html#cb219-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb219-5"><a href="week-5-simple-regression.html#cb219-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(.<span class="sc">~</span>y_col)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="test_course_notes_files/figure-html/remedy036-1.png" width="672" /></p>
+<p>Create a linear model and look at the summary.</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="week-5-simple-regression.html#cb221-1" aria-hidden="true" tabindex="-1"></a>fit_demo_min <span class="ot">&lt;-</span> <span class="fu">lm</span>(y_noise_sd_min <span class="sc">~</span> x)</span>
+<span id="cb221-2"><a href="week-5-simple-regression.html#cb221-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_demo_min)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y_noise_sd_min ~ x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.7630 -1.3098 -0.0275  1.2979  5.3217 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.69487    0.96510   1.756   0.0806 .  
+## x            2.01425    0.01205 167.143   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.011 on 198 degrees of freedom
+## Multiple R-squared:  0.993,  Adjusted R-squared:  0.9929 
+## F-statistic: 2.794e+04 on 1 and 198 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We can also look at model results with the glance() function from the broom package</p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="week-5-simple-regression.html#cb223-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">glance</span>(fit_demo_min)</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 12
+##   r.squared adj.r.squared sigma statistic   p.value    df logLik   AIC   BIC
+##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     0.993         0.993  2.01    27937. 4.46e-215     1  -423.  851.  861.
+## # ... with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+<p>We can create models for the med and max sd values as well and take a look at those with the summary() function once again.</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="week-5-simple-regression.html#cb225-1" aria-hidden="true" tabindex="-1"></a>fit_demo_med <span class="ot">&lt;-</span> <span class="fu">lm</span>(y_noise_sd_med <span class="sc">~</span> x)</span>
+<span id="cb225-2"><a href="week-5-simple-regression.html#cb225-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_demo_med)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y_noise_sd_med ~ x)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -14.7020  -4.3094  -0.0793   4.1101  16.5467 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.63854    2.89348   0.221    0.826    
+## x            2.02520    0.03613  56.052   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.029 on 198 degrees of freedom
+## Multiple R-squared:  0.9407, Adjusted R-squared:  0.9404 
+## F-statistic:  3142 on 1 and 198 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="week-5-simple-regression.html#cb227-1" aria-hidden="true" tabindex="-1"></a>fit_demo_max <span class="ot">&lt;-</span> <span class="fu">lm</span>(y_noise_sd_max <span class="sc">~</span> x)</span>
+<span id="cb227-2"><a href="week-5-simple-regression.html#cb227-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_demo_max)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y_noise_sd_max ~ x)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -27.2218  -7.2968   0.5658   6.8140  30.2366 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  6.27446    5.21903   1.202    0.231    
+## x            1.95520    0.06517  30.002   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10.88 on 198 degrees of freedom
+## Multiple R-squared:  0.8197, Adjusted R-squared:  0.8188 
+## F-statistic: 900.1 on 1 and 198 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Notice the increase in the standard error of the coefficient estimates as the noise in y values went up</p>
+<p>From a programming perspective, this was not very efficient because I just copied, pasted, and corrected these values.
+There is a better way to do this using lists (see below)</p>
+<p>Let’s do some fancy stuff to make multiple models at once rather than having to write new lines for each model
+*Some of these ideas are taken from the R4DS book chapter 25</p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="week-5-simple-regression.html#cb229-1" aria-hidden="true" tabindex="-1"></a>test_nest <span class="ot">&lt;-</span> demo_df_long <span class="sc">%&gt;%</span> <span class="fu">nest</span>(<span class="at">data =</span> <span class="sc">-</span>sd_val)</span>
+<span id="cb229-2"><a href="week-5-simple-regression.html#cb229-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb229-3"><a href="week-5-simple-regression.html#cb229-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb229-4"><a href="week-5-simple-regression.html#cb229-4" aria-hidden="true" tabindex="-1"></a>linear_model <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
+<span id="cb229-5"><a href="week-5-simple-regression.html#cb229-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(y_val <span class="sc">~</span> x, <span class="at">data =</span> df)</span>
+<span id="cb229-6"><a href="week-5-simple-regression.html#cb229-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb229-7"><a href="week-5-simple-regression.html#cb229-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb229-8"><a href="week-5-simple-regression.html#cb229-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb229-9"><a href="week-5-simple-regression.html#cb229-9" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">map</span>(test_nest<span class="sc">$</span>data, linear_model)</span></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="week-5-simple-regression.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(models[[<span class="dv">2</span>]])</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y_val ~ x, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.7630 -1.3098 -0.0275  1.2979  5.3217 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.69487    0.96510   1.756   0.0806 .  
+## x            2.01425    0.01205 167.143   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.011 on 198 degrees of freedom
+## Multiple R-squared:  0.993,  Adjusted R-squared:  0.9929 
+## F-statistic: 2.794e+04 on 1 and 198 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="week-5-simple-regression.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(models[[<span class="dv">3</span>]])</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y_val ~ x, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -14.7020  -4.3094  -0.0793   4.1101  16.5467 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.63854    2.89348   0.221    0.826    
+## x            2.02520    0.03613  56.052   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.029 on 198 degrees of freedom
+## Multiple R-squared:  0.9407, Adjusted R-squared:  0.9404 
+## F-statistic:  3142 on 1 and 198 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="week-5-simple-regression.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(models[[<span class="dv">4</span>]])</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y_val ~ x, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -27.2218  -7.2968   0.5658   6.8140  30.2366 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  6.27446    5.21903   1.202    0.231    
+## x            1.95520    0.06517  30.002   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10.88 on 198 degrees of freedom
+## Multiple R-squared:  0.8197, Adjusted R-squared:  0.8188 
+## F-statistic: 900.1 on 1 and 198 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We can also store the models as new columns in the nested dataframe</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="week-5-simple-regression.html#cb236-1" aria-hidden="true" tabindex="-1"></a>test_nest <span class="ot">&lt;-</span> test_nest <span class="sc">%&gt;%</span> </span>
+<span id="cb236-2"><a href="week-5-simple-regression.html#cb236-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="fu">map</span>(data, linear_model))</span></code></pre></div>
+<p>Finally, we can unnest the models to make it easier to compare them with each other in a data frame</p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="week-5-simple-regression.html#cb237-1" aria-hidden="true" tabindex="-1"></a>test_nest <span class="ot">&lt;-</span> test_nest <span class="sc">%&gt;%</span> </span>
+<span id="cb237-2"><a href="week-5-simple-regression.html#cb237-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">glance =</span> <span class="fu">map</span>(model, broom<span class="sc">::</span>glance)) <span class="sc">%&gt;%</span> </span>
+<span id="cb237-3"><a href="week-5-simple-regression.html#cb237-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(glance)</span></code></pre></div>
+<pre><code>## Warning in summary.lm(x): essentially perfect fit: summary may be unreliable
+
+## Warning in summary.lm(x): essentially perfect fit: summary may be unreliable</code></pre>
+</div>
+<div id="data-generation-with-three-different-sample-sizes" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Data generation with three different sample sizes</h2>
+<p>Let’s run the same demo but now have three different sample sizes - 10, 50, and 500</p>
+<p>First, store the sample sizes we want to use</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="week-5-simple-regression.html#cb239-1" aria-hidden="true" tabindex="-1"></a>samp_sizes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">500</span>)</span></code></pre></div>
+<p>Next, create a bookkeping column for ourselves to keep track of which sample size the future values will come from</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="week-5-simple-regression.html#cb240-1" aria-hidden="true" tabindex="-1"></a>samp_size_col <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">50</span>, <span class="dv">500</span>), <span class="at">times =</span> samp_sizes)</span></code></pre></div>
+<p>Calculate the total number of values we will need from the three samples combined</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="week-5-simple-regression.html#cb241-1" aria-hidden="true" tabindex="-1"></a>tot_samp_size <span class="ot">&lt;-</span> <span class="fu">sum</span>(samp_sizes)</span></code></pre></div>
+<p>Sample uniformly from 0 to 20</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="week-5-simple-regression.html#cb242-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="at">x =</span> <span class="fu">runif</span>(<span class="at">n =</span> tot_samp_size, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">20</span>), <span class="at">digits =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Store the standard deviations for the min, med, and max models</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="week-5-simple-regression.html#cb243-1" aria-hidden="true" tabindex="-1"></a>sd_min <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb243-2"><a href="week-5-simple-regression.html#cb243-2" aria-hidden="true" tabindex="-1"></a>sd_med <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb243-3"><a href="week-5-simple-regression.html#cb243-3" aria-hidden="true" tabindex="-1"></a>sd_max <span class="ot">&lt;-</span> <span class="dv">12</span></span></code></pre></div>
+<p>Calculate the y values for the different scenarios where there is no noise up to max noise</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="week-5-simple-regression.html#cb244-1" aria-hidden="true" tabindex="-1"></a>y_noise_sd_none <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x</span>
+<span id="cb244-2"><a href="week-5-simple-regression.html#cb244-2" aria-hidden="true" tabindex="-1"></a>y_noise_sd_min <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> <span class="fu">round</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> tot_samp_size, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sd_min), <span class="at">digits =</span> <span class="dv">1</span>)</span>
+<span id="cb244-3"><a href="week-5-simple-regression.html#cb244-3" aria-hidden="true" tabindex="-1"></a>y_noise_sd_med <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> <span class="fu">round</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> tot_samp_size, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sd_med), <span class="at">digits =</span> <span class="dv">1</span>)</span>
+<span id="cb244-4"><a href="week-5-simple-regression.html#cb244-4" aria-hidden="true" tabindex="-1"></a>y_noise_sd_max <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> <span class="fu">round</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> tot_samp_size, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sd_max), <span class="at">digits =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Typical step 1: visualize! Let’s plot each of these x values vs y</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="week-5-simple-regression.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y_noise_sd_none)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="week-5-simple-regression.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y_noise_sd_min)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-80-2.png" width="672" /></p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="week-5-simple-regression.html#cb247-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y_noise_sd_med)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-80-3.png" width="672" /></p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="week-5-simple-regression.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y_noise_sd_max)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-80-4.png" width="672" />
+Can we calculate the correlations between x and these different y values? (pro tip: yes)</p>
+<p>Let’s put all of these vectors together into a data frame to make it easier to analyze later on
+Note, this is not a vital step for conducting the simple regression</p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="week-5-simple-regression.html#cb249-1" aria-hidden="true" tabindex="-1"></a>demo_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="st">&quot;n&quot;</span> <span class="ot">=</span> samp_size_col,</span>
+<span id="cb249-2"><a href="week-5-simple-regression.html#cb249-2" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;x&quot;</span> <span class="ot">=</span> x, </span>
+<span id="cb249-3"><a href="week-5-simple-regression.html#cb249-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;y_noise_sd_none&quot;</span><span class="ot">=</span>y_noise_sd_none, </span>
+<span id="cb249-4"><a href="week-5-simple-regression.html#cb249-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;y_noise_sd_min&quot;</span> <span class="ot">=</span> y_noise_sd_min,</span>
+<span id="cb249-5"><a href="week-5-simple-regression.html#cb249-5" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;y_noise_sd_med&quot;</span> <span class="ot">=</span> y_noise_sd_med,</span>
+<span id="cb249-6"><a href="week-5-simple-regression.html#cb249-6" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;y_noise_sd_max&quot;</span> <span class="ot">=</span> y_noise_sd_max)</span></code></pre></div>
+<p>Order by increasing x value</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="week-5-simple-regression.html#cb250-1" aria-hidden="true" tabindex="-1"></a>demo_df <span class="ot">&lt;-</span> demo_df <span class="sc">%&gt;%</span> </span>
+<span id="cb250-2"><a href="week-5-simple-regression.html#cb250-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(n, x)</span></code></pre></div>
+<p>Let’s make this a long df so that we can plot multiple standard deviation values together</p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="week-5-simple-regression.html#cb251-1" aria-hidden="true" tabindex="-1"></a>demo_df_long <span class="ot">&lt;-</span> demo_df <span class="sc">%&gt;%</span> </span>
+<span id="cb251-2"><a href="week-5-simple-regression.html#cb251-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;y_noise&quot;</span>),</span>
+<span id="cb251-3"><a href="week-5-simple-regression.html#cb251-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;y_col&quot;</span>,</span>
+<span id="cb251-4"><a href="week-5-simple-regression.html#cb251-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;y_val&quot;</span></span>
+<span id="cb251-5"><a href="week-5-simple-regression.html#cb251-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb251-6"><a href="week-5-simple-regression.html#cb251-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb251-7"><a href="week-5-simple-regression.html#cb251-7" aria-hidden="true" tabindex="-1"></a>demo_df_long <span class="ot">&lt;-</span> demo_df_long <span class="sc">%&gt;%</span> </span>
+<span id="cb251-8"><a href="week-5-simple-regression.html#cb251-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sd_val =</span> <span class="fu">case_when</span>(<span class="fu">str_detect</span>(y_col, <span class="st">&quot;sd_none&quot;</span>) <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb251-9"><a href="week-5-simple-regression.html#cb251-9" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">str_detect</span>(y_col, <span class="st">&quot;sd_min&quot;</span>) <span class="sc">~</span> sd_min,</span>
+<span id="cb251-10"><a href="week-5-simple-regression.html#cb251-10" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">str_detect</span>(y_col, <span class="st">&quot;sd_med&quot;</span>) <span class="sc">~</span> sd_med,</span>
+<span id="cb251-11"><a href="week-5-simple-regression.html#cb251-11" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">str_detect</span>(y_col, <span class="st">&quot;sd_max&quot;</span>) <span class="sc">~</span> sd_max))</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="week-5-simple-regression.html#cb252-1" aria-hidden="true" tabindex="-1"></a>demo_df_long <span class="sc">%&gt;%</span> </span>
+<span id="cb252-2"><a href="week-5-simple-regression.html#cb252-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y_val)) <span class="sc">+</span></span>
+<span id="cb252-3"><a href="week-5-simple-regression.html#cb252-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb252-4"><a href="week-5-simple-regression.html#cb252-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(n<span class="sc">~</span>y_col)</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="week-5-simple-regression.html#cb253-1" aria-hidden="true" tabindex="-1"></a>demo_df_long <span class="sc">%&gt;%</span> </span>
+<span id="cb253-2"><a href="week-5-simple-regression.html#cb253-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y_val)) <span class="sc">+</span></span>
+<span id="cb253-3"><a href="week-5-simple-regression.html#cb253-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb253-4"><a href="week-5-simple-regression.html#cb253-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb253-5"><a href="week-5-simple-regression.html#cb253-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(n<span class="sc">~</span>y_col)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="week-5-simple-regression.html#cb255-1" aria-hidden="true" tabindex="-1"></a>fit_demo_min <span class="ot">&lt;-</span> <span class="fu">lm</span>(y_noise_sd_min <span class="sc">~</span> x)</span>
+<span id="cb255-2"><a href="week-5-simple-regression.html#cb255-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_demo_min)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y_noise_sd_min ~ x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.8854 -1.4752 -0.0322  1.3811  6.2068 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  2.64774    0.17753   14.91   &lt;2e-16 ***
+## x            2.03367    0.01547  131.43   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.052 on 558 degrees of freedom
+## Multiple R-squared:  0.9687, Adjusted R-squared:  0.9687 
+## F-statistic: 1.727e+04 on 1 and 558 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="week-5-regression-i.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="can-also-look-at-model-results-with-the-glance-function-from-the-broom-package.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["test_course_notes.pdf", "test_course_notes.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
