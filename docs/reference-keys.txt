@@ -38,3 +38,8 @@ data-generation-demo---one-set-sample-size
 data-generation-demo---one-set-sample-size-1
 data-generation-with-three-different-sample-sizes
 week-6-regression-ii
+explore-the-child-aggression-data-set
+multiple-regression
+assumption-testing
+detour-cumulative-distribution-function-cdf-empirical-cdf-and-qq-plot-discussion
+generating-data-for-student-happiness-exercise.

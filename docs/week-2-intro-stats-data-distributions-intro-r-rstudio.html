@@ -24,7 +24,7 @@
 <meta name="author" content="Dr. Katz" />
 
 
-<meta name="date" content="2021-02-16" />
+<meta name="date" content="2021-02-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -189,7 +189,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#data-generation-demo---one-set-sample-size-1"><i class="fa fa-check"></i><b>5.3</b> Data generation demo - one set sample size;</a></li>
 <li class="chapter" data-level="5.4" data-path="week-5-simple-regression.html"><a href="week-5-simple-regression.html#data-generation-with-three-different-sample-sizes"><i class="fa fa-check"></i><b>5.4</b> Data generation with three different sample sizes</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="week-6-regression-ii.html"><a href="week-6-regression-ii.html"><i class="fa fa-check"></i><b>6</b> Week 6: Regression II</a></li>
+<li class="chapter" data-level="6" data-path="week-6-regression-ii.html"><a href="week-6-regression-ii.html"><i class="fa fa-check"></i><b>6</b> Week 6: Regression II</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="week-6-regression-ii.html"><a href="week-6-regression-ii.html#explore-the-child-aggression-data-set"><i class="fa fa-check"></i><b>6.1</b> Explore the child aggression data set</a></li>
+<li class="chapter" data-level="6.2" data-path="week-6-regression-ii.html"><a href="week-6-regression-ii.html#multiple-regression"><i class="fa fa-check"></i><b>6.2</b> Multiple regression</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="week-6-regression-ii.html"><a href="week-6-regression-ii.html#assumption-testing"><i class="fa fa-check"></i><b>6.2.1</b> Assumption testing</a></li>
+<li class="chapter" data-level="6.2.2" data-path="week-6-regression-ii.html"><a href="week-6-regression-ii.html#detour-cumulative-distribution-function-cdf-empirical-cdf-and-qq-plot-discussion"><i class="fa fa-check"></i><b>6.2.2</b> Detour: Cumulative Distribution Function (CDF), empirical CDF, and QQ Plot Discussion</a></li>
+<li class="chapter" data-level="6.2.3" data-path="week-6-regression-ii.html"><a href="week-6-regression-ii.html#generating-data-for-student-happiness-exercise."><i class="fa fa-check"></i><b>6.2.3</b> Generating data for student happiness exercise.</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -234,12 +243,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code>install.packages("tidyverse")</code>, <code>install.packages("janitor")</code>, and <code>install.packages("psych")</code></p>
 <p>with this installed, you can then load the package using the library() function</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<pre><code>## -- Attaching packages --------------------------------------------------- tidyverse 1.3.0 --</code></pre>
+<pre><code>## -- Attaching packages ---------------------------- tidyverse 1.3.0 --</code></pre>
 <pre><code>## v ggplot2 3.3.2     v purrr   0.3.4
 ## v tibble  3.0.3     v dplyr   1.0.0
 ## v tidyr   1.1.0     v stringr 1.4.0
 ## v readr   1.3.1     v forcats 0.5.0</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------------------ tidyverse_conflicts() --
+<pre><code>## -- Conflicts ------------------------------- tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code></pre></div>
@@ -274,20 +283,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  [9] &quot;05-Week_05.Rmd&quot;                                                        
 ## [10] &quot;06-Week_06.Rmd&quot;                                                        
 ## [11] &quot;book.bib&quot;                                                              
-## [12] &quot;docs&quot;                                                                  
-## [13] &quot;ENGE_5714_2021_pre_survey.csv&quot;                                         
-## [14] &quot;Free Reduced Lunch by Schools and Grade Structures 2008-2017_final.csv&quot;
-## [15] &quot;index.Rmd&quot;                                                             
-## [16] &quot;packages.bib&quot;                                                          
-## [17] &quot;preamble.tex&quot;                                                          
-## [18] &quot;README.md&quot;                                                             
-## [19] &quot;RExam.dat&quot;                                                             
-## [20] &quot;seniorsurvey.csv&quot;                                                      
-## [21] &quot;style.css&quot;                                                             
-## [22] &quot;survey_student_info.csv&quot;                                               
-## [23] &quot;test_course_note.Rproj&quot;                                                
-## [24] &quot;test_course_notes.Rmd&quot;                                                 
-## [25] &quot;test_course_notes_files&quot;</code></pre>
+## [12] &quot;ChildAggression.dat&quot;                                                   
+## [13] &quot;docs&quot;                                                                  
+## [14] &quot;ENGE_5714_2021_pre_survey.csv&quot;                                         
+## [15] &quot;Free Reduced Lunch by Schools and Grade Structures 2008-2017_final.csv&quot;
+## [16] &quot;index.Rmd&quot;                                                             
+## [17] &quot;packages.bib&quot;                                                          
+## [18] &quot;preamble.tex&quot;                                                          
+## [19] &quot;README.md&quot;                                                             
+## [20] &quot;RExam.dat&quot;                                                             
+## [21] &quot;seniorsurvey.csv&quot;                                                      
+## [22] &quot;student_happiness.csv&quot;                                                 
+## [23] &quot;style.css&quot;                                                             
+## [24] &quot;survey_student_info.csv&quot;                                               
+## [25] &quot;test_course_note.Rproj&quot;                                                
+## [26] &quot;test_course_notes.Rmd&quot;                                                 
+## [27] &quot;test_course_notes_files&quot;</code></pre>
 <p>If you notice that the file you are looking for is not there, then you can use setwd() to change your working directory</p>
 <p><code>setwd("./Week 2/")</code></p>
 <p>After that, make sure you have switched to the correct working directory
@@ -506,9 +517,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb43-6"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(zoom_min_sample)</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(zoom_min_sample)</span></code></pre></div>
-<pre><code>## [1] 606.2123</code></pre>
+<pre><code>## [1] 611.5296</code></pre>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(zoom_min_sample)</span></code></pre></div>
-<pre><code>## [1] 105.5068</code></pre>
+<pre><code>## [1] 96.18585</code></pre>
 <p>As a brief aside, let’s review the idea of a loop</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb48-1" aria-hidden="true" tabindex="-1"></a>num_reps <span class="ot">&lt;-</span> <span class="dv">100</span></span>
 <span id="cb48-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -521,13 +532,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb48-9"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb48-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Okay, so that’s how we create an empty vector and how we loop through its different entries. For this demo, we will also need to remenber how to generate random numbers from a norm distribution with a specified mean and standard deviation.</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>) <span class="co"># n is the number of random numbers we draw from this normal distribution</span></span></code></pre></div>
-<pre><code>##  [1] 3.296191 6.293557 8.867672 4.199433 2.115843 6.842616 6.614682 2.864056
-##  [9] 6.020316 5.345781</code></pre>
+<pre><code>##  [1] 5.581035 2.098434 3.493937 4.546990 1.700101 8.250580 4.228291 5.076769
+##  [9] 4.195806 2.645440</code></pre>
 <p>Okay, so that’s not bad. Now, that command will produce a vector with 10 random numbers. We can calculate the mean and standard deviation of those 10 numbers (which should be close to the values that we specified in <code>rnorm()</code> with the <code>mean()</code> and <code>sd()</code> functions.</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span></code></pre></div>
-<pre><code>## [1] 4.336878</code></pre>
+<pre><code>## [1] 4.967267</code></pre>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>))</span></code></pre></div>
-<pre><code>## [1] 2.922673</code></pre>
+<pre><code>## [1] 2.115693</code></pre>
 <p>Next, let’s act as if we are drawing a certain sample of size <code>samp_size</code> of data points for <code>num_reps</code> number of times. Keep in mind that, in practice, when we are collecting data ourselves in our own research, num_reps will almost always be 1. We are just demonstrating the underlying assumptions for how we can calculate some of the statistics that we use.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb55-1" aria-hidden="true" tabindex="-1"></a>num_reps <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co"># specify how many times to take a sample</span></span>
 <span id="cb55-2"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb55-2" aria-hidden="true" tabindex="-1"></a>samp_size <span class="ot">&lt;-</span> <span class="dv">200</span> <span class="co"># specify the size of each sample</span></span>
@@ -540,7 +551,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data_vec)</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(data_vec)</span></code></pre></div>
-<pre><code>## [1] 6.994209</code></pre>
+<pre><code>## [1] 7.055258</code></pre>
 <p>On your own, try copying this code and changing the num_reps and sample_size variables to larger and smaller values. Focus on how the x-axis values in your histogram change when you change the num_reps and samp_size variables.</p>
 <p>Hint: CLT will explain the normal distribution of the sampling mean (the shape you see in the histogram) while the Weak Law of Large Numbers will explain the concentration around the true mean as samp_size increases (i.e., when we draw a larger sample size from the population, our sample mean gets closer to the population mean).</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="week-2-intro-stats-data-distributions-intro-r-rstudio.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Quick note on the rep() function: notice what happens when you specify &quot;each&quot; vs &quot;times&quot;.</span></span>
