@@ -43,3 +43,12 @@ multiple-regression
 assumption-testing
 detour-cumulative-distribution-function-cdf-empirical-cdf-and-qq-plot-discussion
 generating-data-for-student-happiness-exercise.
+week-7-logistic-regression
+round-1---no-systematic-variation-in-outcomes
+round-2---systematic-varation-in-outcomes-as-a-function-of-discipline
+round-3---systematic-varation-in-outcomes-as-a-function-of-discipline-and-gpa
+round-4---gpa-and-persistence-vary-by-discipline
+interlude-looking-at-poisson-distribution
+week-8-comparing-two-means-t-tests
+demo-1---comparing-salary-data-for-chemical-engineering-and-environmental-engineering
+demo-2---student-sat-scores

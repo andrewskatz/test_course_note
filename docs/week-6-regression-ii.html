@@ -24,7 +24,7 @@
 <meta name="author" content="Dr. Katz" />
 
 
-<meta name="date" content="2021-02-28" />
+<meta name="date" content="2021-03-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="week-5-simple-regression.html"/>
-
+<link rel="next" href="week-7-logistic-regression.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -199,6 +199,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.3" data-path="week-6-regression-ii.html"><a href="week-6-regression-ii.html#generating-data-for-student-happiness-exercise."><i class="fa fa-check"></i><b>6.2.3</b> Generating data for student happiness exercise.</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="week-7-logistic-regression.html"><a href="week-7-logistic-regression.html"><i class="fa fa-check"></i><b>7</b> Week 7: Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="week-7-logistic-regression.html"><a href="week-7-logistic-regression.html#round-1---no-systematic-variation-in-outcomes"><i class="fa fa-check"></i><b>7.1</b> Round 1 - No systematic variation in outcomes</a></li>
+<li class="chapter" data-level="7.2" data-path="week-7-logistic-regression.html"><a href="week-7-logistic-regression.html#round-2---systematic-varation-in-outcomes-as-a-function-of-discipline"><i class="fa fa-check"></i><b>7.2</b> Round 2 - Systematic varation in outcomes as a function of discipline</a></li>
+<li class="chapter" data-level="7.3" data-path="week-7-logistic-regression.html"><a href="week-7-logistic-regression.html#round-3---systematic-varation-in-outcomes-as-a-function-of-discipline-and-gpa"><i class="fa fa-check"></i><b>7.3</b> Round 3 - Systematic varation in outcomes as a function of discipline and gpa</a></li>
+<li class="chapter" data-level="7.4" data-path="week-7-logistic-regression.html"><a href="week-7-logistic-regression.html#round-4---gpa-and-persistence-vary-by-discipline"><i class="fa fa-check"></i><b>7.4</b> Round 4 - GPA and persistence vary by discipline</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="week-7-logistic-regression.html"><a href="week-7-logistic-regression.html#interlude-looking-at-poisson-distribution"><i class="fa fa-check"></i><b>7.4.1</b> Interlude looking at poisson distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="week-8-comparing-two-means-t-tests.html"><a href="week-8-comparing-two-means-t-tests.html"><i class="fa fa-check"></i><b>8</b> Week 8: Comparing two means (t-tests)</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="week-8-comparing-two-means-t-tests.html"><a href="week-8-comparing-two-means-t-tests.html#demo-1---comparing-salary-data-for-chemical-engineering-and-environmental-engineering"><i class="fa fa-check"></i><b>8.1</b> Demo 1 - Comparing salary data for chemical engineering and environmental engineering</a></li>
+<li class="chapter" data-level="8.2" data-path="week-8-comparing-two-means-t-tests.html"><a href="week-8-comparing-two-means-t-tests.html#demo-2---student-sat-scores"><i class="fa fa-check"></i><b>8.2</b> Demo 2 - Student SAT scores</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -224,9 +239,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This week we will be discussing multiple regression. We will use the child aggression data set as a running example for this.</p>
 <div id="explore-the-child-aggression-data-set" class="section level2" number="6.1">
 <h2><span class="header-section-number">6.1</span> Explore the child aggression data set</h2>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="week-6-regression-ii.html#cb273-1" aria-hidden="true" tabindex="-1"></a>ca_df <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;ChildAggression.dat&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="week-6-regression-ii.html#cb274-1" aria-hidden="true" tabindex="-1"></a>ca_df <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;ChildAggression.dat&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Method 1 for quickly getting summary statistics for the data you have, using the built-in summary() function</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="week-6-regression-ii.html#cb274-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ca_df)</span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="week-6-regression-ii.html#cb275-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ca_df)</span></code></pre></div>
 <pre><code>##    Aggression          Television       Computer_Games      
 ##  Min.   :-1.295608   Min.   :-1.46012   Min.   :-1.1538345  
 ##  1st Qu.:-0.174279   1st Qu.:-0.18206   1st Qu.:-0.1687007  
@@ -242,7 +257,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  3rd Qu.: 0.185136   3rd Qu.: 0.18708   3rd Qu.: 0.51784  
 ##  Max.   : 1.103671   Max.   : 1.22383   Max.   : 3.99326</code></pre>
 <p>Method 2, using the describe() function from the psych package</p>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="week-6-regression-ii.html#cb276-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">describe</span>(ca_df)</span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="week-6-regression-ii.html#cb277-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">describe</span>(ca_df)</span></code></pre></div>
 <pre><code>##                    vars   n  mean   sd median trimmed  mad   min  max range
 ## Aggression            1 666 -0.01 0.32  -0.01   -0.01 0.24 -1.30 1.18  2.47
 ## Television            2 666 -0.03 0.31  -0.01   -0.02 0.25 -1.46 0.98  2.44
@@ -259,52 +274,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Parenting_Style    -0.22     1.67 0.04</code></pre>
 <p>Spot check: where do the “se” values come from?</p>
 <p>Now that we have seen some of the numbers, let’s try to visualize some of these data. Let’s try to visualize the data while we’re at it</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="week-6-regression-ii.html#cb278-1" aria-hidden="true" tabindex="-1"></a>ca_df <span class="sc">%&gt;%</span> </span>
-<span id="cb278-2"><a href="week-6-regression-ii.html#cb278-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Aggression)) <span class="sc">+</span></span>
-<span id="cb278-3"><a href="week-6-regression-ii.html#cb278-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="week-6-regression-ii.html#cb279-1" aria-hidden="true" tabindex="-1"></a>ca_df <span class="sc">%&gt;%</span> </span>
+<span id="cb279-2"><a href="week-6-regression-ii.html#cb279-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Aggression)) <span class="sc">+</span></span>
+<span id="cb279-3"><a href="week-6-regression-ii.html#cb279-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
 <p>We could do this for each of our variables or we could try something a little fancier by using the pivot_longer() function to make a longer dataframe and plot everything at once</p>
 <p>First, create the long dataframe. After running this command, it’s a good idea to view the new data frame to make sure this did what you intended</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="week-6-regression-ii.html#cb280-1" aria-hidden="true" tabindex="-1"></a>ca_df_long <span class="ot">&lt;-</span> ca_df <span class="sc">%&gt;%</span> </span>
-<span id="cb280-2"><a href="week-6-regression-ii.html#cb280-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Aggression<span class="sc">:</span>Parenting_Style, <span class="at">names_to =</span> <span class="st">&quot;variable_name&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;variable_value&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="week-6-regression-ii.html#cb281-1" aria-hidden="true" tabindex="-1"></a>ca_df_long <span class="ot">&lt;-</span> ca_df <span class="sc">%&gt;%</span> </span>
+<span id="cb281-2"><a href="week-6-regression-ii.html#cb281-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Aggression<span class="sc">:</span>Parenting_Style, <span class="at">names_to =</span> <span class="st">&quot;variable_name&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;variable_value&quot;</span>)</span></code></pre></div>
 <p>After making sure everything looks in order, run the same plot command with the addition of a facet.</p>
 <p>Note that the fill = variable_name tells R to color the plot with different colors by variable_name and the theme(…) tells R to get rid of the legend that automatically shows up</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="week-6-regression-ii.html#cb281-1" aria-hidden="true" tabindex="-1"></a>ca_df_long <span class="sc">%&gt;%</span> </span>
-<span id="cb281-2"><a href="week-6-regression-ii.html#cb281-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> variable_value, <span class="at">fill =</span> variable_name)) <span class="sc">+</span></span>
-<span id="cb281-3"><a href="week-6-regression-ii.html#cb281-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb281-4"><a href="week-6-regression-ii.html#cb281-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(variable_name <span class="sc">~</span>.) <span class="sc">+</span></span>
-<span id="cb281-5"><a href="week-6-regression-ii.html#cb281-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="week-6-regression-ii.html#cb282-1" aria-hidden="true" tabindex="-1"></a>ca_df_long <span class="sc">%&gt;%</span> </span>
+<span id="cb282-2"><a href="week-6-regression-ii.html#cb282-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> variable_value, <span class="at">fill =</span> variable_name)) <span class="sc">+</span></span>
+<span id="cb282-3"><a href="week-6-regression-ii.html#cb282-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb282-4"><a href="week-6-regression-ii.html#cb282-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(variable_name <span class="sc">~</span>.) <span class="sc">+</span></span>
+<span id="cb282-5"><a href="week-6-regression-ii.html#cb282-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p>
 <p>From this we should be able to see that everything is normally distributed and appears to be standardized</p>
 <p>Let’s try a different kind of visualization: the empirical cumulative distribution function (eCDF) (sounds fancy, but it’s not bad)</p>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="week-6-regression-ii.html#cb283-1" aria-hidden="true" tabindex="-1"></a>ca_df_long <span class="sc">%&gt;%</span> </span>
-<span id="cb283-2"><a href="week-6-regression-ii.html#cb283-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> variable_value)) <span class="sc">+</span></span>
-<span id="cb283-3"><a href="week-6-regression-ii.html#cb283-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_ecdf</span>(<span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
-<span id="cb283-4"><a href="week-6-regression-ii.html#cb283-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(variable_name <span class="sc">~</span>.) </span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="week-6-regression-ii.html#cb284-1" aria-hidden="true" tabindex="-1"></a>ca_df_long <span class="sc">%&gt;%</span> </span>
+<span id="cb284-2"><a href="week-6-regression-ii.html#cb284-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> variable_value)) <span class="sc">+</span></span>
+<span id="cb284-3"><a href="week-6-regression-ii.html#cb284-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_ecdf</span>(<span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
+<span id="cb284-4"><a href="week-6-regression-ii.html#cb284-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(variable_name <span class="sc">~</span>.) </span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
 <p>It looks like a bunch of distorted s shapes. In order to understand what is going on here, we should take a brief detour into the world of cumulative distribution functions (CDFs), eCDFs, and eventually QQ plots. This detour is at the end of the markdown file.</p>
 <p>Now we can try a third way of visualizing our data - QQ plots!</p>
 <p>As before, we can plot each variable with separate calls or plot them all together with the long data frame</p>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="week-6-regression-ii.html#cb284-1" aria-hidden="true" tabindex="-1"></a>ca_df <span class="sc">%&gt;%</span> </span>
-<span id="cb284-2"><a href="week-6-regression-ii.html#cb284-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample=</span>Aggression)) <span class="sc">+</span></span>
-<span id="cb284-3"><a href="week-6-regression-ii.html#cb284-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
-<span id="cb284-4"><a href="week-6-regression-ii.html#cb284-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>()</span></code></pre></div>
-<p><img src="test_course_notes_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="week-6-regression-ii.html#cb285-1" aria-hidden="true" tabindex="-1"></a>ca_df_long <span class="sc">%&gt;%</span> </span>
-<span id="cb285-2"><a href="week-6-regression-ii.html#cb285-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample=</span>variable_value)) <span class="sc">+</span></span>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="week-6-regression-ii.html#cb285-1" aria-hidden="true" tabindex="-1"></a>ca_df <span class="sc">%&gt;%</span> </span>
+<span id="cb285-2"><a href="week-6-regression-ii.html#cb285-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample=</span>Aggression)) <span class="sc">+</span></span>
 <span id="cb285-3"><a href="week-6-regression-ii.html#cb285-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
-<span id="cb285-4"><a href="week-6-regression-ii.html#cb285-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
-<span id="cb285-5"><a href="week-6-regression-ii.html#cb285-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(variable_name <span class="sc">~</span> .)</span></code></pre></div>
+<span id="cb285-4"><a href="week-6-regression-ii.html#cb285-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>()</span></code></pre></div>
+<p><img src="test_course_notes_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="week-6-regression-ii.html#cb286-1" aria-hidden="true" tabindex="-1"></a>ca_df_long <span class="sc">%&gt;%</span> </span>
+<span id="cb286-2"><a href="week-6-regression-ii.html#cb286-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample=</span>variable_value)) <span class="sc">+</span></span>
+<span id="cb286-3"><a href="week-6-regression-ii.html#cb286-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb286-4"><a href="week-6-regression-ii.html#cb286-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
+<span id="cb286-5"><a href="week-6-regression-ii.html#cb286-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(variable_name <span class="sc">~</span> .)</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
 </div>
 <div id="multiple-regression" class="section level2" number="6.2">
 <h2><span class="header-section-number">6.2</span> Multiple regression</h2>
 <p>Let’s create a model of child aggression as a function of parenting style and sibling aggression</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="week-6-regression-ii.html#cb286-1" aria-hidden="true" tabindex="-1"></a>model_fam <span class="ot">&lt;-</span> <span class="fu">lm</span>(Aggression <span class="sc">~</span> Parenting_Style <span class="sc">+</span> Sibling_Aggression, <span class="at">data =</span> ca_df)</span></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="week-6-regression-ii.html#cb287-1" aria-hidden="true" tabindex="-1"></a>model_fam <span class="ot">&lt;-</span> <span class="fu">lm</span>(Aggression <span class="sc">~</span> Parenting_Style <span class="sc">+</span> Sibling_Aggression, <span class="at">data =</span> ca_df)</span></code></pre></div>
 <p>Run the summary on the model</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="week-6-regression-ii.html#cb287-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_fam)</span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="week-6-regression-ii.html#cb288-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_fam)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Aggression ~ Parenting_Style + Sibling_Aggression, 
@@ -327,9 +342,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## F-statistic: 18.64 on 2 and 663 DF,  p-value: 1.325e-08</code></pre>
 <p>This will be helpful later when we want to plot the residuals of the model.</p>
 <p>Let’s create another model of child aggression as a function of computer games and television.</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="week-6-regression-ii.html#cb289-1" aria-hidden="true" tabindex="-1"></a>model_screens <span class="ot">&lt;-</span> <span class="fu">lm</span>(Aggression <span class="sc">~</span> Computer_Games <span class="sc">+</span> Television, <span class="at">data =</span> ca_df)</span>
-<span id="cb289-2"><a href="week-6-regression-ii.html#cb289-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb289-3"><a href="week-6-regression-ii.html#cb289-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_screens)</span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="week-6-regression-ii.html#cb290-1" aria-hidden="true" tabindex="-1"></a>model_screens <span class="ot">&lt;-</span> <span class="fu">lm</span>(Aggression <span class="sc">~</span> Computer_Games <span class="sc">+</span> Television, <span class="at">data =</span> ca_df)</span>
+<span id="cb290-2"><a href="week-6-regression-ii.html#cb290-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb290-3"><a href="week-6-regression-ii.html#cb290-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_screens)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Aggression ~ Computer_Games + Television, data = ca_df)
@@ -350,9 +365,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Multiple R-squared:  0.05149,    Adjusted R-squared:  0.04862 
 ## F-statistic: 17.99 on 2 and 663 DF,  p-value: 2.455e-08</code></pre>
 <p>Now let’s see what the full model looks like with all five predictors</p>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="week-6-regression-ii.html#cb291-1" aria-hidden="true" tabindex="-1"></a>model_all <span class="ot">&lt;-</span> <span class="fu">lm</span>(Aggression <span class="sc">~</span> Parenting_Style <span class="sc">+</span> Sibling_Aggression <span class="sc">+</span> Diet <span class="sc">+</span> Computer_Games <span class="sc">+</span> Television, </span>
-<span id="cb291-2"><a href="week-6-regression-ii.html#cb291-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ca_df)</span>
-<span id="cb291-3"><a href="week-6-regression-ii.html#cb291-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_all)</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="week-6-regression-ii.html#cb292-1" aria-hidden="true" tabindex="-1"></a>model_all <span class="ot">&lt;-</span> <span class="fu">lm</span>(Aggression <span class="sc">~</span> Parenting_Style <span class="sc">+</span> Sibling_Aggression <span class="sc">+</span> Diet <span class="sc">+</span> Computer_Games <span class="sc">+</span> Television, </span>
+<span id="cb292-2"><a href="week-6-regression-ii.html#cb292-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ca_df)</span>
+<span id="cb292-3"><a href="week-6-regression-ii.html#cb292-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_all)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Aggression ~ Parenting_Style + Sibling_Aggression + 
@@ -377,7 +392,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Multiple R-squared:  0.08258,    Adjusted R-squared:  0.07563 
 ## F-statistic: 11.88 on 5 and 660 DF,  p-value: 5.025e-11</code></pre>
 <p>We can get the output from the summary() function but as a tibble instead:</p>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="week-6-regression-ii.html#cb293-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(model_all, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="week-6-regression-ii.html#cb294-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(model_all, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 7
 ##   term               estimate std.error statistic  p.value conf.low conf.high
 ##   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
@@ -388,7 +403,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 Computer_Games      0.142      0.0369     3.85  0.000129  0.0697     0.215 
 ## 6 Television          0.0329     0.0461     0.715 0.475    -0.0575     0.123</code></pre>
 <p>We can also get summary statistics like the R^2, F-statistics, and AIC from the glance() function in the Broom package</p>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="week-6-regression-ii.html#cb295-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">glance</span>(model_all)</span></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="week-6-regression-ii.html#cb296-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">glance</span>(model_all)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 12
 ##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
 ##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -399,82 +414,82 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We can also have R handle factors automatically in a regression model for us.</p>
 <p>First, we will generate a new factor for the child aggression data - the handedness of the child (left vs right).</p>
 <p>This code generates a random handedness for each of the 666 students and assigns it to a new column in ca_df</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="week-6-regression-ii.html#cb297-1" aria-hidden="true" tabindex="-1"></a>handed_levels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;right&quot;</span>)</span>
-<span id="cb297-2"><a href="week-6-regression-ii.html#cb297-2" aria-hidden="true" tabindex="-1"></a>handed_vector <span class="ot">&lt;-</span> <span class="fu">sample</span>(handed_levels, <span class="at">size =</span> <span class="fu">nrow</span>(ca_df), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.4</span>, <span class="fl">0.6</span>))</span>
-<span id="cb297-3"><a href="week-6-regression-ii.html#cb297-3" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>Handedness <span class="ot">&lt;-</span> handed_vector</span></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="week-6-regression-ii.html#cb298-1" aria-hidden="true" tabindex="-1"></a>handed_levels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;right&quot;</span>)</span>
+<span id="cb298-2"><a href="week-6-regression-ii.html#cb298-2" aria-hidden="true" tabindex="-1"></a>handed_vector <span class="ot">&lt;-</span> <span class="fu">sample</span>(handed_levels, <span class="at">size =</span> <span class="fu">nrow</span>(ca_df), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.4</span>, <span class="fl">0.6</span>))</span>
+<span id="cb298-3"><a href="week-6-regression-ii.html#cb298-3" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>Handedness <span class="ot">&lt;-</span> handed_vector</span></code></pre></div>
 <p>Check to make sure we have all the predictor names correct to add into the linear model.</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="week-6-regression-ii.html#cb298-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ca_df)</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="week-6-regression-ii.html#cb299-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ca_df)</span></code></pre></div>
 <pre><code>## [1] &quot;Aggression&quot;         &quot;Television&quot;         &quot;Computer_Games&quot;    
 ## [4] &quot;Sibling_Aggression&quot; &quot;Diet&quot;               &quot;Parenting_Style&quot;   
 ## [7] &quot;Handedness&quot;</code></pre>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="week-6-regression-ii.html#cb300-1" aria-hidden="true" tabindex="-1"></a>model_all_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Aggression <span class="sc">~</span> Parenting_Style <span class="sc">+</span> Sibling_Aggression <span class="sc">+</span> Television <span class="sc">+</span> Computer_Games <span class="sc">+</span> Diet <span class="sc">+</span> Handedness, <span class="at">data =</span> ca_df)</span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="week-6-regression-ii.html#cb301-1" aria-hidden="true" tabindex="-1"></a>model_all_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Aggression <span class="sc">~</span> Parenting_Style <span class="sc">+</span> Sibling_Aggression <span class="sc">+</span> Television <span class="sc">+</span> Computer_Games <span class="sc">+</span> Diet <span class="sc">+</span> Handedness, <span class="at">data =</span> ca_df)</span></code></pre></div>
 <p>Check the model summary and notice how the Handedness predictor variable was handled.</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="week-6-regression-ii.html#cb301-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_all_3)</span></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="week-6-regression-ii.html#cb302-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_all_3)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Aggression ~ Parenting_Style + Sibling_Aggression + 
 ##     Television + Computer_Games + Diet + Handedness, data = ca_df)
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -1.11129 -0.15322 -0.00368  0.15307  1.19195 
+##     Min      1Q  Median      3Q     Max 
+## -1.1223 -0.1536 -0.0040  0.1495  1.1798 
 ## 
 ## Coefficients:
-##                    Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)        -0.02174    0.01920  -1.132 0.257971    
-## Parenting_Style     0.05696    0.01456   3.913 0.000101 ***
-## Sibling_Aggression  0.07888    0.03885   2.030 0.042731 *  
-## Television          0.03201    0.04606   0.695 0.487236    
-## Computer_Games      0.14190    0.03691   3.844 0.000133 ***
-## Diet               -0.10888    0.03807  -2.860 0.004372 ** 
-## Handednessright     0.02734    0.02449   1.116 0.264658    
+##                      Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)         0.0003317  0.0187949   0.018 0.985926    
+## Parenting_Style     0.0562165  0.0146137   3.847 0.000131 ***
+## Sibling_Aggression  0.0814332  0.0388111   2.098 0.036268 *  
+## Television          0.0337678  0.0461457   0.732 0.464572    
+## Computer_Games      0.1430242  0.0370183   3.864 0.000123 ***
+## Diet               -0.1094837  0.0381193  -2.872 0.004208 ** 
+## Handednessright    -0.0089557  0.0243655  -0.368 0.713323    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.307 on 659 degrees of freedom
-## Multiple R-squared:  0.08431,    Adjusted R-squared:  0.07597 
-## F-statistic: 10.11 on 6 and 659 DF,  p-value: 1.035e-10</code></pre>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="week-6-regression-ii.html#cb303-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Aggression <span class="sc">~</span> ., <span class="at">data=</span>ca_df)</span></code></pre></div>
+## Residual standard error: 0.3073 on 659 degrees of freedom
+## Multiple R-squared:  0.08277,    Adjusted R-squared:  0.07442 
+## F-statistic: 9.911 on 6 and 659 DF,  p-value: 1.739e-10</code></pre>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="week-6-regression-ii.html#cb304-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Aggression <span class="sc">~</span> ., <span class="at">data=</span>ca_df)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Aggression ~ ., data = ca_df)
 ## 
 ## Coefficients:
 ##        (Intercept)          Television      Computer_Games  Sibling_Aggression  
-##           -0.02174             0.03201             0.14190             0.07888  
+##          0.0003317           0.0337678           0.1430242           0.0814332  
 ##               Diet     Parenting_Style     Handednessright  
-##           -0.10888             0.05696             0.02734</code></pre>
+##         -0.1094837           0.0562165          -0.0089557</code></pre>
 <div id="assumption-testing" class="section level3" number="6.2.1">
 <h3><span class="header-section-number">6.2.1</span> Assumption testing</h3>
 <p>Note: A lot of the things we are doing here can be accomplished with the augment() function in the broom package</p>
 <p>Check for correlation between adjacent residual terms using Durbin-Watson test</p>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="week-6-regression-ii.html#cb305-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dwt</span>(model_all)</span></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="week-6-regression-ii.html#cb306-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dwt</span>(model_all)</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1      0.04218005      1.912808   0.234
+##    1      0.04218005      1.912808   0.236
 ##  Alternative hypothesis: rho != 0</code></pre>
 <p>Check for multicollinearity.</p>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="week-6-regression-ii.html#cb307-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(model_all)</span></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="week-6-regression-ii.html#cb308-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(model_all)</span></code></pre></div>
 <pre><code>##    Parenting_Style Sibling_Aggression               Diet     Computer_Games 
 ##           1.494296           1.132618           1.160466           1.122719 
 ##         Television 
 ##           1.435525</code></pre>
 <p>Now let’s go back and check for influential cases following the procedure Field does in the textbook.</p>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="week-6-regression-ii.html#cb309-1" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>residuals <span class="ot">&lt;-</span> <span class="fu">resid</span>(model_all) <span class="co"># notice how this is the same as looking at View(model_all) and then residuals or model_all$residuals</span></span>
-<span id="cb309-2"><a href="week-6-regression-ii.html#cb309-2" aria-hidden="true" tabindex="-1"></a><span class="co">#model_all$residuals</span></span>
-<span id="cb309-3"><a href="week-6-regression-ii.html#cb309-3" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>standardized.residuals <span class="ot">&lt;-</span> <span class="fu">rstandard</span>(model_all)</span>
-<span id="cb309-4"><a href="week-6-regression-ii.html#cb309-4" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>studentized.residuals <span class="ot">&lt;-</span> <span class="fu">rstudent</span>(model_all)</span>
-<span id="cb309-5"><a href="week-6-regression-ii.html#cb309-5" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>cooks.distance <span class="ot">&lt;-</span> <span class="fu">cooks.distance</span>(model_all)</span>
-<span id="cb309-6"><a href="week-6-regression-ii.html#cb309-6" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>dfbeta <span class="ot">&lt;-</span> <span class="fu">dfbeta</span>(model_all)</span>
-<span id="cb309-7"><a href="week-6-regression-ii.html#cb309-7" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>dffit <span class="ot">&lt;-</span> <span class="fu">dffits</span>(model_all)</span>
-<span id="cb309-8"><a href="week-6-regression-ii.html#cb309-8" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>leverage <span class="ot">&lt;-</span> <span class="fu">hatvalues</span>(model_all)</span>
-<span id="cb309-9"><a href="week-6-regression-ii.html#cb309-9" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>covariance.ratios <span class="ot">&lt;-</span> <span class="fu">covratio</span>(model_all)</span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="week-6-regression-ii.html#cb310-1" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>residuals <span class="ot">&lt;-</span> <span class="fu">resid</span>(model_all) <span class="co"># notice how this is the same as looking at View(model_all) and then residuals or model_all$residuals</span></span>
+<span id="cb310-2"><a href="week-6-regression-ii.html#cb310-2" aria-hidden="true" tabindex="-1"></a><span class="co">#model_all$residuals</span></span>
+<span id="cb310-3"><a href="week-6-regression-ii.html#cb310-3" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>standardized.residuals <span class="ot">&lt;-</span> <span class="fu">rstandard</span>(model_all)</span>
+<span id="cb310-4"><a href="week-6-regression-ii.html#cb310-4" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>studentized.residuals <span class="ot">&lt;-</span> <span class="fu">rstudent</span>(model_all)</span>
+<span id="cb310-5"><a href="week-6-regression-ii.html#cb310-5" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>cooks.distance <span class="ot">&lt;-</span> <span class="fu">cooks.distance</span>(model_all)</span>
+<span id="cb310-6"><a href="week-6-regression-ii.html#cb310-6" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>dfbeta <span class="ot">&lt;-</span> <span class="fu">dfbeta</span>(model_all)</span>
+<span id="cb310-7"><a href="week-6-regression-ii.html#cb310-7" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>dffit <span class="ot">&lt;-</span> <span class="fu">dffits</span>(model_all)</span>
+<span id="cb310-8"><a href="week-6-regression-ii.html#cb310-8" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>leverage <span class="ot">&lt;-</span> <span class="fu">hatvalues</span>(model_all)</span>
+<span id="cb310-9"><a href="week-6-regression-ii.html#cb310-9" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>covariance.ratios <span class="ot">&lt;-</span> <span class="fu">covratio</span>(model_all)</span></code></pre></div>
 <p>Now that we have all of the extra model fit statistics calculated, we can add a new olumn using a different method than what he does in the textbook (but this accomplishes the same task).</p>
 <p>We are using a combination of mutate() and case_when() instead of the traditional logical test subsetting that we see in the bookon pp. 289-290</p>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="week-6-regression-ii.html#cb310-1" aria-hidden="true" tabindex="-1"></a>ca_df <span class="ot">&lt;-</span> ca_df <span class="sc">%&gt;%</span> </span>
-<span id="cb310-2"><a href="week-6-regression-ii.html#cb310-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">large.residual =</span> <span class="fu">case_when</span>(standardized.residuals <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">|</span> standardized.residuals <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">~</span> <span class="cn">TRUE</span>,</span>
-<span id="cb310-3"><a href="week-6-regression-ii.html#cb310-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">abs</span>(standardized.residuals) <span class="sc">&lt;=</span> <span class="dv">2</span> <span class="sc">~</span> <span class="cn">FALSE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="week-6-regression-ii.html#cb311-1" aria-hidden="true" tabindex="-1"></a>ca_df <span class="ot">&lt;-</span> ca_df <span class="sc">%&gt;%</span> </span>
+<span id="cb311-2"><a href="week-6-regression-ii.html#cb311-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">large.residual =</span> <span class="fu">case_when</span>(standardized.residuals <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">|</span> standardized.residuals <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">~</span> <span class="cn">TRUE</span>,</span>
+<span id="cb311-3"><a href="week-6-regression-ii.html#cb311-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">abs</span>(standardized.residuals) <span class="sc">&lt;=</span> <span class="dv">2</span> <span class="sc">~</span> <span class="cn">FALSE</span>))</span></code></pre></div>
 <p>Now let’s just look at the observations where there was a large residual (absolute value &gt; 2)</p>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="week-6-regression-ii.html#cb311-1" aria-hidden="true" tabindex="-1"></a>ca_df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(large.residual <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="week-6-regression-ii.html#cb312-1" aria-hidden="true" tabindex="-1"></a>ca_df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(large.residual <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>##   Aggression  Television Computer_Games Sibling_Aggression       Diet
 ## 1  0.7711534 -0.03287184     0.70991822        0.576836667 -0.0229903
 ## 2 -0.9309839 -0.14695730     0.58503832        0.143914123  0.1341567
@@ -484,9 +499,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 6  0.6158280 -0.17945254    -0.14381635        0.337002793 -0.5992525
 ##   Parenting_Style Handedness  residuals standardized.residuals
 ## 1      -1.2481665       left  0.6973813               2.289855
-## 2      -1.0470961       left -0.9421375              -3.081966
-## 3       0.2386578       left  0.7572738               2.484122
-## 4      -0.6988965      right -0.7606374              -2.483667
+## 2      -1.0470961      right -0.9421375              -3.081966
+## 3       0.2386578      right  0.7572738               2.484122
+## 4      -0.6988965       left -0.7606374              -2.483667
 ## 5       0.9243197      right  0.6574374               2.152417
 ## 6      -1.0334894      right  0.6128345               2.006389
 ##   studentized.residuals cooks.distance dfbeta.(Intercept)
@@ -518,99 +533,101 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5         0.9778335           TRUE
 ## 6         0.9832825           TRUE</code></pre>
 <p>There’s a problem here because we don’t preserve observation numbers. In general, it might be a good idea to give each observation an ID with something like</p>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="week-6-regression-ii.html#cb313-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ca_df)[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="week-6-regression-ii.html#cb314-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ca_df)[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 666</code></pre>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="week-6-regression-ii.html#cb315-1" aria-hidden="true" tabindex="-1"></a>ca_df <span class="ot">&lt;-</span> ca_df <span class="sc">%&gt;%</span> </span>
-<span id="cb315-2"><a href="week-6-regression-ii.html#cb315-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ID =</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">dim</span>(ca_df)[<span class="dv">1</span>]))</span></code></pre></div>
-<p>In the tidyverse, there is an even simpler way to do this with the rowid_to_column() function!</p>
 <div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="week-6-regression-ii.html#cb316-1" aria-hidden="true" tabindex="-1"></a>ca_df <span class="ot">&lt;-</span> ca_df <span class="sc">%&gt;%</span> </span>
-<span id="cb316-2"><a href="week-6-regression-ii.html#cb316-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowid_to_column</span>(<span class="at">var =</span> <span class="st">&quot;participant_id&quot;</span>)</span></code></pre></div>
+<span id="cb316-2"><a href="week-6-regression-ii.html#cb316-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ID =</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">dim</span>(ca_df)[<span class="dv">1</span>]))</span></code></pre></div>
+<p>In the tidyverse, there is an even simpler way to do this with the rowid_to_column() function!</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="week-6-regression-ii.html#cb317-1" aria-hidden="true" tabindex="-1"></a>ca_df <span class="ot">&lt;-</span> ca_df <span class="sc">%&gt;%</span> </span>
+<span id="cb317-2"><a href="week-6-regression-ii.html#cb317-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowid_to_column</span>(<span class="at">var =</span> <span class="st">&quot;participant_id&quot;</span>)</span></code></pre></div>
 <p>Now we can run the filter again and see which observations have large residuals</p>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="week-6-regression-ii.html#cb317-1" aria-hidden="true" tabindex="-1"></a>ca_df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(large.residual <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">view</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="week-6-regression-ii.html#cb318-1" aria-hidden="true" tabindex="-1"></a>ca_df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(large.residual <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">view</span>()</span></code></pre></div>
 <p>Plot the residuals against the fitted values</p>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="week-6-regression-ii.html#cb318-1" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>fitted <span class="ot">&lt;-</span> model_all<span class="sc">$</span>fitted.values</span></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="week-6-regression-ii.html#cb319-1" aria-hidden="true" tabindex="-1"></a>ca_df<span class="sc">$</span>fitted <span class="ot">&lt;-</span> model_all<span class="sc">$</span>fitted.values</span></code></pre></div>
 <p>First, plot the distribution of the residuals by themselves</p>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="week-6-regression-ii.html#cb319-1" aria-hidden="true" tabindex="-1"></a>histogram <span class="ot">&lt;-</span> ca_df <span class="sc">%&gt;%</span> </span>
-<span id="cb319-2"><a href="week-6-regression-ii.html#cb319-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> studentized.residuals)) <span class="sc">+</span></span>
-<span id="cb319-3"><a href="week-6-regression-ii.html#cb319-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..)) <span class="sc">+</span></span>
-<span id="cb319-4"><a href="week-6-regression-ii.html#cb319-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Studentized Residuals&quot;</span>,</span>
-<span id="cb319-5"><a href="week-6-regression-ii.html#cb319-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span>
-<span id="cb319-6"><a href="week-6-regression-ii.html#cb319-6" aria-hidden="true" tabindex="-1"></a>histogram</span></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="week-6-regression-ii.html#cb320-1" aria-hidden="true" tabindex="-1"></a>histogram <span class="ot">&lt;-</span> ca_df <span class="sc">%&gt;%</span> </span>
+<span id="cb320-2"><a href="week-6-regression-ii.html#cb320-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> studentized.residuals)) <span class="sc">+</span></span>
+<span id="cb320-3"><a href="week-6-regression-ii.html#cb320-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..)) <span class="sc">+</span></span>
+<span id="cb320-4"><a href="week-6-regression-ii.html#cb320-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Studentized Residuals&quot;</span>,</span>
+<span id="cb320-5"><a href="week-6-regression-ii.html#cb320-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>)</span>
+<span id="cb320-6"><a href="week-6-regression-ii.html#cb320-6" aria-hidden="true" tabindex="-1"></a>histogram</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-123-1.png" width="672" /></p>
 <p>Now let’s add a normal density on top of that for comparison</p>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="week-6-regression-ii.html#cb321-1" aria-hidden="true" tabindex="-1"></a>histogram <span class="sc">+</span> <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, </span>
-<span id="cb321-2"><a href="week-6-regression-ii.html#cb321-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">mean</span>(ca_df<span class="sc">$</span>studentized.residuals, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
-<span id="cb321-3"><a href="week-6-regression-ii.html#cb321-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">sd =</span> <span class="fu">sd</span>(ca_df<span class="sc">$</span>studentized.residuals, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), </span>
-<span id="cb321-4"><a href="week-6-regression-ii.html#cb321-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="week-6-regression-ii.html#cb322-1" aria-hidden="true" tabindex="-1"></a>histogram <span class="sc">+</span> <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, </span>
+<span id="cb322-2"><a href="week-6-regression-ii.html#cb322-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">mean</span>(ca_df<span class="sc">$</span>studentized.residuals, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb322-3"><a href="week-6-regression-ii.html#cb322-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">sd =</span> <span class="fu">sd</span>(ca_df<span class="sc">$</span>studentized.residuals, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), </span>
+<span id="cb322-4"><a href="week-6-regression-ii.html#cb322-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
 <p>Second, plot the residuals against the fitted values to make sure there are no systematic patterns</p>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="week-6-regression-ii.html#cb323-1" aria-hidden="true" tabindex="-1"></a>ca_df <span class="sc">%&gt;%</span> </span>
-<span id="cb323-2"><a href="week-6-regression-ii.html#cb323-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> fitted, <span class="at">y =</span> studentized.residuals)) <span class="sc">+</span></span>
-<span id="cb323-3"><a href="week-6-regression-ii.html#cb323-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb323-4"><a href="week-6-regression-ii.html#cb323-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
-<span id="cb323-5"><a href="week-6-regression-ii.html#cb323-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Fitted Residual&quot;</span>,</span>
-<span id="cb323-6"><a href="week-6-regression-ii.html#cb323-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Studentized Residual&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="week-6-regression-ii.html#cb324-1" aria-hidden="true" tabindex="-1"></a>ca_df <span class="sc">%&gt;%</span> </span>
+<span id="cb324-2"><a href="week-6-regression-ii.html#cb324-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> fitted, <span class="at">y =</span> studentized.residuals)) <span class="sc">+</span></span>
+<span id="cb324-3"><a href="week-6-regression-ii.html#cb324-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb324-4"><a href="week-6-regression-ii.html#cb324-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb324-5"><a href="week-6-regression-ii.html#cb324-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Fitted Residual&quot;</span>,</span>
+<span id="cb324-6"><a href="week-6-regression-ii.html#cb324-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Studentized Residual&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
 <p>We can also skip all the fancy code from the book and use the plot() function on the model.</p>
 <p>R knows that this means we want to plot four fit plots</p>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="week-6-regression-ii.html#cb325-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co"># this changes the arrangement for the plots to show two rows and two columns of plots</span></span></code></pre></div>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="week-6-regression-ii.html#cb326-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_all)</span></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="week-6-regression-ii.html#cb326-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co"># this changes the arrangement for the plots to show two rows and two columns of plots</span></span></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="week-6-regression-ii.html#cb327-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_all)</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-127-1.png" width="672" /><img src="test_course_notes_files/figure-html/unnamed-chunk-127-2.png" width="672" /><img src="test_course_notes_files/figure-html/unnamed-chunk-127-3.png" width="672" /><img src="test_course_notes_files/figure-html/unnamed-chunk-127-4.png" width="672" /></p>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="week-6-regression-ii.html#cb327-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># this changes the plotting arrangement back to the default of one plot at a time</span></span></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="week-6-regression-ii.html#cb328-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># this changes the plotting arrangement back to the default of one plot at a time</span></span></code></pre></div>
 <p>Note that we could also create a model that uses all our covariates as predictors with the following call</p>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="week-6-regression-ii.html#cb328-1" aria-hidden="true" tabindex="-1"></a>model_all_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Aggression <span class="sc">~</span> ., <span class="at">data=</span>ca_df)</span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="week-6-regression-ii.html#cb329-1" aria-hidden="true" tabindex="-1"></a>model_all_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Aggression <span class="sc">~</span> ., <span class="at">data=</span>ca_df)</span></code></pre></div>
 <p>Inspect the results to make sure it is giving the same results as before</p>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="week-6-regression-ii.html#cb329-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_all_2)</span></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="week-6-regression-ii.html#cb330-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_all_2)</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-129-1.png" width="672" /><img src="test_course_notes_files/figure-html/unnamed-chunk-129-2.png" width="672" /><img src="test_course_notes_files/figure-html/unnamed-chunk-129-3.png" width="672" /><img src="test_course_notes_files/figure-html/unnamed-chunk-129-4.png" width="672" /></p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="week-6-regression-ii.html#cb330-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_all_2)</span></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="week-6-regression-ii.html#cb331-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_all_2)</span></code></pre></div>
+<pre><code>## Warning in summary.lm(model_all_2): essentially perfect fit: summary may be
+## unreliable</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = Aggression ~ ., data = ca_df)
 ## 
 ## Residuals:
 ##        Min         1Q     Median         3Q        Max 
-## -1.111e-14 -3.080e-17  2.400e-17  8.930e-17  9.530e-16 
+## -3.287e-15 -3.000e-17  5.500e-18  3.940e-17  5.010e-15 
 ## 
 ## Coefficients: (2 not defined because of singularities)
 ##                            Estimate Std. Error    t value Pr(&gt;|t|)    
-## (Intercept)              -4.988e-03  2.629e-15 -1.898e+12  &lt; 2e-16 ***
-## participant_id            6.445e-19  9.989e-20  6.453e+00 2.16e-10 ***
-## Television                3.292e-02  7.447e-17  4.420e+14  &lt; 2e-16 ***
-## Computer_Games            1.422e-01  5.979e-17  2.378e+15  &lt; 2e-16 ***
-## Sibling_Aggression        8.168e-02  6.276e-17  1.301e+15  &lt; 2e-16 ***
-## Diet                     -1.091e-01  6.187e-17 -1.763e+15  &lt; 2e-16 ***
-## Parenting_Style           5.665e-02  2.358e-17  2.403e+15  &lt; 2e-16 ***
-## Handednessright          -8.860e-18  3.930e-17 -2.250e-01    0.822    
-## residuals                 1.000e+00  5.036e-12  1.986e+11  &lt; 2e-16 ***
-## standardized.residuals   -8.707e-13  3.010e-12 -2.890e-01    0.772    
-## studentized.residuals    -6.860e-15  7.264e-15 -9.440e-01    0.345    
-## cooks.distance            5.837e-15  6.811e-15  8.570e-01    0.392    
-## dfbeta(Intercept)         9.199e-10  3.176e-09  2.900e-01    0.772    
-## dfbetaParenting_Style     2.438e-14  3.655e-14  6.670e-01    0.505    
-## dfbetaSibling_Aggression  7.602e-12  2.628e-11  2.890e-01    0.772    
-## dfbetaDiet                1.070e-11  3.691e-11  2.900e-01    0.772    
-## dfbetaComputer_Games      9.547e-12  3.297e-11  2.900e-01    0.772    
-## dfbetaTelevision         -2.537e-11  8.759e-11 -2.900e-01    0.772    
-## dffit                     2.938e-15  6.810e-15  4.310e-01    0.666    
-## leverage                 -2.481e-15  4.301e-15 -5.770e-01    0.564    
-## covariance.ratios        -3.305e-17  2.618e-15 -1.300e-02    0.990    
-## large.residualTRUE       -7.933e-17  1.489e-16 -5.330e-01    0.594    
+## (Intercept)              -4.988e-03  1.526e-15 -3.269e+12  &lt; 2e-16 ***
+## participant_id            3.942e-19  5.795e-20  6.802e+00 2.35e-11 ***
+## Television                3.292e-02  4.325e-17  7.610e+14  &lt; 2e-16 ***
+## Computer_Games            1.422e-01  3.476e-17  4.090e+15  &lt; 2e-16 ***
+## Sibling_Aggression        8.168e-02  3.636e-17  2.247e+15  &lt; 2e-16 ***
+## Diet                     -1.091e-01  3.592e-17 -3.036e+15  &lt; 2e-16 ***
+## Parenting_Style           5.665e-02  1.371e-17  4.132e+15  &lt; 2e-16 ***
+## Handednessright          -2.311e-17  2.266e-17 -1.020e+00    0.308    
+## residuals                 1.000e+00  2.920e-12  3.424e+11  &lt; 2e-16 ***
+## standardized.residuals    1.027e-12  1.746e-12  5.880e-01    0.557    
+## studentized.residuals    -5.539e-16  4.211e-15 -1.320e-01    0.895    
+## cooks.distance            4.188e-15  3.962e-15  1.057e+00    0.291    
+## dfbeta(Intercept)        -1.074e-09  1.842e-09 -5.830e-01    0.560    
+## dfbetaParenting_Style     2.896e-14  2.120e-14  1.366e+00    0.172    
+## dfbetaSibling_Aggression -8.907e-12  1.524e-11 -5.840e-01    0.559    
+## dfbetaDiet               -1.248e-11  2.140e-11 -5.830e-01    0.560    
+## dfbetaComputer_Games     -1.116e-11  1.912e-11 -5.840e-01    0.560    
+## dfbetaTelevision          2.963e-11  5.079e-11  5.830e-01    0.560    
+## dffit                    -2.272e-15  3.951e-15 -5.750e-01    0.565    
+## leverage                 -3.102e-15  2.493e-15 -1.244e+00    0.214    
+## covariance.ratios         2.302e-16  1.520e-15  1.510e-01    0.880    
+## large.residualTRUE       -8.634e-17  8.636e-17 -1.000e+00    0.318    
 ## ID                               NA         NA         NA       NA    
 ## fitted                           NA         NA         NA       NA    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 4.88e-16 on 644 degrees of freedom
+## Residual standard error: 2.831e-16 on 644 degrees of freedom
 ## Multiple R-squared:      1,  Adjusted R-squared:      1 
-## F-statistic: 1.357e+31 on 21 and 644 DF,  p-value: &lt; 2.2e-16</code></pre>
+## F-statistic: 4.03e+31 on 21 and 644 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Check how augment() works and which parts of the above it replicates</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="week-6-regression-ii.html#cb332-1" aria-hidden="true" tabindex="-1"></a>augmented_model_all <span class="ot">&lt;-</span> <span class="fu">augment</span>(model_all)</span></code></pre></div>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="week-6-regression-ii.html#cb333-1" aria-hidden="true" tabindex="-1"></a>ca_df_long <span class="sc">%&gt;%</span> </span>
-<span id="cb333-2"><a href="week-6-regression-ii.html#cb333-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> variable_value, <span class="at">fill =</span> variable_name)) <span class="sc">+</span></span>
-<span id="cb333-3"><a href="week-6-regression-ii.html#cb333-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="week-6-regression-ii.html#cb334-1" aria-hidden="true" tabindex="-1"></a>augmented_model_all <span class="ot">&lt;-</span> <span class="fu">augment</span>(model_all)</span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="week-6-regression-ii.html#cb335-1" aria-hidden="true" tabindex="-1"></a>ca_df_long <span class="sc">%&gt;%</span> </span>
+<span id="cb335-2"><a href="week-6-regression-ii.html#cb335-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> variable_value, <span class="at">fill =</span> variable_name)) <span class="sc">+</span></span>
+<span id="cb335-3"><a href="week-6-regression-ii.html#cb335-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-131-1.png" width="672" /></p>
 </div>
@@ -621,145 +638,145 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We will also look at the effect of sample size on the kinds of plots that we may make when visualizing the distribution of data.</p>
 <p>First, let’s generate some data to help us see what these concepts are all about.</p>
 <p><strong>Note</strong> that We are generating data to make things easier on ourselves - we know the underlying data-generating process. So that lets us form an expectation of what <em>should</em> happen. These kinds of toy examples can be helpful for building an intuition about these concepts that we can then use in our own work.</p>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="week-6-regression-ii.html#cb335-1" aria-hidden="true" tabindex="-1"></a>df_1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">25</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="at">digits =</span> <span class="dv">1</span>), <span class="at">samp_size =</span> <span class="fu">rep</span>(<span class="at">x =</span> <span class="dv">25</span>, <span class="at">times =</span> <span class="dv">25</span>))</span>
-<span id="cb335-2"><a href="week-6-regression-ii.html#cb335-2" aria-hidden="true" tabindex="-1"></a>df_2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">50</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="at">digits =</span> <span class="dv">1</span>), <span class="at">samp_size =</span> <span class="fu">rep</span>(<span class="at">x =</span> <span class="dv">50</span>, <span class="at">times =</span> <span class="dv">50</span>))</span>
-<span id="cb335-3"><a href="week-6-regression-ii.html#cb335-3" aria-hidden="true" tabindex="-1"></a>df_3 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="at">digits =</span> <span class="dv">1</span>), <span class="at">samp_size =</span> <span class="fu">rep</span>(<span class="at">x =</span> <span class="dv">100</span>, <span class="at">times =</span> <span class="dv">100</span>))</span>
-<span id="cb335-4"><a href="week-6-regression-ii.html#cb335-4" aria-hidden="true" tabindex="-1"></a>df_4 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="at">digits =</span> <span class="dv">1</span>), <span class="at">samp_size =</span> <span class="fu">rep</span>(<span class="at">x =</span> <span class="dv">200</span>, <span class="at">times =</span> <span class="dv">200</span>))</span>
-<span id="cb335-5"><a href="week-6-regression-ii.html#cb335-5" aria-hidden="true" tabindex="-1"></a>df_5 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">500</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="at">digits =</span> <span class="dv">1</span>), <span class="at">samp_size =</span> <span class="fu">rep</span>(<span class="at">x =</span> <span class="dv">500</span>, <span class="at">times =</span> <span class="dv">500</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="week-6-regression-ii.html#cb337-1" aria-hidden="true" tabindex="-1"></a>df_1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">25</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="at">digits =</span> <span class="dv">1</span>), <span class="at">samp_size =</span> <span class="fu">rep</span>(<span class="at">x =</span> <span class="dv">25</span>, <span class="at">times =</span> <span class="dv">25</span>))</span>
+<span id="cb337-2"><a href="week-6-regression-ii.html#cb337-2" aria-hidden="true" tabindex="-1"></a>df_2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">50</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="at">digits =</span> <span class="dv">1</span>), <span class="at">samp_size =</span> <span class="fu">rep</span>(<span class="at">x =</span> <span class="dv">50</span>, <span class="at">times =</span> <span class="dv">50</span>))</span>
+<span id="cb337-3"><a href="week-6-regression-ii.html#cb337-3" aria-hidden="true" tabindex="-1"></a>df_3 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="at">digits =</span> <span class="dv">1</span>), <span class="at">samp_size =</span> <span class="fu">rep</span>(<span class="at">x =</span> <span class="dv">100</span>, <span class="at">times =</span> <span class="dv">100</span>))</span>
+<span id="cb337-4"><a href="week-6-regression-ii.html#cb337-4" aria-hidden="true" tabindex="-1"></a>df_4 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="at">digits =</span> <span class="dv">1</span>), <span class="at">samp_size =</span> <span class="fu">rep</span>(<span class="at">x =</span> <span class="dv">200</span>, <span class="at">times =</span> <span class="dv">200</span>))</span>
+<span id="cb337-5"><a href="week-6-regression-ii.html#cb337-5" aria-hidden="true" tabindex="-1"></a>df_5 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">500</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="at">digits =</span> <span class="dv">1</span>), <span class="at">samp_size =</span> <span class="fu">rep</span>(<span class="at">x =</span> <span class="dv">500</span>, <span class="at">times =</span> <span class="dv">500</span>))</span></code></pre></div>
 <p>Combine the generated data together into one data frame to make it easy to plot everything in one ggplot call.</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="week-6-regression-ii.html#cb336-1" aria-hidden="true" tabindex="-1"></a>sample_df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(df_1, df_2, df_3, df_4, df_5)</span></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="week-6-regression-ii.html#cb338-1" aria-hidden="true" tabindex="-1"></a>sample_df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(df_1, df_2, df_3, df_4, df_5)</span></code></pre></div>
 <p>Look at the empirical CDFs</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="week-6-regression-ii.html#cb337-1" aria-hidden="true" tabindex="-1"></a>sample_df <span class="sc">%&gt;%</span> </span>
-<span id="cb337-2"><a href="week-6-regression-ii.html#cb337-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x)) <span class="sc">+</span></span>
-<span id="cb337-3"><a href="week-6-regression-ii.html#cb337-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_ecdf</span>(<span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
-<span id="cb337-4"><a href="week-6-regression-ii.html#cb337-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(samp_size<span class="sc">~</span>.)</span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="week-6-regression-ii.html#cb339-1" aria-hidden="true" tabindex="-1"></a>sample_df <span class="sc">%&gt;%</span> </span>
+<span id="cb339-2"><a href="week-6-regression-ii.html#cb339-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb339-3"><a href="week-6-regression-ii.html#cb339-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_ecdf</span>(<span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span></span>
+<span id="cb339-4"><a href="week-6-regression-ii.html#cb339-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(samp_size<span class="sc">~</span>.)</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-134-1.png" width="672" /></p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="week-6-regression-ii.html#cb338-1" aria-hidden="true" tabindex="-1"></a>sample_df <span class="sc">%&gt;%</span> </span>
-<span id="cb338-2"><a href="week-6-regression-ii.html#cb338-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x)) <span class="sc">+</span></span>
-<span id="cb338-3"><a href="week-6-regression-ii.html#cb338-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb338-4"><a href="week-6-regression-ii.html#cb338-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(samp_size<span class="sc">~</span>.)</span></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="week-6-regression-ii.html#cb340-1" aria-hidden="true" tabindex="-1"></a>sample_df <span class="sc">%&gt;%</span> </span>
+<span id="cb340-2"><a href="week-6-regression-ii.html#cb340-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb340-3"><a href="week-6-regression-ii.html#cb340-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb340-4"><a href="week-6-regression-ii.html#cb340-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(samp_size<span class="sc">~</span>.)</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-135-1.png" width="672" /></p>
 <p>In class, this should lead to a discussion about how to find quantiles now let’s try to look at some QQ plots.</p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="week-6-regression-ii.html#cb340-1" aria-hidden="true" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> </span>
-<span id="cb340-2"><a href="week-6-regression-ii.html#cb340-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample=</span>x)) <span class="sc">+</span></span>
-<span id="cb340-3"><a href="week-6-regression-ii.html#cb340-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
-<span id="cb340-4"><a href="week-6-regression-ii.html#cb340-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="week-6-regression-ii.html#cb342-1" aria-hidden="true" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb342-2"><a href="week-6-regression-ii.html#cb342-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample=</span>x)) <span class="sc">+</span></span>
+<span id="cb342-3"><a href="week-6-regression-ii.html#cb342-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb342-4"><a href="week-6-regression-ii.html#cb342-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>()</span></code></pre></div>
 <p><img src="test_course_notes_files/figure-html/unnamed-chunk-136-1.png" width="672" /></p>
 <p>Let’s try to wrap our heads around what is going on by looking at sorted versions of df_1 values</p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="week-6-regression-ii.html#cb341-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_1 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(x))</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="week-6-regression-ii.html#cb343-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_1 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(x))</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##       x samp_size
 ##   &lt;dbl&gt;     &lt;dbl&gt;
-## 1  -2          25
-## 2  -1.9        25
-## 3  -1.8        25
-## 4  -1.1        25
-## 5  -0.6        25
-## 6  -0.6        25</code></pre>
+## 1  -2.3        25
+## 2  -1.7        25
+## 3  -1.2        25
+## 4  -0.9        25
+## 5  -0.8        25
+## 6  -0.8        25</code></pre>
 <p>Let’s also look at the other end of the dataframe. We can do this either using arrange(desc(x)) or tail instead of head
 Confirm that they’re basically two ways of accomplishing the same objective.</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="week-6-regression-ii.html#cb343-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_1 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(x)))</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="week-6-regression-ii.html#cb345-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_1 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(x)))</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##       x samp_size
 ##   &lt;dbl&gt;     &lt;dbl&gt;
-## 1   2.3        25
-## 2   0.9        25
-## 3   0.5        25
-## 4   0.5        25
-## 5   0.4        25
-## 6   0.3        25</code></pre>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="week-6-regression-ii.html#cb345-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(df_1 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(x))</span></code></pre></div>
-<pre><code>## # A tibble: 6 x 2
-##       x samp_size
-##   &lt;dbl&gt;     &lt;dbl&gt;
-## 1   0.3        25
-## 2   0.4        25
-## 3   0.5        25
-## 4   0.5        25
+## 1   2.2        25
+## 2   1.1        25
+## 3   1          25
+## 4   1          25
 ## 5   0.9        25
-## 6   2.3        25</code></pre>
+## 6   0.7        25</code></pre>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="week-6-regression-ii.html#cb347-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(df_1 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(x))</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 2
+##       x samp_size
+##   &lt;dbl&gt;     &lt;dbl&gt;
+## 1   0.7        25
+## 2   0.9        25
+## 3   1          25
+## 4   1          25
+## 5   1.1        25
+## 6   2.2        25</code></pre>
 <p>End detour</p>
 </div>
 <div id="generating-data-for-student-happiness-exercise." class="section level3" number="6.2.3">
 <h3><span class="header-section-number">6.2.3</span> Generating data for student happiness exercise.</h3>
 <p>We are going to student happiness scores on a scale from 0 to 100 as a function of their time spent outdoors, time spent on Zoom, class standing, and department.</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="week-6-regression-ii.html#cb347-1" aria-hidden="true" tabindex="-1"></a>pop_size <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
-<span id="cb347-2"><a href="week-6-regression-ii.html#cb347-2" aria-hidden="true" tabindex="-1"></a>sample_size <span class="ot">&lt;-</span> <span class="dv">200</span></span>
-<span id="cb347-3"><a href="week-6-regression-ii.html#cb347-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb347-4"><a href="week-6-regression-ii.html#cb347-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb347-5"><a href="week-6-regression-ii.html#cb347-5" aria-hidden="true" tabindex="-1"></a>pop_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">standing =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;undergrad&quot;</span>, <span class="st">&quot;masters&quot;</span>, <span class="st">&quot;phd&quot;</span>), </span>
-<span id="cb347-6"><a href="week-6-regression-ii.html#cb347-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">times =</span> <span class="fu">c</span>(pop_size<span class="sc">/</span><span class="dv">2</span>, pop_size<span class="sc">/</span><span class="dv">4</span>, pop_size<span class="sc">/</span><span class="dv">4</span>)))</span>
-<span id="cb347-7"><a href="week-6-regression-ii.html#cb347-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb347-8"><a href="week-6-regression-ii.html#cb347-8" aria-hidden="true" tabindex="-1"></a>pop_df<span class="sc">$</span>discipline <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;mechanical&quot;</span>, <span class="st">&quot;civil&quot;</span>, <span class="st">&quot;electrical&quot;</span>), </span>
-<span id="cb347-9"><a href="week-6-regression-ii.html#cb347-9" aria-hidden="true" tabindex="-1"></a>                         <span class="at">length.out =</span> pop_size)</span>
-<span id="cb347-10"><a href="week-6-regression-ii.html#cb347-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb347-11"><a href="week-6-regression-ii.html#cb347-11" aria-hidden="true" tabindex="-1"></a>pop_df<span class="sc">$</span>min_outdoors <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">runif</span>(<span class="at">n =</span> pop_size, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">300</span>), <span class="dv">0</span>)</span>
-<span id="cb347-12"><a href="week-6-regression-ii.html#cb347-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb347-13"><a href="week-6-regression-ii.html#cb347-13" aria-hidden="true" tabindex="-1"></a>pop_df<span class="sc">$</span>min_zoom <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">runif</span>(<span class="at">n =</span> pop_size, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">400</span>), <span class="dv">0</span>)</span>
-<span id="cb347-14"><a href="week-6-regression-ii.html#cb347-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb347-15"><a href="week-6-regression-ii.html#cb347-15" aria-hidden="true" tabindex="-1"></a>pop_df <span class="ot">&lt;-</span> pop_df <span class="sc">%&gt;%</span> </span>
-<span id="cb347-16"><a href="week-6-regression-ii.html#cb347-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">undergrad =</span> <span class="fu">case_when</span>(standing <span class="sc">==</span> <span class="st">&quot;undergrad&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb347-17"><a href="week-6-regression-ii.html#cb347-17" aria-hidden="true" tabindex="-1"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
-<span id="cb347-18"><a href="week-6-regression-ii.html#cb347-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">masters =</span> <span class="fu">case_when</span>(standing <span class="sc">==</span> <span class="st">&quot;masters&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb347-19"><a href="week-6-regression-ii.html#cb347-19" aria-hidden="true" tabindex="-1"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
-<span id="cb347-20"><a href="week-6-regression-ii.html#cb347-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">phd =</span> <span class="fu">case_when</span>(standing <span class="sc">==</span> <span class="st">&quot;phd&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb347-21"><a href="week-6-regression-ii.html#cb347-21" aria-hidden="true" tabindex="-1"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
-<span id="cb347-22"><a href="week-6-regression-ii.html#cb347-22" aria-hidden="true" tabindex="-1"></a>         <span class="at">civil =</span> <span class="fu">case_when</span>(discipline <span class="sc">==</span> <span class="st">&quot;civil&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb347-23"><a href="week-6-regression-ii.html#cb347-23" aria-hidden="true" tabindex="-1"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
-<span id="cb347-24"><a href="week-6-regression-ii.html#cb347-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">mechanical =</span> <span class="fu">case_when</span>(discipline <span class="sc">==</span> <span class="st">&quot;mechanical&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb347-25"><a href="week-6-regression-ii.html#cb347-25" aria-hidden="true" tabindex="-1"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
-<span id="cb347-26"><a href="week-6-regression-ii.html#cb347-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">electrical =</span> <span class="fu">case_when</span>(discipline <span class="sc">==</span> <span class="st">&quot;electrical&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb347-27"><a href="week-6-regression-ii.html#cb347-27" aria-hidden="true" tabindex="-1"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="week-6-regression-ii.html#cb349-1" aria-hidden="true" tabindex="-1"></a>pop_size <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
+<span id="cb349-2"><a href="week-6-regression-ii.html#cb349-2" aria-hidden="true" tabindex="-1"></a>sample_size <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb349-3"><a href="week-6-regression-ii.html#cb349-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb349-4"><a href="week-6-regression-ii.html#cb349-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb349-5"><a href="week-6-regression-ii.html#cb349-5" aria-hidden="true" tabindex="-1"></a>pop_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">standing =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;undergrad&quot;</span>, <span class="st">&quot;masters&quot;</span>, <span class="st">&quot;phd&quot;</span>), </span>
+<span id="cb349-6"><a href="week-6-regression-ii.html#cb349-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">times =</span> <span class="fu">c</span>(pop_size<span class="sc">/</span><span class="dv">2</span>, pop_size<span class="sc">/</span><span class="dv">4</span>, pop_size<span class="sc">/</span><span class="dv">4</span>)))</span>
+<span id="cb349-7"><a href="week-6-regression-ii.html#cb349-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb349-8"><a href="week-6-regression-ii.html#cb349-8" aria-hidden="true" tabindex="-1"></a>pop_df<span class="sc">$</span>discipline <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;mechanical&quot;</span>, <span class="st">&quot;civil&quot;</span>, <span class="st">&quot;electrical&quot;</span>), </span>
+<span id="cb349-9"><a href="week-6-regression-ii.html#cb349-9" aria-hidden="true" tabindex="-1"></a>                         <span class="at">length.out =</span> pop_size)</span>
+<span id="cb349-10"><a href="week-6-regression-ii.html#cb349-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb349-11"><a href="week-6-regression-ii.html#cb349-11" aria-hidden="true" tabindex="-1"></a>pop_df<span class="sc">$</span>min_outdoors <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">runif</span>(<span class="at">n =</span> pop_size, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">300</span>), <span class="dv">0</span>)</span>
+<span id="cb349-12"><a href="week-6-regression-ii.html#cb349-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb349-13"><a href="week-6-regression-ii.html#cb349-13" aria-hidden="true" tabindex="-1"></a>pop_df<span class="sc">$</span>min_zoom <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">runif</span>(<span class="at">n =</span> pop_size, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">400</span>), <span class="dv">0</span>)</span>
+<span id="cb349-14"><a href="week-6-regression-ii.html#cb349-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb349-15"><a href="week-6-regression-ii.html#cb349-15" aria-hidden="true" tabindex="-1"></a>pop_df <span class="ot">&lt;-</span> pop_df <span class="sc">%&gt;%</span> </span>
+<span id="cb349-16"><a href="week-6-regression-ii.html#cb349-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">undergrad =</span> <span class="fu">case_when</span>(standing <span class="sc">==</span> <span class="st">&quot;undergrad&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb349-17"><a href="week-6-regression-ii.html#cb349-17" aria-hidden="true" tabindex="-1"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
+<span id="cb349-18"><a href="week-6-regression-ii.html#cb349-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">masters =</span> <span class="fu">case_when</span>(standing <span class="sc">==</span> <span class="st">&quot;masters&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb349-19"><a href="week-6-regression-ii.html#cb349-19" aria-hidden="true" tabindex="-1"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
+<span id="cb349-20"><a href="week-6-regression-ii.html#cb349-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">phd =</span> <span class="fu">case_when</span>(standing <span class="sc">==</span> <span class="st">&quot;phd&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb349-21"><a href="week-6-regression-ii.html#cb349-21" aria-hidden="true" tabindex="-1"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
+<span id="cb349-22"><a href="week-6-regression-ii.html#cb349-22" aria-hidden="true" tabindex="-1"></a>         <span class="at">civil =</span> <span class="fu">case_when</span>(discipline <span class="sc">==</span> <span class="st">&quot;civil&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb349-23"><a href="week-6-regression-ii.html#cb349-23" aria-hidden="true" tabindex="-1"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
+<span id="cb349-24"><a href="week-6-regression-ii.html#cb349-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">mechanical =</span> <span class="fu">case_when</span>(discipline <span class="sc">==</span> <span class="st">&quot;mechanical&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb349-25"><a href="week-6-regression-ii.html#cb349-25" aria-hidden="true" tabindex="-1"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
+<span id="cb349-26"><a href="week-6-regression-ii.html#cb349-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">electrical =</span> <span class="fu">case_when</span>(discipline <span class="sc">==</span> <span class="st">&quot;electrical&quot;</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb349-27"><a href="week-6-regression-ii.html#cb349-27" aria-hidden="true" tabindex="-1"></a>                           <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span>))</span></code></pre></div>
 <p>With the predictors generated, we can now generate the happiness scores.</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="week-6-regression-ii.html#cb348-1" aria-hidden="true" tabindex="-1"></a><span class="co">#pop_df &lt;- pop_df %&gt;% </span></span>
-<span id="cb348-2"><a href="week-6-regression-ii.html#cb348-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  mutate(happiness = 50 + -.2*(min_zoom+runif(n = 1, min = 10, max = 30)) + .1 * min_outdoors + 4*civil -.3 * mechanical)</span></span>
-<span id="cb348-3"><a href="week-6-regression-ii.html#cb348-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb348-4"><a href="week-6-regression-ii.html#cb348-4" aria-hidden="true" tabindex="-1"></a>b_0 <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb348-5"><a href="week-6-regression-ii.html#cb348-5" aria-hidden="true" tabindex="-1"></a>b_out <span class="ot">&lt;-</span> <span class="fl">0.03</span></span>
-<span id="cb348-6"><a href="week-6-regression-ii.html#cb348-6" aria-hidden="true" tabindex="-1"></a>b_zoom <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.05</span></span>
-<span id="cb348-7"><a href="week-6-regression-ii.html#cb348-7" aria-hidden="true" tabindex="-1"></a>b_civ <span class="ot">&lt;-</span> <span class="dv">6</span></span>
-<span id="cb348-8"><a href="week-6-regression-ii.html#cb348-8" aria-hidden="true" tabindex="-1"></a>b_mech <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb348-9"><a href="week-6-regression-ii.html#cb348-9" aria-hidden="true" tabindex="-1"></a>b_ele <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span></span>
-<span id="cb348-10"><a href="week-6-regression-ii.html#cb348-10" aria-hidden="true" tabindex="-1"></a>b_under <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb348-11"><a href="week-6-regression-ii.html#cb348-11" aria-hidden="true" tabindex="-1"></a>b_masters <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span></span>
-<span id="cb348-12"><a href="week-6-regression-ii.html#cb348-12" aria-hidden="true" tabindex="-1"></a>b_phd <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb348-13"><a href="week-6-regression-ii.html#cb348-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb348-14"><a href="week-6-regression-ii.html#cb348-14" aria-hidden="true" tabindex="-1"></a>pop_df<span class="sc">$</span>happiness <span class="ot">&lt;-</span> b_0 <span class="sc">+</span> b_out<span class="sc">*</span>(pop_df<span class="sc">$</span>min_outdoors <span class="sc">+</span> <span class="fu">rnorm</span>(pop_size, <span class="dv">0</span>, <span class="dv">40</span>)) <span class="sc">+</span></span>
-<span id="cb348-15"><a href="week-6-regression-ii.html#cb348-15" aria-hidden="true" tabindex="-1"></a>  b_zoom<span class="sc">*</span>(pop_df<span class="sc">$</span>min_zoom <span class="sc">+</span> <span class="fu">rnorm</span>(pop_size, <span class="dv">0</span>, <span class="dv">40</span>)) <span class="sc">+</span> </span>
-<span id="cb348-16"><a href="week-6-regression-ii.html#cb348-16" aria-hidden="true" tabindex="-1"></a>  b_civ<span class="sc">*</span>(pop_df<span class="sc">$</span>civil <span class="sc">+</span> <span class="fu">rnorm</span>(pop_size, <span class="dv">0</span>, <span class="dv">2</span>)) <span class="sc">+</span> </span>
-<span id="cb348-17"><a href="week-6-regression-ii.html#cb348-17" aria-hidden="true" tabindex="-1"></a>  b_mech<span class="sc">*</span>pop_df<span class="sc">$</span>mechanical <span class="sc">+</span></span>
-<span id="cb348-18"><a href="week-6-regression-ii.html#cb348-18" aria-hidden="true" tabindex="-1"></a>  b_ele<span class="sc">*</span>pop_df<span class="sc">$</span>electrical <span class="sc">+</span> b_under <span class="sc">*</span> pop_df<span class="sc">$</span>undergrad <span class="sc">+</span> </span>
-<span id="cb348-19"><a href="week-6-regression-ii.html#cb348-19" aria-hidden="true" tabindex="-1"></a>  b_masters<span class="sc">*</span>pop_df<span class="sc">$</span>masters <span class="sc">+</span></span>
-<span id="cb348-20"><a href="week-6-regression-ii.html#cb348-20" aria-hidden="true" tabindex="-1"></a>  b_phd<span class="sc">*</span>pop_df<span class="sc">$</span>phd <span class="sc">+</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> pop_size, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">10</span>), <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="week-6-regression-ii.html#cb350-1" aria-hidden="true" tabindex="-1"></a><span class="co">#pop_df &lt;- pop_df %&gt;% </span></span>
+<span id="cb350-2"><a href="week-6-regression-ii.html#cb350-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  mutate(happiness = 50 + -.2*(min_zoom+runif(n = 1, min = 10, max = 30)) + .1 * min_outdoors + 4*civil -.3 * mechanical)</span></span>
+<span id="cb350-3"><a href="week-6-regression-ii.html#cb350-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb350-4"><a href="week-6-regression-ii.html#cb350-4" aria-hidden="true" tabindex="-1"></a>b_0 <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb350-5"><a href="week-6-regression-ii.html#cb350-5" aria-hidden="true" tabindex="-1"></a>b_out <span class="ot">&lt;-</span> <span class="fl">0.03</span></span>
+<span id="cb350-6"><a href="week-6-regression-ii.html#cb350-6" aria-hidden="true" tabindex="-1"></a>b_zoom <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.05</span></span>
+<span id="cb350-7"><a href="week-6-regression-ii.html#cb350-7" aria-hidden="true" tabindex="-1"></a>b_civ <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb350-8"><a href="week-6-regression-ii.html#cb350-8" aria-hidden="true" tabindex="-1"></a>b_mech <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb350-9"><a href="week-6-regression-ii.html#cb350-9" aria-hidden="true" tabindex="-1"></a>b_ele <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span></span>
+<span id="cb350-10"><a href="week-6-regression-ii.html#cb350-10" aria-hidden="true" tabindex="-1"></a>b_under <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb350-11"><a href="week-6-regression-ii.html#cb350-11" aria-hidden="true" tabindex="-1"></a>b_masters <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span></span>
+<span id="cb350-12"><a href="week-6-regression-ii.html#cb350-12" aria-hidden="true" tabindex="-1"></a>b_phd <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb350-13"><a href="week-6-regression-ii.html#cb350-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb350-14"><a href="week-6-regression-ii.html#cb350-14" aria-hidden="true" tabindex="-1"></a>pop_df<span class="sc">$</span>happiness <span class="ot">&lt;-</span> b_0 <span class="sc">+</span> b_out<span class="sc">*</span>(pop_df<span class="sc">$</span>min_outdoors <span class="sc">+</span> <span class="fu">rnorm</span>(pop_size, <span class="dv">0</span>, <span class="dv">40</span>)) <span class="sc">+</span></span>
+<span id="cb350-15"><a href="week-6-regression-ii.html#cb350-15" aria-hidden="true" tabindex="-1"></a>  b_zoom<span class="sc">*</span>(pop_df<span class="sc">$</span>min_zoom <span class="sc">+</span> <span class="fu">rnorm</span>(pop_size, <span class="dv">0</span>, <span class="dv">40</span>)) <span class="sc">+</span> </span>
+<span id="cb350-16"><a href="week-6-regression-ii.html#cb350-16" aria-hidden="true" tabindex="-1"></a>  b_civ<span class="sc">*</span>(pop_df<span class="sc">$</span>civil <span class="sc">+</span> <span class="fu">rnorm</span>(pop_size, <span class="dv">0</span>, <span class="dv">2</span>)) <span class="sc">+</span> </span>
+<span id="cb350-17"><a href="week-6-regression-ii.html#cb350-17" aria-hidden="true" tabindex="-1"></a>  b_mech<span class="sc">*</span>pop_df<span class="sc">$</span>mechanical <span class="sc">+</span></span>
+<span id="cb350-18"><a href="week-6-regression-ii.html#cb350-18" aria-hidden="true" tabindex="-1"></a>  b_ele<span class="sc">*</span>pop_df<span class="sc">$</span>electrical <span class="sc">+</span> b_under <span class="sc">*</span> pop_df<span class="sc">$</span>undergrad <span class="sc">+</span> </span>
+<span id="cb350-19"><a href="week-6-regression-ii.html#cb350-19" aria-hidden="true" tabindex="-1"></a>  b_masters<span class="sc">*</span>pop_df<span class="sc">$</span>masters <span class="sc">+</span></span>
+<span id="cb350-20"><a href="week-6-regression-ii.html#cb350-20" aria-hidden="true" tabindex="-1"></a>  b_phd<span class="sc">*</span>pop_df<span class="sc">$</span>phd <span class="sc">+</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> pop_size, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">10</span>), <span class="dv">0</span>)</span></code></pre></div>
 <p>We will save the full population dataset. That is what we will start with in class.</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="week-6-regression-ii.html#cb349-1" aria-hidden="true" tabindex="-1"></a>pop_df <span class="sc">%&gt;%</span> <span class="fu">write_csv</span>(<span class="st">&quot;student_happiness.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="week-6-regression-ii.html#cb351-1" aria-hidden="true" tabindex="-1"></a>pop_df <span class="sc">%&gt;%</span> <span class="fu">write_csv</span>(<span class="st">&quot;student_happiness.csv&quot;</span>)</span></code></pre></div>
 <p>Now we create a sample of students by sampling from the population dataframe.</p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="week-6-regression-ii.html#cb350-1" aria-hidden="true" tabindex="-1"></a>samp_df <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(pop_df, <span class="at">size =</span> <span class="dv">200</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="week-6-regression-ii.html#cb352-1" aria-hidden="true" tabindex="-1"></a>samp_df <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(pop_df, <span class="at">size =</span> <span class="dv">200</span>)</span></code></pre></div>
 <p>On the modeling side, we can first start with a very simple model with only one predictor.</p>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="week-6-regression-ii.html#cb351-1" aria-hidden="true" tabindex="-1"></a>happiness_zoom <span class="ot">&lt;-</span> <span class="fu">lm</span>(happiness <span class="sc">~</span> min_zoom, <span class="at">data =</span> samp_df)</span>
-<span id="cb351-2"><a href="week-6-regression-ii.html#cb351-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(happiness_zoom)</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="week-6-regression-ii.html#cb353-1" aria-hidden="true" tabindex="-1"></a>happiness_zoom <span class="ot">&lt;-</span> <span class="fu">lm</span>(happiness <span class="sc">~</span> min_zoom, <span class="at">data =</span> samp_df)</span>
+<span id="cb353-2"><a href="week-6-regression-ii.html#cb353-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(happiness_zoom)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = happiness ~ min_zoom, data = samp_df)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -55.704 -10.541  -0.413   9.759  54.069 
+## -38.397  -9.266  -0.983  11.048  44.208 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 63.64321    2.31850  27.450  &lt; 2e-16 ***
-## min_zoom    -0.06961    0.01013  -6.872 8.05e-11 ***
+## (Intercept) 61.17095    2.38701  25.627  &lt; 2e-16 ***
+## min_zoom    -0.04462    0.01047  -4.259 3.17e-05 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 16.61 on 198 degrees of freedom
-## Multiple R-squared:  0.1926, Adjusted R-squared:  0.1885 
-## F-statistic: 47.22 on 1 and 198 DF,  p-value: 8.047e-11</code></pre>
+## Residual standard error: 16.16 on 198 degrees of freedom
+## Multiple R-squared:  0.08394,    Adjusted R-squared:  0.07931 
+## F-statistic: 18.14 on 1 and 198 DF,  p-value: 3.165e-05</code></pre>
 <p>Next, we can look at what happens with a more complex model with multiple predictors. Pay attention to how the <span class="math inline">\(R^2\)</span> value changes.</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="week-6-regression-ii.html#cb353-1" aria-hidden="true" tabindex="-1"></a>happiness_all <span class="ot">&lt;-</span> <span class="fu">lm</span>(happiness <span class="sc">~</span> min_outdoors <span class="sc">+</span> min_zoom <span class="sc">+</span> civil <span class="sc">+</span> mechanical <span class="sc">+</span> electrical <span class="sc">+</span> undergrad <span class="sc">+</span> masters <span class="sc">+</span> phd, <span class="at">data =</span> samp_df)</span>
-<span id="cb353-2"><a href="week-6-regression-ii.html#cb353-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(happiness_all)</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="week-6-regression-ii.html#cb355-1" aria-hidden="true" tabindex="-1"></a>happiness_all <span class="ot">&lt;-</span> <span class="fu">lm</span>(happiness <span class="sc">~</span> min_outdoors <span class="sc">+</span> min_zoom <span class="sc">+</span> civil <span class="sc">+</span> mechanical <span class="sc">+</span> electrical <span class="sc">+</span> undergrad <span class="sc">+</span> masters <span class="sc">+</span> phd, <span class="at">data =</span> samp_df)</span>
+<span id="cb355-2"><a href="week-6-regression-ii.html#cb355-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(happiness_all)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = happiness ~ min_outdoors + min_zoom + civil + mechanical + 
@@ -767,28 +784,28 @@ Confirm that they’re basically two ways of accomplishing the same objective.</
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -43.593  -9.372  -1.181   9.707  42.635 
+## -37.922  -9.746  -1.116  12.272  33.192 
 ## 
 ## Coefficients: (2 not defined because of singularities)
 ##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  56.182866   3.732885  15.051  &lt; 2e-16 ***
-## min_outdoors  0.041287   0.012695   3.252  0.00135 ** 
-## min_zoom     -0.070870   0.009316  -7.608  1.2e-12 ***
-## civil         7.980143   2.573519   3.101  0.00222 ** 
-## mechanical    1.443759   2.779511   0.519  0.60406    
+## (Intercept)  51.880982   3.526718  14.711  &lt; 2e-16 ***
+## min_outdoors  0.038552   0.012230   3.152 0.001878 ** 
+## min_zoom     -0.045929   0.009842  -4.667 5.72e-06 ***
+## civil        10.537767   2.726812   3.865 0.000152 ***
+## mechanical   10.887178   2.646000   4.115 5.74e-05 ***
 ## electrical          NA         NA      NA       NA    
-## undergrad     1.150201   2.631727   0.437  0.66256    
-## masters      -9.830555   2.998334  -3.279  0.00124 ** 
+## undergrad    -1.652246   2.599635  -0.636 0.525811    
+## masters      -9.938416   3.027577  -3.283 0.001221 ** 
 ## phd                 NA         NA      NA       NA    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 15.25 on 193 degrees of freedom
-## Multiple R-squared:  0.3359, Adjusted R-squared:  0.3152 
-## F-statistic: 16.27 on 6 and 193 DF,  p-value: 3.956e-15</code></pre>
+## Residual standard error: 14.99 on 193 degrees of freedom
+## Multiple R-squared:  0.2319, Adjusted R-squared:  0.2081 
+## F-statistic: 9.713 on 6 and 193 DF,  p-value: 2.413e-09</code></pre>
 <p>An alternative way of writing the full model</p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="week-6-regression-ii.html#cb355-1" aria-hidden="true" tabindex="-1"></a>happiness_all <span class="ot">&lt;-</span> <span class="fu">lm</span>(happiness <span class="sc">~</span> min_outdoors <span class="sc">+</span> min_zoom <span class="sc">+</span> discipline <span class="sc">+</span> standing, <span class="at">data =</span> samp_df)</span>
-<span id="cb355-2"><a href="week-6-regression-ii.html#cb355-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(happiness_all)</span></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="week-6-regression-ii.html#cb357-1" aria-hidden="true" tabindex="-1"></a>happiness_all <span class="ot">&lt;-</span> <span class="fu">lm</span>(happiness <span class="sc">~</span> min_outdoors <span class="sc">+</span> min_zoom <span class="sc">+</span> discipline <span class="sc">+</span> standing, <span class="at">data =</span> samp_df)</span>
+<span id="cb357-2"><a href="week-6-regression-ii.html#cb357-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(happiness_all)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = happiness ~ min_outdoors + min_zoom + discipline + 
@@ -796,23 +813,23 @@ Confirm that they’re basically two ways of accomplishing the same objective.</
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -43.593  -9.372  -1.181   9.707  42.635 
+## -37.922  -9.746  -1.116  12.272  33.192 
 ## 
 ## Coefficients:
-##                       Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)          54.332454   3.605520  15.069  &lt; 2e-16 ***
-## min_outdoors          0.041287   0.012695   3.252  0.00135 ** 
-## min_zoom             -0.070870   0.009316  -7.608 1.20e-12 ***
-## disciplineelectrical -7.980143   2.573519  -3.101  0.00222 ** 
-## disciplinemechanical -6.536383   2.664130  -2.453  0.01504 *  
-## standingphd           9.830555   2.998334   3.279  0.00124 ** 
-## standingundergrad    10.980756   2.648187   4.147 5.05e-05 ***
+##                        Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)           52.480334   3.728491  14.075  &lt; 2e-16 ***
+## min_outdoors           0.038552   0.012230   3.152 0.001878 ** 
+## min_zoom              -0.045929   0.009842  -4.667 5.72e-06 ***
+## disciplineelectrical -10.537767   2.726812  -3.865 0.000152 ***
+## disciplinemechanical   0.349411   2.533103   0.138 0.890433    
+## standingphd            9.938416   3.027577   3.283 0.001221 ** 
+## standingundergrad      8.286170   2.621890   3.160 0.001830 ** 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 15.25 on 193 degrees of freedom
-## Multiple R-squared:  0.3359, Adjusted R-squared:  0.3152 
-## F-statistic: 16.27 on 6 and 193 DF,  p-value: 3.956e-15</code></pre>
+## Residual standard error: 14.99 on 193 degrees of freedom
+## Multiple R-squared:  0.2319, Adjusted R-squared:  0.2081 
+## F-statistic: 9.713 on 6 and 193 DF,  p-value: 2.413e-09</code></pre>
 
 </div>
 </div>
@@ -822,8 +839,8 @@ Confirm that they’re basically two ways of accomplishing the same objective.</
           </div>
         </div>
       </div>
-<a href="week-5-simple-regression.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="week-5-simple-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="week-7-logistic-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
